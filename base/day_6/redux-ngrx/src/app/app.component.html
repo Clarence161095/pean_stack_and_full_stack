@@ -1,0 +1,27 @@
+<nav class="fixed top-0 left-0 right-0 z-50 p-6 bg-[#FFEBF3] shadow-md">
+  <div class="container mx-auto">
+    <ul class="flex justify-center space-x-8">
+      <li>
+        <a
+          routerLink="/home"
+          routerLinkActive="active-link"
+          class="text-[#FF2EC7] hover:text-[#2EFAFF] transition-all duration-300 rounded-full px-4 py-2 hover:bg-[#FFCCE5] glitch"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/counter"
+          routerLinkActive="active-link"
+          class="text-[#FF2EC7] hover:text-[#2EFAFF] transition-all duration-300 rounded-full px-4 py-2 hover:bg-[#FFCCE5] glitch"
+          >Counter</a
+        >
+      </li>
+      <!-- ... add other links similarly -->
+    </ul>
+  </div>
+</nav>
+
+<div class="h-screen flex items-center justify-center text-3xl bg-[#FFFAFD]">
+  <router-outlet></router-outlet>
+</div>
