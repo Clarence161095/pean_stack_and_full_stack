@@ -4,11 +4,11 @@ const InitState = {
   book_amount: 0
 }
 
-const MUASACH_TYPE = "MUASACH";
-const BANSACH_TYPE = "BANSACH";
+const MUASACH_TYPE = "MUA SACH";
+const BANSACH_TYPE = "BAN SACH";
 
 const store = {
-  books: BookReducer(InitState)
+  books: BookReducer({}, {})
 }
 
 function dispatch(action) {
@@ -17,6 +17,25 @@ function dispatch(action) {
   store.books = BookReducer(store.books, action);
 }
 
+// const ketQua = BookReducer({
+//   id: 1,
+//   name: "Rin",
+//   book_amount: 0
+// }, {
+//   type: BANSACH_TYPE,
+//   payload: 100
+// })
+
+// const ketQua2 = BookReducer({
+//   id: 1,
+//   name: "Rin",
+//   book_amount: 100
+// }, {
+//   type: BANSACH_TYPE,
+//   payload: 200
+// })
+
+// pure functions
 function BookReducer(linh, action) {
   switch (action?.type) {
     case MUASACH_TYPE:
@@ -116,3 +135,10 @@ function normalFunction(x, y) {
   const tenant = { tenantId: 1231241342 }
   const sumXYZ2 = (x, y) => (z) => x + y + z + temp.tenantId;
 }
+
+function sum(a, b) {
+  return a + b
+}
+
+sum(5, 5)
+sum(5, 5)
