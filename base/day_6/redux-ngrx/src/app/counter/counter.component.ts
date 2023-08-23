@@ -11,6 +11,7 @@ import { action } from './+state/counter.actions';
 export class CounterComponent {
   count$: Observable<number>;
   tuanCount = 0;
+  inputValue: number = 0;
 
   constructor(private store: Store<{ count: number }>) {
     this.count$ = store.select('count');
@@ -24,20 +25,23 @@ export class CounterComponent {
   plus5() {
     // tạo 1 trigger cho plus5
     // dispatch với payload action tang 5
+    this.store.dispatch(action.tang5());
   }
 
   minus10() {
     // tạo 1 trigger cho minus10
     // dispatch với payload action giam 10
+    this.store.dispatch(action.giam10());
   }
 
-  plus(event: any) {
-    // tuong tu plus5 tuy nhiên giá trị playload được truyền vào tự input
+  plus() {
+    this.store.dispatch(action.tangX({ value: this.inputValue })); // Truyền tham số value
   }
 
-  minus(event: any) {
-    // tuong tu minus10 tuy nhiên giá trị playload được truyền vào tự input
+  minus() {
+    this.store.dispatch(action.giamX({ value: this.inputValue })); // Truyền tham số value
   }
+
 
   decrement() {
     this.store.dispatch(action.giam());
@@ -49,3 +53,4 @@ export class CounterComponent {
     this.tuanCount = 0;
   }
 }
+
