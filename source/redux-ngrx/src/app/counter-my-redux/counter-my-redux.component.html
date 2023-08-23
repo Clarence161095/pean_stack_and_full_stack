@@ -1,0 +1,17 @@
+<div>Tuan count: {{ tuanCount }}</div>
+<div>Current Count: {{ count$ | async }}</div>
+<br />
+<button (click)="increment()">Increment</button>
+<br />
+<button (click)="decrement()">Decrement</button>
+<br />
+<button (click)="reset()">Reset Counter</button>
+<br />
+<button (click)="plus5()">Tang+5</button>
+<br />
+<button (click)="minus10()">Tru-10</button>
+<br />
+
+<input id="number" type="number" [(ngModel)]="inputValue" /> |
+<button type="button" (click)="plus()">Add</button> |
+<button type="button" (click)="minus()">Subtract</button>
