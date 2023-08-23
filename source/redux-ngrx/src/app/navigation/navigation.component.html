@@ -1,1 +1,14 @@
-<p>navigation works!</p>
+<nav class="fixed top-0 left-0 right-0 z-50 p-6 bg-[#FFEBF3] shadow-md">
+  <div class="container mx-auto">
+    <ul class="flex justify-center space-x-8">
+      <li *ngFor="let menu of menus">
+        <a
+          routerLink="/{{ menu.path }}"
+          routerLinkActive="active-link"
+          class="text-[#FF2EC7] hover:text-[#2EFAFF] transition-all duration-300 rounded-full px-4 py-2 hover:bg-[#FFCCE5] glitch"
+          >{{ menu.navigatorName }}</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
