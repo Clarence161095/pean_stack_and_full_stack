@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Day 9: linh debug",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/event_loop.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
