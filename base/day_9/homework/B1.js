@@ -1,10 +1,11 @@
 
 // B1:
 function sayHi(){
+    var name = undefined;
     console.log(name);
     console.log(age);
-    var name = "Lydia";
-    let age = 21;
+    name = "Lydia";
+    age = 21;
 }
 sayHi();
 // -Dap an D: undefined va ReferenceError
