@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Day 9: linh debug",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/index.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "handle_1B_request",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/handle_1B_request.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
