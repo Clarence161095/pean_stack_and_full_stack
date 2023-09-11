@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Two Sum",
       "runtimeExecutable": "nodemon",
-      "program": "${workspaceFolder}/TwoSum.js",
+      "program": "/Users/tuan200/Desktop/linh_class/pean_stack_and_full_stack/base/day_13/TwoSum.js",
       "restart": true,
       "console": "integratedTerminal"
     },
