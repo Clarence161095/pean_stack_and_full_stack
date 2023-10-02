@@ -25,6 +25,7 @@
 // };
 // const typeTerm = {
 //   '1': true,
+//   '2': true,
 // };
 // const values = {
 //   '1__target1__男性': 1,
