@@ -1,7 +1,15 @@
-const person = { name: "Lydia" };
+function getInfo(member, year) {
+  member.name = "Lydia";
+  member.data.type.name = 'Linh'
+  year = "1998";
+  // console.log(member.getName());
+}
 
-// Object.defineProperty(person, "age", { value: 21 });
-person.age = "linh";
+const type = { name: 'Tuan', getName: () => "Take" }
+const person = { name: "Sarah", data: { type } };
+const birthYear = "1997";
 
-console.log(person);
-console.log(Object.keys(person));
+const personString = JSON.stringify(person)
+getInfo(JSON.parse(JSON.stringify(person)), birthYear);
+
+console.log(person, birthYear);
