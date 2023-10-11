@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Countdown Timer",
+    "version": "1.0",
+    "description": "Đồng hồ đếm ngược",
+    "permissions": [
+      "activeTab"
+    ],
+    "browser_action": {
+      "default_popup": "index.html",
+      "default_icon": "3721924.png"
+      
+    }
+  }
+  
