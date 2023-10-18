@@ -1,0 +1,22 @@
+const classInfo = [
+  { name: 'Tony', sex: 'man', hobby: 'game', score: 5 },
+  { name: 'Sarah', sex: 'woman', hobby: 'reading', score: 4 },
+  { name: 'John', sex: 'man', hobby: 'music', score: 3 },
+  { name: 'Emily', sex: 'woman', hobby: 'sports', score: 5 },
+  { name: 'Michael', sex: 'man', hobby: 'cooking', score: 4 },
+  { name: 'Emma', sex: 'woman', hobby: 'art', score: 5 },
+  { name: 'William', sex: 'man', hobby: 'traveling', score: 3 },
+  { name: 'Olivia', sex: 'woman', hobby: 'swimming', score: 4 },
+  { name: 'James', sex: 'man', hobby: 'photography', score: 5 },
+  { name: 'Ava', sex: 'woman', hobby: 'dancing', score: 3 },
+  { name: 'Robert', sex: 'man', hobby: 'gardening', score: 4 },
+  { name: 'Sophia', sex: 'woman', hobby: 'yoga', score: 5 },
+  { name: 'David', sex: 'man', hobby: 'hiking', score: 3 },
+  { name: 'Mia', sex: 'woman', hobby: 'baking', score: 4 },
+  { name: 'Joseph', sex: 'man', hobby: 'fishing', score: 5 },
+  { name: 'Charlotte', sex: 'woman', hobby: 'shopping', score: 3 },
+  { name: 'Daniel', sex: 'man', hobby: 'watching movies', score: 4 },
+  { name: 'Grace', sex: 'woman', hobby: 'painting', score: 5 },
+  { name: 'Benjamin', sex: 'man', hobby: 'writing', score: 3 },
+  { name: 'Lily', sex: 'woman', hobby: 'singing', score: 4 }
+];

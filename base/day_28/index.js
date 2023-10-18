@@ -1,0 +1,23 @@
+const classInfo = [
+  { name: 'Tony', sex: 'man', hobby: 'game', score: 5 },
+  { name: 'Sarah', sex: 'woman', hobby: 'game', score: 4 },
+  { name: 'John', sex: 'man', hobby: 'music', score: 3 },
+  { name: 'Emily', sex: 'woman', hobby: 'sports', score: 1 },
+];
+
+// const expect = {
+//   sex: {
+//     woman: ['Sarah', 'Emily'],
+//     man: ['Tony', 'John'],
+//   },
+//   hobby: {
+//     game: ['Tony', 'Sarah'],
+//     music: ['John'],
+//     sports: ['Emily'],
+//     guitar: []
+//   },
+//   score: {
+//     "Lớn hơn 3 điểm": ['Tony', 'Sarah'],
+//     "Nhỏ hơn 4 điểm": ['John', 'Emily'],
+//   }
+// }
