@@ -31,52 +31,7 @@ const classInfo = [
     { name: 'Tuan', sex: 'woman', hobby: 'guitar', score: 6 },
 ];
 
-
-
-function xuLyData(data) {
-    const result = {};
-    const result2 = {};
-    const result3 = {};
-    for (let x of data) {
-        const { sex, name, score, hobby } = x;
-        if (result[sex]) {
-            result[sex].push(name);
-        } else {
-            result[sex] = [name];
-        }
-
-        if (!result2[hobby]) {
-            result2[hobby] = []
-        }
-        result2[hobby].push(name)
-
-        if (score > 3) {
-            if (!result3["Lon hon 3"]) {
-                result3["Lon hon 3"] = [];
-            }
-            result3["Lon hon 3"].push(name);
-        } else if (score < 4) {
-            if (!result3["Nho hon 4"]) {
-                result3["Nho hon 4"] = [];
-            }
-            result3["Nho hon 4"].push(name);
-        }
-    }
-
-    return {
-        sex: {
-            ...result
-        },
-        hobby: {
-            ...result2
-        },
-        score: {
-            ...result3
-        },
-    }
-}
-
-function xuLyDataBase(params) {
+function xuLyDataVer0(params) {
     const expect = {
         sex: {
             woman: [],
@@ -124,5 +79,227 @@ function xuLyDataBase(params) {
     //...
     return expect
 }
-const data = xuLyData(classInfo);
+
+function xuLyDataVer1(data) {
+    const result = {
+        sex: {},
+        hobby: {},
+        score: {},
+    }
+
+    for (let x of data) {
+        const { sex, name, score, hobby } = x;
+        if (result.sex[sex]) {
+            result.sex[sex].push(name);
+        } else {
+            result.sex[sex] = [name];
+        }
+
+        if (!result.hobby[hobby]) {
+            result.hobby[hobby] = []
+        }
+        result.hobby[hobby].push(name)
+
+        if (score > 3) {
+            if (!result.score["Lon hon 3"]) {
+                result.score["Lon hon 3"] = [];
+            }
+            result.score["Lon hon 3"].push(name);
+        } else if (score < 4) {
+            if (!result.score["Nho hon 4"]) {
+                result.score["Nho hon 4"] = [];
+            }
+            result.score["Nho hon 4"].push(name);
+        }
+    }
+
+    return result;
+}
+
+function xuLyDataVer2(data, result) {
+    for (let x of data) {
+        const { sex, name, score, hobby } = x;
+        if (result.sex[sex]) {
+            result.sex[sex].push(name);
+        } else {
+            result.sex[sex] = [name];
+        }
+
+        if (!result.hobby[hobby]) {
+            result.hobby[hobby] = []
+        }
+        result.hobby[hobby].push(name)
+
+        if (score > 3) {
+            if (!result.score["Lon hon 3"]) {
+                result.score["Lon hon 3"] = [];
+            }
+            result.score["Lon hon 3"].push(name);
+        } else if (score < 4) {
+            if (!result.score["Nho hon 4"]) {
+                result.score["Nho hon 4"] = [];
+            }
+            result.score["Nho hon 4"].push(name);
+        }
+    }
+
+    return result;
+}
+
+function xuLyDataVer3(data, result) {
+    data.forEach(x => {
+        const { sex, name, score, hobby } = x;
+        if (result.sex[sex]) {
+            result.sex[sex].push(name);
+        } else {
+            result.sex[sex] = [name];
+        }
+
+        if (!result.hobby[hobby]) {
+            result.hobby[hobby] = []
+        }
+        result.hobby[hobby].push(name)
+
+        if (score > 3) {
+            if (!result.score["Lon hon 3"]) {
+                result.score["Lon hon 3"] = [];
+            }
+            result.score["Lon hon 3"].push(name);
+        } else if (score < 4) {
+            if (!result.score["Nho hon 4"]) {
+                result.score["Nho hon 4"] = [];
+            }
+            result.score["Nho hon 4"].push(name);
+        }
+    });
+
+    return result;
+}
+
+const result = {
+    sex: {},
+    hobby: {},
+    score: {},
+}
+
+// const data = xuLyData(classInfo, result);
+
+// classInfo.forEach(x => {
+//     const { sex, name, score, hobby } = x;
+//     if (result.sex[sex]) {
+//         result.sex[sex].push(name);
+//     } else {
+//         result.sex[sex] = [name];
+//     }
+
+//     if (!result.hobby[hobby]) {
+//         result.hobby[hobby] = []
+//     }
+//     result.hobby[hobby].push(name)
+
+//     if (score > 3) {
+//         if (!result.score["Lon hon 3"]) {
+//             result.score["Lon hon 3"] = [];
+//         }
+//         result.score["Lon hon 3"].push(name);
+//     } else if (score < 4) {
+//         if (!result.score["Nho hon 4"]) {
+//             result.score["Nho hon 4"] = [];
+//         }
+//         result.score["Nho hon 4"].push(name);
+//     }
+// });
+
+// const callBackFnc = (currentResult, currentValue) => {
+//     const { sex, name, score, hobby } = currentValue;
+//     if (currentResult.sex[sex]) {
+//         currentResult.sex[sex].push(name);
+//     } else {
+//         currentResult.sex[sex] = [name];
+//     }
+
+//     if (!currentResult.hobby[hobby]) {
+//         currentResult.hobby[hobby] = []
+//     }
+//     currentResult.hobby[hobby].push(name)
+
+//     if (score > 3) {
+//         if (!currentResult.score["Lon hon 3"]) {
+//             currentResult.score["Lon hon 3"] = [];
+//         }
+//         currentResult.score["Lon hon 3"].push(name);
+//     } else if (score < 4) {
+//         if (!currentResult.score["Nho hon 4"]) {
+//             currentResult.score["Nho hon 4"] = [];
+//         }
+//         currentResult.score["Nho hon 4"].push(name);
+//     }
+//     return currentResult
+// }
+
+// const data = classInfo.reduce(callBackFnc, result)
+
+// const data = classInfo.reduce((currentResult, currentValue) => {
+//     const { sex, name, score, hobby } = currentValue;
+//     if (currentResult.sex[sex]) {
+//         currentResult.sex[sex].push(name);
+//     } else {
+//         currentResult.sex[sex] = [name];
+//     }
+//     if (!currentResult.hobby[hobby]) {
+//         currentResult.hobby[hobby] = []
+//     }
+//     currentResult.hobby[hobby].push(name)
+//     if (score > 3) {
+//         if (!currentResult.score["Lon hon 3"]) {
+//             currentResult.score["Lon hon 3"] = [];
+//         }
+//         currentResult.score["Lon hon 3"].push(name);
+//     } else if (score < 4) {
+//         if (!currentResult.score["Nho hon 4"]) {
+//             currentResult.score["Nho hon 4"] = [];
+//         }
+//         currentResult.score["Nho hon 4"].push(name);
+//     }
+//     return currentResult
+// }, result)
+
+Array.prototype.tuanReduce = function name(callBack, initValue) {
+    let result = initValue;
+    this.forEach(x => {
+        result = callBack(result, x)
+    })
+    return result;
+}
+
+// let r;
+// Array.prototype.tuanReduce = function (cb, v) {
+//     return this.map((x) => r = cb(r ? r : v, x))[this.length - 1]
+// }
+
+const data = classInfo.tuanReduce((currentResult, currentValue) => {
+    const { sex, name, score, hobby } = currentValue;
+    if (currentResult.sex[sex]) {
+        currentResult.sex[sex].push(name);
+    } else {
+        currentResult.sex[sex] = [name];
+    }
+    if (!currentResult.hobby[hobby]) {
+        currentResult.hobby[hobby] = []
+    }
+    currentResult.hobby[hobby].push(name)
+    if (score > 3) {
+        if (!currentResult.score["Lon hon 3"]) {
+            currentResult.score["Lon hon 3"] = [];
+        }
+        currentResult.score["Lon hon 3"].push(name);
+    } else if (score < 4) {
+        if (!currentResult.score["Nho hon 4"]) {
+            currentResult.score["Nho hon 4"] = [];
+        }
+        currentResult.score["Nho hon 4"].push(name);
+    }
+    return currentResult
+}, result)
+
 console.log(data);
