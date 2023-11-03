@@ -1,0 +1,1 @@
+fetch('https://github.com/lydiahallie/javascript-questions/blob/master/vi-VI/README-vi.md').then(res => res.json()).then(res => console.log(res))
