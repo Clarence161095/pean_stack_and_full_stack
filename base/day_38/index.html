@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Newfeed Facebook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #4267B2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .post {
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-author {
+      font-weight: bold;
+    }
+
+    .post-content {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Facebook Newfeed</h1>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 1</p>
+    <p class="post-content">Bài đăng số 1: Nội dung của bài đăng 1.</p>
+    <button>Like</button>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 2</p>
+    <p class="post-content">Bài đăng số 2: Nội dung của bài đăng 2.</p>
+    <div id="likeButton"></div>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 3</p>
+    <p class="post-content">Bài đăng số 3: Nội dung của bài đăng 3.</p>
+    <div id="unlikeButton"></div>
+  </div>
+
+  <!-- Thêm React và ReactDOM vào trang -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- Thêm mã JavaScript từ tệp app.js -->
+  <script src="app.js"></script>
+</body>
+
+</html>
