@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Newfeed Facebook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #4267B2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .post {
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-author {
+      font-weight: bold;
+    }
+
+    .post-content {
+      margin-top: 10px;
+    }
+
+    /* New CSS for the bubble icon */
+    .bubble-icon {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      background-color: #4267B2;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1;
+      /* Đảm bảo hiển thị trên cùng */
+    }
+
+    /* CSS for the chat form */
+    .chat-form {
+      display: none;
+      position: fixed;
+      bottom: 150px;
+      right: 50px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      z-index: 1000;
+      /* Đảm bảo hiển thị trên cùng */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Facebook Newfeed</h1>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 1</p>
+    <p class="post-content">Bài đăng số 1: Nội dung của bài đăng 1.</p>
+    <button>Like</button>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 2</p>
+    <p class="post-content">Bài đăng số 2: Nội dung của bài đăng 2.</p>
+    <div id="like_button_container"></div>
+  </div>
+  <div class="post">
+    <p class="post-author">Người dùng 3</p>
+    <p class="post-content">Bài đăng số 3: Nội dung của bài đăng 3.</p>
+    <div id="unlike_button_container"></div>
+  </div>
+
+  <!-- Bubble icon -->
+  <div class="bubble-icon" id="bubble-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path fill="white"
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm3-4H9v-1c0-2.76 2.24-5 5-5s5 2.24 5 5v1z" />
+    </svg>
+  </div>
+
+  <!-- Chat form -->
+  <div class="chat-form" id="chat-form">
+    <!-- Chat form content -->
+    <h2>Chat with Robot</h2>
+    <div class="message-container">
+      <!-- Dummy messages -->
+      <div class="message user-message">Hello, Robot!</div>
+      <div class="message robot-message">Hi there! How can I assist you today?</div>
+    </div>
+    <div class="input-container">
+      <input type="text" placeholder="Type your message" />
+      <button>Send</button>
+    </div>
+    <button class="voice-chat-button">Voice Chat</button>
+  </div>
+
+  <!-- Load React. -->
+  <script src="react.development.js"></script>
+  <script src="react-dom.development.js"></script>
+
+  <!-- Load our React component. -->
+  <script src="index.js"></script>
+</body>
+
+</html>
