@@ -1,15 +1,32 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "index",
-        "runtimeExecutable": "nodemon",
-        "program": "${workspaceFolder}/index.js",
-        "restart": true,
-        "console": "integratedTerminal"
-      }
-    ]
-  }
-  
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "index",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/index.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "classConcept",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/classConcept.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "promise",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/promise.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
