@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let item of header; let index = index">
+    <input type="text" [placeholder]="getPlaceholder(item.id)" [value]="item.name">
+    <button (click)="moveItemUp(index)" [disabled]="index === 0">⬆️</button>
+    <button (click)="moveItemDown(index)" [disabled]="index === header.length - 1">⬇️</button>
+  </li>
+</ul>
