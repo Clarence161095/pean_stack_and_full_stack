@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+'use client'
+import React from 'react';
 const db = [
   "Nguyễn Anh Tuấn",
   "Phạm Tuấn Linh",
@@ -55,11 +58,44 @@ const db = [
 ];
 
 function searchName(textSearch) {
-  return db.filter((name) => {
-    if(name.includes(textSearch)) {
-       return name
-    }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("SELECT * FROM NAME_TABLE WHERE NAME LIKE %'", textSearch);
+      const result = db.filter((name) => {
+        if(name.includes(textSearch)) {
+           return name
+        }
+      })
+      resolve(result)
+    }, 500);
   })
 }
 
-console.log(searchName("Thảo"));
+export default function page() {
+  const [listName, setListName] = React.useState(db);
+  const [nmCount, setNmCount] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  let debounceTimeout;
+
+  function search(e) {
+    setNmCount(nmCount + 1)
+    clearTimeout(debounceTimeout)
+    debounceTimeout = setTimeout(() => {
+      setCount(count + 1);
+      searchName(e.target.value).then((result) => {
+        setListName(result)
+      })
+    }, 600);
+  }
+
+  return (
+    <div>
+      Times search (call DB): {nmCount}<br/>
+      Times search (debounce call DB): {count}<br/>
+      <input type="text" className="bg-blue-50" onChange={search}/>
+      <ul>
+        {listName.map(name => <li key={name}>{name}</li>)}
+      </ul>
+    </div>
+  )
+}
