@@ -16,10 +16,9 @@ async function funcTwo() {
 funcOne();
 funcTwo();
 
-//Line line 1 
-//Promise 
-//Timeout!1
-//Promise! OK OK
+// console.log("Last line!1");
+// Promise!
+// Promise!OKOK
 // Last line!2
-//Timeout
-
+// Timeout!1 0
+// Timeout!2 0
