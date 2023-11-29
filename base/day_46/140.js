@@ -11,7 +11,7 @@ function* getMembers(members) {
 
 function* getTeams(teams) {
 	for (let i = 0; i < teams.length; i++) {
-		// ✨ SOMETHING IS MISSING HERE ✨
+		yield* getMembers(teams[i].members)
 	}
 }
 

@@ -7,3 +7,5 @@ const person = new Proxy({}, handler);
 
 person.name = "Lydia";
 person.name;
+
+//A

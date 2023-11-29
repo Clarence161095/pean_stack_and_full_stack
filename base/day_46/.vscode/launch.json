@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "index",
         "runtimeExecutable": "nodemon",
-        "program": "${workspaceFolder}/index.js",
+        "program": "${workspaceFolder}/140.js",
         "restart": true,
         "console": "integratedTerminal"
       }

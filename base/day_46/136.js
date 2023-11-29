@@ -5,4 +5,8 @@ Object.seal(person);//niem phong thuoc tinh va gia tri cua person
 
 //Nhung van co the thay doi gia tri cua thuoc tinh bang cach sau 
 //person.name = "Evan Bacon" => A
+person.name = 123;
+person.sex = 123;
+console.log(person);
 
+//A
