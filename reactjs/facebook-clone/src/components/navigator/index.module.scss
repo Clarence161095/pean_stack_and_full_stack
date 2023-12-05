@@ -1,0 +1,35 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .right {
+    display: flex;
+  }
+
+  .middle {
+    display: flex;
+    list-style: none;
+  }
+  
+  .middle {
+    li {
+      width: 100px;
+    }
+  }
+  
+  .left {
+    display: flex;
+    img {
+      background-color: blue;
+    }
+    img:hover {
+      background-color: aqua;
+    }
+  }
+}
