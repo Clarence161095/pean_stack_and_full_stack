@@ -1,0 +1,33 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .right {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left {
+        display: flex;
+        img {
+            background-color: gray;
+            border-radius: 100%;
+            margin-right: 5px;
+        }
+        img:hover {
+            background-color: red;
+        }
+    }
+
+    .middle {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0
+    }
+
+    .middle li {
+        width: 100px;
+    }
+}
