@@ -1,38 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from './index.module.scss'
+import CustomSVG from "../ui/custom-svg";
+import { SVG } from "../../constants/svg";
 
 export default function Navigator() {
+    const [searchIcon, setSearchIcon] = useState(true)
     return (
         <div className={classes.nav}>
             <div className={classes.right}>
-             <img src= "assets/fb.png" alt= "Facebook Logo"/>
-                <div>search</div>
+                <img src="assets/fb.png" alt="Facebook Logo" />
+                <div className={classes.search}>
+                    <input onFocus={() => setSearchIcon(false)} onBlur={() => setSearchIcon(true)} />
+                    <span className={searchIcon?'':classes.hidden}>
+                        <CustomSVG svgCode={SVG.search} />
+                    </span>
+                </div>
             </div>
             <nav>
                 <ul className={classes.middle}>
                     <li>
-                    <img src= "assets/home.png" alt= "My Home"/>
+                        <CustomSVG svgCode={SVG.home} />
                     </li>
                     <li>
-                    <img src= "assets/Friend.png" alt= "My F"/>
+                        <CustomSVG svgCode={SVG.friend} />
                     </li>
                     <li>
-                    <img src= "assets/video.png" alt= "My V"/>
+                        <CustomSVG svgCode={SVG.video} />
                     </li>
                     <li>
-                    <img src= "assets/market.png" alt= "My V"/>
+                        <CustomSVG svgCode={SVG.market} />
                     </li>
                     <li>
-                    <img src= "assets/group.png" alt= "My G"/>
+                        <CustomSVG svgCode={SVG.game} />
                     </li>
                 </ul>
             </nav>
             <div className={classes.left}>
-                <img src= "assets/Menu.png" alt= "My Menu"/>
-                <img src= "assets/messenger.png" alt= "My Messenger"/>
-                <img src= "assets/Noti.png" alt= "My Noti"/>
-                <img src= "assets/batman.png" alt= "My Avatar"/>
+                <CustomSVG svgCode={SVG.menu} />
+                <CustomSVG svgCode={SVG.messenger} />
+                <CustomSVG svgCode={SVG.notificate} />
+                <img src="assets/batman.png" alt="My Avatar" />
             </div>
         </div>
     )
 }
+
