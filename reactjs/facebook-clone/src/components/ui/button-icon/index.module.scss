@@ -1,0 +1,38 @@
+.input {
+  display: flex;
+  align-items: center;
+
+  input {
+    border: 0.7px solid #18191a;
+    border-radius: 20px;
+    width: 100%;
+    min-height: 40px;
+    min-width: 200px;
+    background-color: #3a3b3d;
+    padding-left: 30px;
+    font-size: .9375rem;
+    transition: padding 0.15s ease-in;
+    &.focus {
+      padding-left: 10px;
+    }
+  }
+
+  span {
+    position: absolute;
+    margin-left: 10px;
+    width: 16px;
+    opacity: 1; /* Đảm bảo ban đầu hiển thị */
+    transform: translateX(0); /* Đảm bảo ban đầu không di chuyển */
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    // transition: all 0.3s ease-out;
+    background-color: transparent;
+    * {
+      background-color: transparent;
+      color: gray;
+    }
+    &.hidden {
+      opacity: 0;
+      transform: translateX(-5px); /* Điều này sẽ đẩy phần tử sang phải khi ẩn */
+    }
+  }
+}
