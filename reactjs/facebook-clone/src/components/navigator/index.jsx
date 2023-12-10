@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { SVG } from '../../constants/svg'
+import InputWithIcon from '../ui/button-icon'
 import CustomSVG from '../ui/custom-svg'
 import classes from './index.module.scss'
 
 export default function Navigator() {
-  const [searchIcon, setSearchIcon] = useState(true)
-
   return (
     <div className={classes.nav}>
       <div className={classes.right}>
-        <img src="assets/facebook_logo_icon.png" alt="Facebook Logo" />
-        <div className={classes.search}>
-          <input onFocus={() => setSearchIcon(false)} onBlur={() => setSearchIcon(true)} />
-          <span className={searchIcon ? '' : classes.hidden}>
-            <CustomSVG svgCode={SVG.search} />
-          </span>
-        </div>
+        {/* Câu hỏi: Làm sao khi click vào thanh Tìm kiếm trên Facebook thì ẩn logo và thay vào đó là nút left-arrow và suggestion box???*/}
+        <img
+          src='assets/facebook_logo_icon.png'
+          alt='Facebook Logo'
+        />
+        {/* Navigator thì hoàn toàn có thể truyền giá trị thông quan props cho từng component con */}
+        <InputWithIcon svg={SVG.search} placeholder='Tìm kiếm trên Facebook'/>
+        <InputWithIcon svg={SVG.home}/>
       </div>
       <nav>
         <ul className={classes.middle}>
@@ -41,7 +41,10 @@ export default function Navigator() {
         <CustomSVG svgCode={SVG.menu} />
         <CustomSVG svgCode={SVG.message} />
         <CustomSVG svgCode={SVG.notification} />
-        <img src="assets/my_avatar.png" alt='My Avatar' />
+        <img
+          src='assets/my_avatar.png'
+          alt='My Avatar'
+        />
       </div>
     </div>
   )
