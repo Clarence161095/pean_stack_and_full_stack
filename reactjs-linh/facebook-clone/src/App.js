@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import './index.scss';
+import './App.scss';
 import Newsfeed from './pages/newsfeed';
 import Navigator from './components/navigator';
 import Footer from './components/footer';
