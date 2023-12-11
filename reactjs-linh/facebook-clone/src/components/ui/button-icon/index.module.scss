@@ -1,0 +1,40 @@
+.input {
+  display: flex;
+  align-items: center;
+
+  input {
+    border: 0.7px solid black;
+    border-radius: 20px;
+    width: 100%;
+    min-height: 40px;
+    min-width: 200px;
+    background-color: gray;
+    padding-left: 30px;
+    font-size: 0.9375rem;
+    transition: padding 0.3s ease-out;
+    &::placeholder {
+      color: white;
+    }
+    &.focus {
+      padding-left: 10px; 
+    }
+  }
+
+  span {
+    position: absolute;
+    margin-left: 10px;
+    width: 16px;
+    opacity: 1; //do trong suot
+    transform: translateX(0); //dang nam bat dau tu vi tri 0 - mac dinh
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out; //set viec transition thuc tri trong phamvi bn giay
+    background-color: transparent;
+    * {
+      background-color: transparent;
+      color: white;
+    }
+    &.hidden {
+        opacity: 0;
+        transform: translateX(-5px);
+    }
+  }
+}
