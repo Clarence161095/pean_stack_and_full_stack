@@ -1,22 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import { SVG } from '../../constants/svg'
+import {SVG} from '../../constants/svg'
 import InputWithIcon from '../ui/button-icon'
 import CustomSVG from '../ui/custom-svg'
 import classes from './index.module.scss'
 
 export default function Navigator() {
+  const [isVisibleLogo, setIsVisibleLogo] = useState(true)
+
+  function focusHandler() {
+    console.log('Child focused!!', isVisibleLogo)
+    setIsVisibleLogo(false)
+  }
+
   return (
     <div className={classes.nav}>
-      <div className={classes.right}>
-        {/* Câu hỏi: Làm sao khi click vào thanh Tìm kiếm trên Facebook thì ẩn logo và thay vào đó là nút left-arrow và suggestion box???*/}
-        <img
-          src='assets/facebook_logo_icon.png'
-          alt='Facebook Logo'
+      <div className={classes.left}>
+        {isVisibleLogo ? (
+          <img
+            src='assets/facebook_logo_icon.png'
+            alt='Facebook Logo'
+          />
+        ) : (
+          <div className={classes.arrow}>
+            <CustomSVG svgCode={SVG.leftArrow} type='span'/>
+          </div>
+        )}
+
+        <InputWithIcon
+          svg={SVG.search}
+          placeholder='Tìm kiếm trên Facebook'
+          onFocused={focusHandler}
+          onBlurred={() => {
+            console.log('Child Blurred', isVisibleLogo)
+            setIsVisibleLogo(true)
+          }}
         />
-        {/* Navigator thì hoàn toàn có thể truyền giá trị thông quan props cho từng component con */}
-        <InputWithIcon svg={SVG.search} placeholder='Tìm kiếm trên Facebook'/>
-        <InputWithIcon svg={SVG.home}/>
       </div>
       <nav>
         <ul className={classes.middle}>
@@ -37,7 +56,7 @@ export default function Navigator() {
           </li>
         </ul>
       </nav>
-      <div className={classes.left}>
+      <div className={classes.right}>
         <CustomSVG svgCode={SVG.menu} />
         <CustomSVG svgCode={SVG.message} />
         <CustomSVG svgCode={SVG.notification} />
