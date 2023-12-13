@@ -1,50 +1,49 @@
 .nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 10px 0 10px;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .left {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin : 5px 10px 0 10px;
+    align-items: center;
+    gap: 5px; //cac ptu tu cach nhau 10px (tu chrome 57)
+    min-width: 300px;
 
-    .right {
+    .arrow {
+      span {
         display: flex;
-        align-items: center;
-        gap:5px; //cac ptu tu cach nhau 10px (tu chrome 57)
-        .search {
-            display: flex;
-            align-items: center;
-            input {
-                border: 0.7px solid black;
-                border-radius: 20px;
-                height: 24px;
-            }
-            span {
-                position: absolute; 
-                margin-left: 5px;
-                width: 15px;
-                opacity: 1;
-                transform: translateX(0);
-                transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            }
-            span.hidden {
-                opacity: 0;
-                transform: translateX(-5px);
-            }
+        padding: 7px;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: lavender;
+          *{
+            cursor: pointer;
+          }
+          svg {
+            background-color: lavender;
+          }
         }
+      }
     }
+  }
 
-    .left {
-        display: flex;
-    }
-    img {
-        width: 40px;
-        height: 40px;
-    }
+  .right {
+    display: flex;
+  }
 
-    .middle {
-        display: flex;
-        list-style: none;
-    }
+  .middle {
+    display: flex;
+    list-style: none;
+  }
 
-    .middle li {
-        width: 100px;
-    }
+  .middle li {
+    width: 100px;
+  }
 }

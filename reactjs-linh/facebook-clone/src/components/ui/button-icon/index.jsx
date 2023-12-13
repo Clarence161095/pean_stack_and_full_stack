@@ -3,18 +3,32 @@ import classes from "./index.module.scss";
 import { SVG } from "../../../constants/svg";
 import CustomSVG from "../custom-svg";
 
-export default function InputWithIcon({ IconCmp, svg = SVG.search }) {
-  const [searchIcon, setSearchIcon] = useState(true);
+export default function InputWithIcon({
+  IconCmp,
+  svg = SVG.search,
+  placeholdersomething = "Search",
+  onFocusSomething = () => {},
+  onBlurSomething = () => {}
+}) {
+  //setSearchIconHidden la 1 ham set lai gia tri cho searchIconHidden
+  const [searchIconHidden, setSearchIconHidden] = useState(true); //state cho icon search
   return (
     <div className={classes.input}>
       <input
-        className= {searchIcon ? '' : classes.focus}
-        onFocus={() => setSearchIcon(false)}
-        onBlur={() => setSearchIcon(true)}
-        placeholder="Tim kiem tren Facebook"
+        className={searchIconHidden ? "" : classes.focus}
+        onFocus={() => {
+          setSearchIconHidden(false); //goi lai ham setSearchIcon
+          //TODO: vi sao can truyen lai searchIconHidden vao onFocusSomething ?
+          onFocusSomething(searchIconHidden);
+        }}
+        onBlur={() => {
+          setSearchIconHidden(true); //goi lai ham setSearchIcon
+          onBlurSomething(searchIconHidden);
+        }}
+        placeholder={placeholdersomething}
       />
-      <span className={searchIcon ? '' : classes.hidden}>
-        {IconCmp ? IconCmp : <CustomSVG svgCode={svg} />}
+      <span className={searchIconHidden ? "" : classes.hidden}>
+        {IconCmp ? IconCmp : <CustomSVG svgCode={svg || SVG.home} />}
       </span>
     </div>
   );
