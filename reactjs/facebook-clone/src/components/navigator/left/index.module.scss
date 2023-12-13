@@ -1,0 +1,46 @@
+.left {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .searchControl {
+    display: flex;
+    align-items: start;
+    gap: 5px;
+    min-width: 300px;
+
+    .arrow {
+      span {
+        display: flex;
+        padding: 7px;
+        border-radius: 50%;
+
+        &:hover {
+          * {
+            cursor: pointer;
+          }
+          background-color: #3a3b3d;
+          svg {
+            background-color: #3a3b3d;
+          }
+        }
+      }
+    }
+  }
+
+  .suggest {
+    margin-top: 40px;
+    padding: 25px;
+    min-width: 321px;
+    left: 0;
+    position: absolute;
+    height: 450px;
+    border-right: solid 0.3px rgba(0, 0, 0, 0.735);
+    border-bottom: solid 0.3px rgba(0, 0, 0, 0.735);
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.leftBorder {
+  border-right: solid 0.3px rgba(0, 0, 0, 0.735);
+}

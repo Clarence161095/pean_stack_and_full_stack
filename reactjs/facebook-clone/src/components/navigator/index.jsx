@@ -1,42 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-import {SVG} from '../../constants/svg'
-import InputWithIcon from '../ui/button-icon'
+import { SVG } from '../../constants/svg'
 import CustomSVG from '../ui/custom-svg'
 import classes from './index.module.scss'
+import LeftNavigator from './left'
 
 export default function Navigator() {
-  const [isVisibleLogo, setIsVisibleLogo] = useState(true)
-
-  function focusHandler() {
-    console.log('Child focused!!', isVisibleLogo)
-    setIsVisibleLogo(false)
-  }
-
   return (
     <div className={classes.nav}>
-      <div className={classes.left}>
-        {isVisibleLogo ? (
-          <img
-            src='assets/facebook_logo_icon.png'
-            alt='Facebook Logo'
-          />
-        ) : (
-          <div className={classes.arrow}>
-            <CustomSVG svgCode={SVG.leftArrow} type='span'/>
-          </div>
-        )}
-
-        <InputWithIcon
-          svg={SVG.search}
-          placeholder='Tìm kiếm trên Facebook'
-          onFocused={focusHandler}
-          onBlurred={() => {
-            console.log('Child Blurred', isVisibleLogo)
-            setIsVisibleLogo(true)
-          }}
-        />
-      </div>
+      <LeftNavigator />
       <nav>
         <ul className={classes.middle}>
           <li>
