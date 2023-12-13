@@ -13,8 +13,9 @@
     padding-left: 30px;
     font-size: .9375rem;
     transition: padding 0.15s ease-in;
+    font-weight: lighter;
     &.focus {
-      padding-left: 10px;
+      padding-left: 15px;
     }
   }
 
