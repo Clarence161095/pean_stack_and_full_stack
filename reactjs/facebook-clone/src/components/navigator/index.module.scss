@@ -9,29 +9,27 @@
     height: 40px;
   }
 
-  .right {
+  .left {
     display: flex;
     align-items: center;
     gap: 5px;
-    .search {
-      display: flex;
-      align-items: center;
-      input {
-        border: 0.7px solid black;
-        border-radius: 20px;
-        height: 24px;
-      }
+    min-width: 300px;
+
+    .arrow {
       span {
-        position: absolute;
-        margin-left: 5px;
-        width: 13px;
-        opacity: 1; /* Đảm bảo ban đầu hiển thị */
-        transform: translateX(0); /* Đảm bảo ban đầu không di chuyển */
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Thêm transition */
-      }
-      span.hidden {
-        opacity: 0;
-        transform: translateX(-5px); /* Điều này sẽ đẩy phần tử sang phải khi ẩn */
+        display: flex;
+        padding: 7px;
+        border-radius: 50%;
+
+        &:hover {
+          * {
+            cursor: pointer;
+          }
+          background-color: #3a3b3d;
+          svg {
+            background-color: #3a3b3d;
+          }
+        }
       }
     }
   }
@@ -40,14 +38,14 @@
     display: flex;
     list-style: none;
   }
-  
+
   .middle {
     li {
       width: 100px;
     }
   }
-  
-  .left {
+
+  .right {
     display: flex;
   }
 }
