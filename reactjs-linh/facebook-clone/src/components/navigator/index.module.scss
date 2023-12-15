@@ -2,40 +2,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 5px 10px 0 10px;
+  padding: 10px;
+  background-color: #232526;
+  * {
+    background-color: #232526;
+  }
 
   img {
     width: 40px;
     height: 40px;
-  }
-
-  .left {
-    display: flex;
-    align-items: center;
-    gap: 5px; //cac ptu tu cach nhau 10px (tu chrome 57)
-    min-width: 300px;
-
-    .arrow {
-      span {
-        display: flex;
-        padding: 7px;
-        border-radius: 50%;
-
-        &:hover {
-          background-color: lavender;
-          *{
-            cursor: pointer;
-          }
-          svg {
-            background-color: lavender;
-          }
-        }
-      }
-    }
-  }
-
-  .right {
-    display: flex;
   }
 
   .middle {
@@ -46,4 +21,9 @@
   .middle li {
     width: 100px;
   }
+
+  .right {
+    display: flex;
+  }
+
 }
