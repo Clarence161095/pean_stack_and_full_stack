@@ -9,6 +9,10 @@ import SuggestItem from './suggest-item'
 export default function LeftNavigator() {
   const [isVisibleLogo, setIsVisibleLogo] = useState(true)
 
+  // TODO: Danh sach suggest được lấy từ 1 list, khi tên dài quá thì xuống dòng. Trường hợp quá 2 dòng thì dòng thứ 2 ...
+
+  // TODO: Tách suggest list thành component riêng biệt.
+
   return (
     <div
       className={`${classes.left} ${!isVisibleLogo ? classes.leftBorder : ''}`}>
@@ -40,16 +44,16 @@ export default function LeftNavigator() {
       </div>
       {!isVisibleLogo && (
         <div className={classes.suggest}>
-          <p>Gần đây</p>
+          <p className={classes.title}>Gần đây</p>
           <ul>
             <li>
-              <SuggestItem />
+              <SuggestItem src='assets/avatar2.png'/>
             </li>
             <li>
-              <SuggestItem />
+              <SuggestItem type='group' />
             </li>
             <li>
-              <SuggestItem />
+              <SuggestItem notification='1 thông tin mới' />
             </li>
             <li>
               <SuggestItem />
