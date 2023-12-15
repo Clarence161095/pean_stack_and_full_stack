@@ -3,20 +3,21 @@
   align-items: center;
 
   input {
-    border: 0.7px solid black;
+    border: 0.7px solid #3A3B3D;
     border-radius: 20px;
     width: 100%;
     min-height: 40px;
     min-width: 200px;
-    background-color: gray;
+    background-color: #3A3B3D;
     padding-left: 30px;
     font-size: 0.9375rem;
     transition: padding 0.3s ease-out;
+    font-weight: lighter;
     &::placeholder {
-      color: white;
+      color: #B0B3B8;
     }
     &.focus {
-      padding-left: 10px;
+      padding-left: 15px;
     }
   }
 
@@ -30,7 +31,7 @@
     background-color: transparent;
     * {
       background-color: transparent;
-      color: white;
+      color: #B0B3B8;
     }
     &.hidden {
       opacity: 0;
