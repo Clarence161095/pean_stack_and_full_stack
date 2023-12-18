@@ -1,18 +1,29 @@
 import React from 'react'
 
-export default function SuggestItem() {
+import classes from './index.module.scss'
+
+export default function SuggestItem({
+  src = 'assets/avatar.png',
+  alt = 'suggest avatar',
+  name = 'User or Group name',
+  type = 'user',
+  notification = '',
+}) {
   return (
-    <>
+    <div className={classes.suggestItem}>
+      <img
+        src={src}
+        alt={alt}
+        className={type === 'user' ? '' : classes.groupType}
+      />
       <div>
-        <img
-          src='assets/facebook_logo_icon.png'
-          alt='Facebook Logo'
-        />
+        <p>{name}</p>
+        {notification && (
+          <div>
+            <div className={classes.dot}></div>{notification}
+          </div>
+        )}
       </div>
-      <div>
-        <div>Nguyễn Anh Tuấn</div>
-        <div>1 thông tin mới</div>
-      </div>
-    </>
+    </div>
   )
 }
