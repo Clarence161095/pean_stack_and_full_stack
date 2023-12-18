@@ -18,7 +18,9 @@
           * {
             cursor: pointer;
           }
+
           background-color: black;
+
           svg {
             background-color: lavender;
           }
@@ -26,22 +28,36 @@
       }
     }
   }
+
   .suggest {
-    margin-top: 40px;
-    padding: 25px;
-    min-width: 330.5px;
+    margin-top: 50px;
+    padding: 10px;
+    width: 330.5px;
     left: 0;
     position: absolute;
-    height: auto;
-    border-right: solid 1px black;
-    border-bottom: solid 1px ;
+    height: 450px;
+    overflow-y: auto;
+    border-right: solid 0.3px black;
+    border-bottom: solid 0.3px;
     border-bottom-right-radius: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+
+    .title {
+      padding-left: 10px;
+    }
+
     ul {
-       list-style-type: none;
+      list-style: none;
+      margin-top: 5px;
     }
   }
-}
-.leftBorder {
-    border-right: solid 1px black;
-    border-right:solid 0.3px ; 
+
+  .leftBorder {
+    border-right: solid 0.3px black;
   }
+}

@@ -42,13 +42,8 @@ export default function LeftNavigator() {
       {/* REMEMBER: && check 1 trong 2 dung thi lay cai dung dau tien truoc */}
       {!isVisibleLogo && (
         <div className={classes.suggest}>
-          <p>Tìm kiếm gần đây</p>
+          <p className={classes.title}>Gần đây</p>
           <ul>
-            <li><SuggestItem /></li>
-            <li><SuggestItem /></li>
-            <li><SuggestItem /></li>
-            <li><SuggestItem /></li>
-            <li><SuggestItem /></li>
             <li><SuggestItem /></li>
           </ul>
         </div>
