@@ -1,37 +1,46 @@
 import React, { useState } from "react";
 import classes from "./index.module.scss";
+import { list } from "./list";
 
 export default function SuggestItem({
-  imageUrl = "assets/avatar2.jpeg"
+  name = "Group Name",
+  src = "assets/avatar2.jpeg",
+  type = "user",
+  alt = "Suggest Avatar",
+  notification = "",
 }) {
-  const [background, setBackground] = useState("#18191A");
-  const handleMouseOver = () => {
-    setBackground("#6b6c6d");
-  };
-  const handleMouseOut = () => {
-    setBackground("#18191A"); // Thay đổi màu nền khi di chuột ra
-  };
+  const [data, setData] = useState(list);
+  // const nameText = (text) => {
+  //   if (text.length > 10) {
+  //     return text.substring(0, 10) + '...';
+  //   }
+  //   return text;
+  // }
 
   return (
-    <div
-      className={classes.search}
-      style={{ backgroundColor: background }}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-    >
-      <div className={classes.avatar}>
-        <img src={imageUrl} alt="Facebook Avatar" />
-      </div>
-      <div className={classes.info}>
-        <span className={classes.name}>Pham Tuan Linh</span>
-        <div className={classes.amountInfo}>
-          <div className={classes.circleNotification}></div>
-          <span className={classes.nameNotification}>có 1 thông báo</span>
+    <div>
+      {data.map((data) => (
+        <div className={classes.suggestItem}>
+          <div>
+            <img
+              src={data.img}
+              alt={alt}
+              className={data.type === "user" ? "" : classes.groupType}
+            />
+          </div>
+          <div>
+            <p className={data.name.length > 10 ? classes.checkLengthName : ""}>
+              {data.name}
+            </p>
+            {data.notification && (
+              <div>
+                <div className={classes.dot}></div>
+                {data.notification}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <div className={classes.iconDelete}>
-        <img src="assets/icon2.svg" alt="Delete Button" />
-      </div>
+      ))}
     </div>
   );
 }
