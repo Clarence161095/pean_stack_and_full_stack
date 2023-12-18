@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./index.module.scss";
-import { list } from "./list";
+import { _fetch } from "../../../../mock/fetch.service";
 
 export default function SuggestItem({
   name = "Group Name",
@@ -9,33 +9,34 @@ export default function SuggestItem({
   alt = "Suggest Avatar",
   notification = "",
 }) {
-  const [data, setData] = useState(list);
-  // const nameText = (text) => {
-  //   if (text.length > 10) {
-  //     return text.substring(0, 10) + '...';
-  //   }
-  //   return text;
-  // }
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    function resolve(data) {
+      setData(data)
+    }
+    _fetch('list-suggest').then(resolve)
+  }, [])
 
   return (
     <div>
-      {data.map((data) => (
-        <div className={classes.suggestItem}>
+      {data.map((item) => (
+        <div key={item.id} className={classes.suggestItem}>
           <div>
             <img
-              src={data.img}
+              src={item.img}
               alt={alt}
-              className={data.type === "user" ? "" : classes.groupType}
+              className={item.type === "user" ? "" : classes.groupType}
             />
           </div>
           <div>
-            <p className={data.name.length > 10 ? classes.checkLengthName : ""}>
-              {data.name}
+            <p className={item.name.length > 10 ? classes.checkLengthName : ""}>
+              {item.name}
             </p>
-            {data.notification && (
+            {item.notification && (
               <div>
                 <div className={classes.dot}></div>
-                {data.notification}
+                {item.notification}
               </div>
             )}
           </div>
