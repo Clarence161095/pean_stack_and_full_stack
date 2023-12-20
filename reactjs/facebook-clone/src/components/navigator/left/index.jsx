@@ -1,18 +1,86 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
+import { SVG } from '../../../constants/svg'
+import IconButton from '../../ui/icon-button'
+import InputWithIcon from '../../ui/input-with-icon'
 import classes from './index.module.scss'
-import CustomSVG from '../../ui/custom-svg'
-import InputWithIcon from '../../ui/button-icon'
-import {SVG} from '../../../constants/svg'
-import SuggestItem from './suggest-item'
+import SuggestList from './suggest-list'
+
+const listSuggest = [
+  {
+    src: 'assets/avatar.png',
+    alt: 'Tự Tin Nói Tiếng Anh',
+    name: 'Tự Tin Nói Tiếng Anh',
+    type: 'user',
+    notification: '1 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: 'HIỆP HỘI SẢN SUẤT VÀ CUNG CẤP BỘT ĐÁ ABC, ĐÀ NẴNG, QUẢNG NAM. HỒ CHÍ MINH, HÀ NỘI.',
+    name: 'HIỆP HỘI SẢN SUẤT VÀ CUNG CẤP BỘT ĐÁ ABC, ĐÀ NẴNG, QUẢNG NAM. HỒ CHÍ MINH, HÀ NỘI.',
+    type: 'group',
+    notification: '9+ thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    name: 'Lorem Ipsum',
+    type: 'user',
+    notification: '3 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    name: 'Lorem Ipsum Group',
+    type: 'group',
+    notification: '6 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    name: 'Lorem Ipsum Long Name User',
+    type: 'user',
+    notification: '12 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    name: 'Lorem Ipsum Long Name Group',
+    type: 'group',
+    notification: '15 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    name: 'Lorem Ipsum Very Long Name User',
+    type: 'user',
+    notification: '20 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    name: 'Lorem Ipsum Very Long Name Group',
+    type: 'group',
+    notification: '25 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: 'Lorem Ipsum',
+    name: 'Lorem Ipsum Short User',
+    type: 'user',
+    notification: '5 thông báo mới',
+  },
+  {
+    src: 'assets/avatar.png',
+    alt: 'Lorem Ipsum',
+    name: 'Lorem Ipsum Short Group',
+    type: 'group',
+    notification: '8 thông báo mới',
+  },
+]
 
 export default function LeftNavigator() {
   const [isVisibleLogo, setIsVisibleLogo] = useState(true)
-
-  // TODO: Danh sach suggest được lấy từ 1 list, khi tên dài quá thì xuống dòng. Trường hợp quá 2 dòng thì dòng thứ 2 ...
-
-  // TODO: Tách suggest list thành component riêng biệt.
-
   return (
     <div
       className={`${classes.left} ${!isVisibleLogo ? classes.leftBorder : ''}`}>
@@ -23,12 +91,7 @@ export default function LeftNavigator() {
             alt='Facebook Logo'
           />
         ) : (
-          <div className={classes.arrow}>
-            <CustomSVG
-              svgCode={SVG.leftArrow}
-              type='span'
-            />
-          </div>
+          <IconButton />
         )}
 
         <InputWithIcon
@@ -42,25 +105,9 @@ export default function LeftNavigator() {
           }}
         />
       </div>
-      {!isVisibleLogo && (
-        <div className={classes.suggest}>
-          <p className={classes.title}>Gần đây</p>
-          <ul>
-            <li>
-              <SuggestItem src='assets/avatar2.png'/>
-            </li>
-            <li>
-              <SuggestItem type='group' />
-            </li>
-            <li>
-              <SuggestItem notification='1 thông tin mới' />
-            </li>
-            <li>
-              <SuggestItem />
-            </li>
-          </ul>
-        </div>
-      )}
+      <SuggestList list={listSuggest} />
     </div>
   )
 }
+
+

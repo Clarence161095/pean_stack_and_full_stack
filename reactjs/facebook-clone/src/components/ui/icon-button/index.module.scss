@@ -1,0 +1,17 @@
+.arrow {
+  span {
+    display: flex;
+    padding: 7px;
+    border-radius: 50%;
+
+    &:hover {
+      * {
+        cursor: pointer;
+      }
+      background-color: #3a3b3d;
+      svg {
+        background-color: #3a3b3d;
+      }
+    }
+  }
+}
