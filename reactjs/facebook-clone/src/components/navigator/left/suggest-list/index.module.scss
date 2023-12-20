@@ -1,0 +1,21 @@
+.suggest {
+  margin-top: 50px;
+  padding: 10px;
+  min-width: 321px;
+  max-width: 321px;
+  left: 0;
+  position: absolute;
+  height: fit-content;
+  border-right: solid 0.3px rgba(0, 0, 0, 0.735);
+  border-bottom: solid 0.3px rgba(0, 0, 0, 0.735);
+  border-bottom-right-radius: 10px;
+
+  .title {
+    padding-left: 10px;
+  }
+
+  ul {
+    margin-top: 5px;
+    list-style: none;
+  }
+}
