@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { SVG } from '../../../constants/svg'
 import IconButton from '../../ui/icon-button'
@@ -6,7 +6,7 @@ import InputWithIcon from '../../ui/input-with-icon'
 import classes from './index.module.scss'
 import SuggestList from './suggest-list'
 
-const listSuggest = [
+const mockListSuggest = [
   {
     src: 'assets/avatar.png',
     alt: 'Tự Tin Nói Tiếng Anh',
@@ -81,6 +81,13 @@ const listSuggest = [
 
 export default function LeftNavigator() {
   const [isVisibleLogo, setIsVisibleLogo] = useState(true)
+  const [listSuggest, setListSuggest] = useState([]);
+
+  useEffect(() => {
+    // Load data
+    setListSuggest(mockListSuggest)
+  }, []);
+
   return (
     <div
       className={`${classes.left} ${!isVisibleLogo ? classes.leftBorder : ''}`}>
