@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import classes from './index.module.scss'
 import IconButton from '../../../../ui/icon-button'
@@ -14,10 +14,15 @@ export default function SuggestItem({
     console.log('Click SuggestItem: ', name)
   },
 }) {
-  return (
+  const[demo,setDemo] = useState('Click SuggestItem:');
+  function ButtonClick(){
+    setDemo(demo);
+    console.log('click', demo)
+  }
+return (
     <div
       className={classes.suggestItem}
-      onClick={onClick}>
+      onClick={ButtonClick}>
       <div className={classes.left}>
         <img
           src={src}
