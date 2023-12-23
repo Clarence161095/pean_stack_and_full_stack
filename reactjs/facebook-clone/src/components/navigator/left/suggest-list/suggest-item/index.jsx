@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import classes from './index.module.scss'
-import IconButton from '../../../../ui/icon-button'
-import {SVG} from '../../../../../constants/svg'
+import { SVG } from '../../../../../constants/svg';
+import IconButton from '../../../../ui/icon-button';
+import classes from './index.module.scss';
 
 export default function SuggestItem({
   src = 'assets/avatar.png',
@@ -10,22 +10,26 @@ export default function SuggestItem({
   name = 'User or Group name',
   type = 'user',
   notification = '',
-  onClick = () => {
-    console.log('Click SuggestItem: ', name)
-  },
+  color = 'yellow',
+  onClick = () => {},
 }) {
+
+  // TODO: Tìm hiểu trước useContext
+  function abc(fnc) {
+    fnc(name)
+  }
+
   return (
-    <div
-      className={classes.suggestItem}
-      onClick={onClick}>
-      <div className={classes.left}>
+    <div className={classes.suggestItem}>
+      {/* TODO: Hiểu được follow nàyn. Sử dụng cở bản được callback function function.*/}
+      <div className={classes.left} onClick={() => onClick(abc)}>
         <img
           src={src}
           alt={alt}
           className={type === 'user' ? '' : classes.groupType}
         />
         <div>
-          <p>{name}</p>
+          <p style={{color: color}}>{name}</p>
           {notification && (
             <div>
               <div className={classes.dot}></div>
@@ -41,3 +45,4 @@ export default function SuggestItem({
     </div>
   )
 }
+
