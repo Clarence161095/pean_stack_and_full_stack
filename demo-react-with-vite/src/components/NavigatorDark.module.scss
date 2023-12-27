@@ -1,0 +1,33 @@
+nav {
+  background-color: #202124;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1a7d2d;
+  }
+
+  .menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    .item {
+      margin-right: 20px;
+      font-size: 14px;
+    }
+  }
+
+  .link {
+    text-decoration: none;
+    color: #dbc9c9;
+
+    &:hover {
+      color: #42f445;
+    }
+  }
+}
