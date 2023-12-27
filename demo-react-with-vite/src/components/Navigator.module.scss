@@ -1,0 +1,35 @@
+@import '../lightVariables.scss';
+
+.nav {
+  background-color: $background-color;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  .menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    .item {
+      margin-right: 20px;
+      font-size: 14px;
+    }
+  }
+
+  .link {
+    text-decoration: none;
+    color: $secondary-color;
+
+    &:hover {
+      color: #4285f4;
+    }
+  }
+}
