@@ -1,15 +1,12 @@
-import './App.scss'
-import Layout from './layouts/Layout'
+import { RouterProvider } from 'react-router-dom';
+import './App.scss';
+import router from './routes/routes';
 
 function App() {
 
   return (
     <>
-      <Layout >
-        <div>
-          Contain Insert
-        </div>
-      </Layout>
+      <RouterProvider router={router} />
     </>
   )
 }

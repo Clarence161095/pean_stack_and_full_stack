@@ -6,46 +6,58 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import * as React from 'react';
+import { Fragment } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function NestedList({
   header = '',
-  menus = []
+  menus = [],
+  setMenu = () => { }
 }) {
-  const [open, setOpen] = React.useState(true);
+  // TODO: How to active menu follow corresponding route
+  const navigate = useNavigate();
 
   const handleClick = (menu) => {
-    setOpen(!open);
     menu.childrenIsOpen = !menu.childrenIsOpen
-    console.log(menu);
-    // TODO
+    navigate(menu.route);
+    setMenu([...menus])
   };
 
-  const renderMenu = (menu) => {
-    if (!menu.children) {
-      return <ListItemButton sx={{ pl: menu.level * 2 }}>
-        <ListItemIcon>
-          {menu.icon && menu.icon}
-        </ListItemIcon>
-        <ListItemText primary={menu.title} />
-      </ListItemButton>
-    } else {
-      return <>
-        <ListItemButton onClick={() => handleClick(menu)} sx={{ pl: menu.level * 2 }}>
-          <ListItemIcon>
-            {menu.icon && menu.icon}
-          </ListItemIcon>
-          <ListItemText primary={menu.title} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+  const renderMenu = (menus) => {
+    return menus.map(menu => {
+      if (!menu.children) {
+        return (
+          <Fragment key={menu.title}>
+            <ListItemButton sx={{ pl: menu.level * 2 }} onClick={() => handleClick(menu)}>
+              <ListItemIcon>
+                {menu.icon && menu.icon}
+              </ListItemIcon>
+              <ListItemText primary={menu.title} />
+            </ListItemButton>
+          </Fragment>
+        )
+      } else {
+        return (
+          <Fragment key={menu.title}>
+            <ListItemButton onClick={() => handleClick(menu)} sx={{ pl: menu.level * 2 }}>
+              <ListItemIcon>
+                {menu.icon && menu.icon}
+              </ListItemIcon>
+              <ListItemText primary={menu.title} />
+              {menu.childrenIsOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
 
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {menu.children.map(m => renderMenu(m))}
-          </List>
-        </Collapse>
-      </>
-    }
+            <Collapse in={menu.childrenIsOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {
+                  renderMenu(menu.children)
+                }
+              </List>
+            </Collapse>
+          </Fragment>
+        )
+      }
+    })
   }
 
   return (
@@ -60,7 +72,7 @@ export default function NestedList({
       }
     >
       {
-        menus.map(menu => renderMenu(menu))
+        renderMenu(menus)
       }
     </List>
   );
