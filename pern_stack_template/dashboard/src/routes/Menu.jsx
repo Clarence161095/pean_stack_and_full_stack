@@ -9,49 +9,57 @@ import SettingsIcon from '@mui/icons-material/Settings';
 const Menu = [
   {
     title: 'Home',
-    route: '/home',
+    path: '/home',
     icon: <HomeIcon />,
     level: 1,
     roles: ["HR"],
-    childrenIsOpen: false,
+    isActive: false,
+    isOpenChildren: false,
     children: [
       {
         title: 'Announcement',
-        route: '/home/announcement',
+        path: '/home/announcement',
         icon: <CampaignIcon />,
-        level: 2
+        level: 2,
+        isActive: false,
       },
       {
         title: 'Graph',
-        route: '/home/graph',
+        path: '/home/graph',
         icon: <AutoGraphIcon />,
-        level: 2
+        level: 2,
+        isActive: false,
       },
     ]
   },
   {
     title: 'My Info',
-    route: 'my-info',
+    path: '/my-info',
     icon: <PermIdentityIcon />,
-    level: 1
+    level: 1,
+    isActive: false,
   },
   {
     title: 'Setting',
+    path: '/setting',
     icon: <SettingsIcon />,
-    childrenIsOpen: false,
     level: 1,
+    isActive: false,
+    isOpenChildren: false,
     children: [
       {
         title: 'Upload CSV',
-        route: 'upload-csv',
+        path: '/setting/upload-csv',
         icon: <CloudUploadIcon />,
-        level: 2
+        level: 2,
+        isActive: false,
       },
       {
         title: 'Generic Data',
-        route: 'generic-data',
+        path: '/setting/generic-data',
         icon: <InboxIcon />,
         level: 2,
+        isActive: false,
       },
     ]
   },

@@ -14,13 +14,14 @@ export default function NestedList({
   menus = [],
   setMenu = () => { }
 }) {
-  // TODO: How to active menu follow corresponding route
   const navigate = useNavigate();
 
   const handleClick = (menu) => {
-    menu.childrenIsOpen = !menu.childrenIsOpen
-    navigate(menu.route);
-    setMenu([...menus])
+    if (menu.children) {
+      menu.isOpenChildren = !menu.isOpenChildren;
+      setMenu(menus)
+    }
+    navigate(menu.path);
   };
 
   const renderMenu = (menus) => {
@@ -28,7 +29,7 @@ export default function NestedList({
       if (!menu.children) {
         return (
           <Fragment key={menu.title}>
-            <ListItemButton sx={{ pl: menu.level * 2 }} onClick={() => handleClick(menu)}>
+            <ListItemButton selected={menu.isActive} sx={{ pl: menu.level * 2 }} onClick={() => handleClick(menu)}>
               <ListItemIcon>
                 {menu.icon && menu.icon}
               </ListItemIcon>
@@ -39,15 +40,15 @@ export default function NestedList({
       } else {
         return (
           <Fragment key={menu.title}>
-            <ListItemButton onClick={() => handleClick(menu)} sx={{ pl: menu.level * 2 }}>
+            <ListItemButton selected={menu.isActive} onClick={() => handleClick(menu)} sx={{ pl: menu.level * 2 }}>
               <ListItemIcon>
                 {menu.icon && menu.icon}
               </ListItemIcon>
               <ListItemText primary={menu.title} />
-              {menu.childrenIsOpen ? <ExpandLess /> : <ExpandMore />}
+              {menu.isOpenChildren ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={menu.childrenIsOpen} timeout="auto" unmountOnExit>
+            <Collapse in={menu.isOpenChildren} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {
                   renderMenu(menu.children)
