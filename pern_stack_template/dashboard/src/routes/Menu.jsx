@@ -12,7 +12,6 @@ const Menu = [
     path: '/home',
     icon: <HomeIcon />,
     level: 1,
-    roles: ["HR"],
     isActive: false,
     isOpenChildren: false,
     children: [
@@ -65,4 +64,4 @@ const Menu = [
   },
 ]
 
-export default Menu
+export default Menu;

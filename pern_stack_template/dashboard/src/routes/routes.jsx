@@ -9,7 +9,7 @@ import UploadCsv from '../pages/settings/UploadCsv';
 import GenericData from '../pages/settings/GenericData';
 import NotFound from "../pages/NotFound";
 
-const router = createBrowserRouter([
+const routesConfigs = [
   {
     path: "/",
     element: <Layout />,
@@ -59,6 +59,8 @@ const router = createBrowserRouter([
       },
     ]
   },
-]);
+]
+
+const router = createBrowserRouter(routesConfigs);
 
 export default router;
