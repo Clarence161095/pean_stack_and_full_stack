@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from '../layouts/Layout';
-import Announcement from '../pages/home/Announcement';
 import Graph from '../pages/home/Graph';
 import Home from '../pages/home/Home';
 import MyInfo from '../pages/MyInfo';
@@ -8,6 +7,7 @@ import Setting from '../pages/settings/Setting';
 import UploadCsv from '../pages/settings/UploadCsv';
 import GenericData from '../pages/settings/GenericData';
 import NotFound from "../pages/NotFound";
+import Announcement from "../pages/home/announcement/Announcement";
 
 const routesConfigs = [
   {
