@@ -1,6 +1,5 @@
-
 import MenuContextProvider from '../contexts/MenuContext';
-import AnnouncementEffect from '../pages/home/announcement/+store/effect';
+import StoreContextProvider from '../contexts/StoreContext';
 import Content from "./Content";
 import Header from "./Header";
 import Navigator from "./Navigator";
@@ -12,9 +11,9 @@ export default function Layout() {
         <Header />
         <section className="flex h-full">
           <Navigator />
-          <AnnouncementEffect>
+          <StoreContextProvider >
             <Content />
-          </AnnouncementEffect>
+          </StoreContextProvider>
         </section>
       </div>
     </MenuContextProvider>
