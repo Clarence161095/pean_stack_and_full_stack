@@ -1,26 +1,27 @@
-import { createContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import AnnouncementService from "../../../../services/AnnouncementService";
-import { announcementReducer } from "./reduce";
 import { errorAction, loadAction, loadedAction, loadingAction } from "./action";
+import { announcementReducer } from "./reduce";
+import { initialState } from "./state";
 
-export const AnnouncementStoreContext = createContext({});
-
-export default function AnnouncementEffect({ children }) {
-  const [state, dispatch] = useReducer(announcementReducer, { list: [] });
+export default function useAnnouncementEffect(init = initialState) {
+  const [state, dispatch] = useReducer(announcementReducer, init);
 
   useEffect(() => {
-    // TODO: deep dive here
+    dispatch(loadAction)
+  }, []);
+
+  useEffect(() => {
+    console.log(state);
     if (state.type === loadAction.type) {
       dispatch(loadingAction);
       AnnouncementService.get().then((data) => {
         dispatch({ ...loadedAction, payload: data });
-      }).catch((error) => {
-        dispatch({ ...errorAction, payload: error });
+      }).catch(() => {
+        dispatch({ ...errorAction, payload: "Failed to fetch" });
       });
     }
   }, [state]);
 
-  return <AnnouncementStoreContext.Provider value={{ state, dispatch }}>
-    {children}
-  </AnnouncementStoreContext.Provider>
+  return [state, dispatch];
 }

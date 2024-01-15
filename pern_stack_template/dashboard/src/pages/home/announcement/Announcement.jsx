@@ -1,34 +1,23 @@
-import { useContext, useEffect } from "react";
-import { AnnouncementStoreContext } from "./+store/effect";
-import { loadAction } from "./+store/action";
+import useFacade from "./+store/facade";
 
 export default function Announcement() {
-  const { state, dispatch } = useContext(AnnouncementStoreContext);
-
-  useEffect(() => {
-    dispatch(loadAction)
-  }, []);
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+  const { isLoading, list, loadData, error } = useFacade();
 
   return (
     <div className="w-full">
+      <button onClick={loadData}>Load</button>
       {
-        state?.loading ?
+        isLoading ?
           <div>Loading...</div> :
           <ul>
             {
-              state?.list && state.list.map((item, index) => (
+              list && list.map((item, index) => (
                 <li key={index}>{item.title}</li>
               ))
             }
           </ul>
       }
-      {
-        state?.error && <div>{state.error}</div>
-      }
+      {error && <div>{error}</div>}
     </div>
   )
 }
