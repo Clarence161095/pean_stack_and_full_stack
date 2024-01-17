@@ -15,5 +15,3 @@ export default function useFacade() {
     error: state?.error
   }
 }
-
-

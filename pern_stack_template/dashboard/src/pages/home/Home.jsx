@@ -1,7 +1,5 @@
 import { useReducer, useState } from "react";
 
-// TODO: I want to save the value of age when I change page
-// You can combine useReducer and useContext to save the value of age when you change page
 function reducer(state, action) {
   switch (action.type) {
     case 'TANG_TUOI':
