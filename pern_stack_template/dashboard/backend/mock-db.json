@@ -1,72 +1,314 @@
 {
   "announcements": [
-    { "id": "1", "title": "a title" },
-    { "id": "2", "title": "another title" },
-    { "id": "3", "title": "yet another title" },
-    { "id": "4", "title": "a title once again" },
-    { "id": "5", "title": "title strikes back" },
-    { "id": "6", "title": "title the final chapter" },
-    { "id": "7", "title": "title the revenge" },
-    { "id": "8", "title": "title returns" },
-    { "id": "9", "title": "title begins" },
-    { "id": "10", "title": "title ends" },
-    { "id": "11", "title": "title continues" },
-    { "id": "12", "title": "title concludes" },
-    { "id": "13", "title": "a title once again" },
-    { "id": "14", "title": "title strikes back" },
-    { "id": "15", "title": "title the final chapter" },
-    { "id": "16", "title": "title the revenge" },
-    { "id": "17", "title": "title returns" },
-    { "id": "18", "title": "title begins" },
-    { "id": "19", "title": "title ends" },
-    { "id": "20", "title": "title continues" },
-    { "id": "21", "title": "title concludes" },
-    { "id": "22", "title": "a title once again" },
-    { "id": "23", "title": "title strikes back" },
-    { "id": "24", "title": "title the final chapter" },
-    { "id": "25", "title": "title the revenge" },
-    { "id": "26", "title": "title returns" },
-    { "id": "27", "title": "title begins" },
-    { "id": "28", "title": "title ends" },
-    { "id": "29", "title": "title continues" },
-    { "id": "30", "title": "title concludes" },
-    { "id": "31", "title": "a title once again" },
-    { "id": "32", "title": "title strikes back" },
-    { "id": "33", "title": "title the final chapter" },
-    { "id": "34", "title": "title the revenge" },
-    { "id": "35", "title": "title returns" },
-    { "id": "36", "title": "title begins" },
-    { "id": "37", "title": "title ends" },
-    { "id": "38", "title": "title continues" },
-    { "id": "39", "title": "title concludes" },
-    { "id": "40", "title": "a title once again" },
-    { "id": "41", "title": "title strikes back" },
-    { "id": "42", "title": "title the final chapter" },
-    { "id": "43", "title": "title the revenge" },
-    { "id": "44", "title": "title returns" },
-    { "id": "45", "title": "title begins" },
-    { "id": "46", "title": "title ends" },
-    { "id": "47", "title": "title continues" },
-    { "id": "48", "title": "title concludes" },
-    { "id": "49", "title": "a title once again" },
-    { "id": "50", "title": "title strikes back" },
-    { "id": "51", "title": "title the final chapter" },
-    { "id": "52", "title": "title the revenge" },
-    { "id": "53", "title": "title returns" },
-    { "id": "54", "title": "title begins" },
-    { "id": "55", "title": "title ends" },
-    { "id": "56", "title": "title continues" },
-    { "id": "57", "title": "title concludes" },
-    { "id": "58", "title": "a title once again" },
-    { "id": "59", "title": "title strikes back" },
-    { "id": "60", "title": "title the final chapter" },
-    { "id": "61", "title": "title the revenge" },
-    { "id": "62", "title": "title returns" },
-    { "id": "63", "title": "title begins" },
-    { "id": "64", "title": "title ends" },
-    { "id": "65", "title": "title continues" },
-    { "id": "66", "title": "title concludes" },
-    { "id": "67", "title": "a title once again" },
-    { "id": "68", "title": "title strikes back"}
+    {
+      "id": "1",
+      "title": "a title"
+    },
+    {
+      "id": "2",
+      "title": "another title"
+    },
+    {
+      "id": "3",
+      "title": "yet another title"
+    },
+    {
+      "id": "4",
+      "title": "a title once again"
+    },
+    {
+      "id": "5",
+      "title": "title strikes back"
+    },
+    {
+      "id": "6",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "7",
+      "title": "title the revenge"
+    },
+    {
+      "id": "8",
+      "title": "title returns"
+    },
+    {
+      "id": "9",
+      "title": "title begins"
+    },
+    {
+      "id": "10",
+      "title": "title ends"
+    },
+    {
+      "id": "11",
+      "title": "title continues"
+    },
+    {
+      "id": "12",
+      "title": "title concludes"
+    },
+    {
+      "id": "13",
+      "title": "a title once again"
+    },
+    {
+      "id": "14",
+      "title": "title strikes back"
+    },
+    {
+      "id": "15",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "16",
+      "title": "title the revenge"
+    },
+    {
+      "id": "17",
+      "title": "title returns"
+    },
+    {
+      "id": "18",
+      "title": "title begins"
+    },
+    {
+      "id": "19",
+      "title": "title ends"
+    },
+    {
+      "id": "20",
+      "title": "title continues"
+    },
+    {
+      "id": "21",
+      "title": "title concludes"
+    },
+    {
+      "id": "22",
+      "title": "a title once again"
+    },
+    {
+      "id": "23",
+      "title": "title strikes back"
+    },
+    {
+      "id": "24",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "25",
+      "title": "title the revenge"
+    },
+    {
+      "id": "26",
+      "title": "title returns"
+    },
+    {
+      "id": "27",
+      "title": "title begins"
+    },
+    {
+      "id": "28",
+      "title": "title ends"
+    },
+    {
+      "id": "29",
+      "title": "title continues"
+    },
+    {
+      "id": "30",
+      "title": "title concludes"
+    },
+    {
+      "id": "31",
+      "title": "a title once again"
+    },
+    {
+      "id": "32",
+      "title": "title strikes back"
+    },
+    {
+      "id": "33",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "34",
+      "title": "title the revenge"
+    },
+    {
+      "id": "35",
+      "title": "title returns"
+    },
+    {
+      "id": "36",
+      "title": "title begins"
+    },
+    {
+      "id": "37",
+      "title": "title ends"
+    },
+    {
+      "id": "38",
+      "title": "title continues"
+    },
+    {
+      "id": "39",
+      "title": "title concludes"
+    },
+    {
+      "id": "40",
+      "title": "a title once again"
+    },
+    {
+      "id": "41",
+      "title": "title strikes back"
+    },
+    {
+      "id": "42",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "43",
+      "title": "title the revenge"
+    },
+    {
+      "id": "44",
+      "title": "title returns"
+    },
+    {
+      "id": "45",
+      "title": "title begins"
+    },
+    {
+      "id": "46",
+      "title": "title ends"
+    },
+    {
+      "id": "47",
+      "title": "title continues"
+    },
+    {
+      "id": "48",
+      "title": "title concludes"
+    },
+    {
+      "id": "49",
+      "title": "a title once again"
+    },
+    {
+      "id": "50",
+      "title": "title strikes back"
+    },
+    {
+      "id": "51",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "52",
+      "title": "title the revenge"
+    },
+    {
+      "id": "53",
+      "title": "title returns"
+    },
+    {
+      "id": "54",
+      "title": "title begins"
+    },
+    {
+      "id": "55",
+      "title": "title ends"
+    },
+    {
+      "id": "56",
+      "title": "title continues"
+    },
+    {
+      "id": "57",
+      "title": "title concludes"
+    },
+    {
+      "id": "58",
+      "title": "a title once again"
+    },
+    {
+      "id": "59",
+      "title": "title strikes back"
+    },
+    {
+      "id": "60",
+      "title": "title the final chapter"
+    },
+    {
+      "id": "61",
+      "title": "title the revenge"
+    },
+    {
+      "id": "62",
+      "title": "title returns"
+    },
+    {
+      "id": "63",
+      "title": "title begins"
+    },
+    {
+      "id": "64",
+      "title": "title ends"
+    },
+    {
+      "id": "65",
+      "title": "title continues"
+    },
+    {
+      "id": "66",
+      "title": "title concludes"
+    },
+    {
+      "id": "67",
+      "title": "a title once again"
+    },
+    {
+      "id": "68",
+      "title": "title strikes back"
+    }
+  ],
+  "graphs": [
+    {
+      "id": "1",
+      "title": "a title"
+    },
+    {
+      "id": "2",
+      "title": "another title"
+    },
+    {
+      "id": "3",
+      "title": "yet another title"
+    },
+    {
+      "id": "4",
+      "title": "a title once again"
+    },
+    {
+      "id": "5",
+      "title": "title strikes back"
+    },
+    {
+      "id": "75b5",
+      "title": "Tuan"
+    },
+    {
+      "id": "58f2",
+      "title": "Tuan"
+    },
+    {
+      "id": "6465",
+      "title": "tuan"
+    },
+    {
+      "id": "e94e",
+      "title": "tuan"
+    }
   ]
 }
