@@ -1,33 +1,35 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { create, get } from './+state/effect';
-import { selectData, selectError, selectLoading } from './+state/selector';
-
-let isInitial = true;
+import useFacade from "./+state/facade";
 
 export default function Graph() {
-  const isLoading = useSelector(selectLoading);
-  const errorMessage = useSelector(selectError);
-  const data = useSelector(selectData);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
-      dispatch(get());
-    }
-  }, [dispatch]);
+  const { list, isLoading, addData, errorMessage } = useFacade();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!event.target.graphInput.value) return alert('Please enter graph name');
-    dispatch(create({ title: event.target.graphInput.value }));
+    addData(event.target.graphInput.value);
+  }
+
+  let content = null;
+
+  if (isLoading) {
+    content = <div>Loading...</div>
+  } else if (errorMessage) {
+    content = <div className="text-red-500">{errorMessage}</div>
+  } else if (list) {
+    content = <div>{
+      list.map((graph) => {
+        return (
+          <div key={graph.id}>
+            <div>{graph.title}</div>
+          </div>
+        )
+      })
+    }</div>
   }
 
   return (
     <div className="p-4">
       <h1>Graph</h1>
-
       <form className='mt-5 p-2 border border-solid border-1' onSubmit={handleSubmit}>
         <div className="mb-2">
           <label htmlFor="graphInput" className='mr-2'>Graph Name:</label>
@@ -37,20 +39,7 @@ export default function Graph() {
           Submit
         </button>
       </form>
-
-      {isLoading && <div>Loading...</div>}
-
-      {errorMessage && <div>{errorMessage}</div>}
-
-      {data && !isLoading && <div>{
-        data.map((graph) => {
-          return (
-            <div key={graph.id}>
-              <div>{graph.title}</div>
-            </div>
-          )
-        })
-      }</div>}
+      {content}
     </div>
   )
 }
