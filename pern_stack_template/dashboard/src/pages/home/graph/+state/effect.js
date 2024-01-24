@@ -20,7 +20,7 @@ export function create({ title }) {
     try {
       const newGraph = await postGraph({ title });
       if (newGraph.title === title) {
-        dispatch(refreshData)
+        dispatch(get())
       }
     } catch (error) {
       dispatch(error("Error while creating data"));

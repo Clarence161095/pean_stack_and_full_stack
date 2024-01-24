@@ -1,3 +1,3 @@
 import graphSlice from "./reducer";
 
-export const { loading, success, error } = graphSlice.actions;
+export const { loading, success, error, noRefresh } = graphSlice.actions;

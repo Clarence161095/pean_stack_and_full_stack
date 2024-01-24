@@ -19,6 +19,9 @@ export const graphSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = action.payload;
     },
+    noRefresh: (state) => {
+      state.isLoading = false;
+    },
   },
 })
 
