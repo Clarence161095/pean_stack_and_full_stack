@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useFacade } from "./+state/facade";
 
 export default function Announcement() {
+  useFacade()
   return (
     <div className="w-full">
       <ShowRole />
@@ -11,9 +13,8 @@ export default function Announcement() {
 function useHandleCheckAuth() {
   const [isAuth, setIsAuth] = useState(false)
   const [id, setId] = useState("")
-
   useEffect(() => {
-    fetch("http://localhost:5674/auth/" + id).then(res => res.json()).then(res => {
+    fetch("http://localhost:5674/auths/" + id).then(res => res.json()).then(res => {
       setIsAuth(res.isAuth)
     }).catch(err => {
       console.log(err)

@@ -1,12 +1,10 @@
-
 import { useDispatch, useSelector } from 'react-redux';
-import { create, get } from './effect';
-import { selectData, selectError, selectLoading } from './selector';
-import { useEffect } from 'react';
+import useConstructor from '../../../../hooks/useConstructor';
+import useInit from '../../../../hooks/useInit';
 import { getLastUpdated } from '../../../../services/GraphService';
 import { noRefresh } from './action';
-
-let isConstructor = true;
+import { create, get } from './effect';
+import { selectData, selectError, selectLoading } from './selector';
 
 export default function useFacade() {
   const isLoading = useSelector(selectLoading);
@@ -14,16 +12,14 @@ export default function useFacade() {
   const data = useSelector(selectData);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (isConstructor) {
-      isConstructor = false;
-      console.log(`Graph useFacade constructor`)
-      dispatch(get())
-    }
+  useConstructor(() => {
+    dispatch(get())
+    console.log(`Graph useFacade onConstructor`)
+  }, 'Graph')
 
+  useInit(() => {
     getLastUpdated().then((lastUpdated) => {
       if (lastUpdated.lastUpdated === localStorage.getItem('lastUpdated')) {
-        console.log('No need to refresh data');
         dispatch(noRefresh());
         return;
       }
@@ -31,8 +27,7 @@ export default function useFacade() {
       dispatch(get())
     })
     console.log(`Graph useFacade onInit`)
-
-  }, [dispatch]);
+  })
 
   return {
     isLoading,

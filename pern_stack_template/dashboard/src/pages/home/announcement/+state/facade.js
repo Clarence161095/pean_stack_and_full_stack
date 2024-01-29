@@ -1,25 +1,15 @@
-import { useEffect } from "react";
-
-let isConstructor = true;
+import useConstructor from "../../../../hooks/useConstructor";
+import useInit from "../../../../hooks/useInit";
 
 export function useFacade() {
 
-  // constructor
-  // TODO: create an custom hook to handle constructor
-  // that name is useConstructor that using behavior is same as useEffect
-  useEffect(() => {
-    if (isConstructor) {
-      isConstructor = false;
-      // constructor
-      console.log("constructor");
-    }
-    console.log("onInit");
-    // onInit
-  }, []);
+  useConstructor(() => {
+    console.log(`Announcement useFacade onConstructor`);
+  }, 'Announcement')
 
-  // useConstructor(() => {
-    
-  // }, []);
+  useInit(() => {
+    console.log(`Announcement useFacade onInit`);
+  })
 
   return {
 
