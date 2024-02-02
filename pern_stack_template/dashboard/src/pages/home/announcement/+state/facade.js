@@ -1,7 +1,3 @@
-
-export function useFacade() {
-
-  return {
-
-  }
+export default function useFacade() {
+  return {};
 }

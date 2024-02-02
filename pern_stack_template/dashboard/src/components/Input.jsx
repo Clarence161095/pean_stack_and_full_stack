@@ -1,10 +1,25 @@
-import { classNameStrategy, createComponent } from "./CreateComponent";
-
-export const Input = createComponent(({ label, id = label, addClass, ...props }) => {
+export default function InputControl({ type = 'text', id, placeholder = '', className, ...props }) {
   return (
-    <p className="mb-2">
-      <label htmlFor={id} className='mr-2'>{label}:</label>
-      <input id={id} type="text" className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${addClass}`} {...props} />
-    </p>
-  )
-}, [classNameStrategy]);
+    <div className={`flex flex-col gap-2 ` + className}>
+      <label htmlFor={id} className="text-lg font-semibold">
+        {props.label}
+      </label>
+      {type === 'textarea' ? (
+        <textarea
+          id={id}
+          placeholder={placeholder}
+          rows={4}
+          className="border border-gray-300 rounded-md p-2"
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          placeholder={placeholder}
+          className="border border-gray-300 rounded-md p-2"
+          {...props}
+        />
+      )}
+    </div>
+  );
+}
