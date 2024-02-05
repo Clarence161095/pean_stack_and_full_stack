@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const announcementSlice = createSlice({
+  // TODO: Tách state theo từng chức năng
   name: 'announcement',
   initialState: {
     loadingData: false,
+    addDataLoading: false,
     errorMessenger: '',
-    validateData: 'không được bỏ trống trường này',
     data: [],
   },
   reducers: {
@@ -19,9 +20,6 @@ export const announcementSlice = createSlice({
     error: (state, action) => {
       state.loadingData = false;
       state.errorMessenger = action.payload;
-    },
-    validate: (state) => {
-      state.validateData = 'không được bỏ tr này';
     },
   },
 });
