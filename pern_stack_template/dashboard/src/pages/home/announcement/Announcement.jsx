@@ -5,43 +5,8 @@ import List from '../../../components/List';
 import Modal from '../../../components/Modal';
 import useFacade from './+state/facade';
 
-const MOCK_DATA = [
-  {
-    id: '1',
-    title: 'The first announcement',
-    content: 'This is the first announcement',
-    author: 'John Doe',
-    date: '2021-10-10',
-    isRead: true,
-  },
-  {
-    id: '2',
-    title: 'The second announcement',
-    content: 'This is the second announcement',
-    author: 'John Doe',
-    date: '2021-10-10',
-    isRead: false,
-  },
-  {
-    id: '3',
-    title: 'The third announcement',
-    content: 'This is the third announcement',
-    author: 'John Doe',
-    date: '2021-10-10',
-    isRead: false,
-  },
-  {
-    id: '4',
-    title: 'The fourth announcement',
-    content: 'This is the fourth announcement',
-    author: 'John Doe',
-    date: '2021-10-10',
-    isRead: true,
-  },
-];
-
 export default function Announcement() {
-  const { list = MOCK_DATA, post, isLoading = false, errorMessage = '' } = useFacade();
+  const { list, post, isLoading, errorMessage = '', validateData } = useFacade();
   const modal = useRef(null);
 
   function handleAdd(e) {
@@ -53,6 +18,7 @@ export default function Announcement() {
       date: e.target.date.value,
       isRead: false,
     };
+
     // Validation data before post
     modal.current.close();
     post(data);
@@ -77,13 +43,16 @@ export default function Announcement() {
             placeholder="Type the title of the announcement"
             label="Title"
           />
+          <p className="text-red-500">{validateData}</p>
           <InputControl
             type="textarea"
             id="content"
             placeholder="Type the content of the announcement"
             label="Content"
           />
+          <p className="text-red-500">{validateData}</p>
           <InputControl type="text" id="author" placeholder="Type the author" label="Author" />
+          <p className="text-red-500">{validateData}</p>
           <InputControl
             type="date"
             id="date"
@@ -96,6 +65,7 @@ export default function Announcement() {
         </form>
       </Modal>
       {!errorMessage && !isLoading && <List list={list} />}
+      {!validateData ? '' : <p className="text-red-500">{errorMessage}</p>}
     </section>
   );
 }

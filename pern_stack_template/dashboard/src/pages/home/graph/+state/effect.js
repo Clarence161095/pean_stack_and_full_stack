@@ -1,5 +1,5 @@
-import { getGraph, postGraph } from "../../../../services/GraphService";
-import { loading, success } from "./action";
+import { getGraph, postGraph } from '../../../../services/GraphService';
+import { loading, success } from './action';
 
 async function refreshData(dispatch) {
   dispatch(loading());
@@ -7,7 +7,7 @@ async function refreshData(dispatch) {
     const data = await getGraph();
     dispatch(success(data));
   } catch (error) {
-    dispatch(error("Error while loading data"));
+    dispatch(error('Error while loading data'));
   }
 }
 
@@ -20,10 +20,10 @@ export function create({ title }) {
     try {
       const newGraph = await postGraph({ title });
       if (newGraph.title === title) {
-        dispatch(get())
+        dispatch(get());
       }
     } catch (error) {
-      dispatch(error("Error while creating data"));
+      dispatch(error('Error while creating data'));
     }
   };
 }

@@ -2,10 +2,34 @@
   "announcements": [
     {
       "id": "1",
-      "title": "a title",
-      "content": "a content",
-      "author": "an author",
-      "date": "a date",
+      "title": "The first announcement",
+      "content": "This is the first announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": true
+    },
+    {
+      "id": "2",
+      "title": "The second announcement",
+      "content": "This is the second announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": false
+    },
+    {
+      "id": "3",
+      "title": "The third announcement",
+      "content": "This is the third announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": false
+    },
+    {
+      "id": "4",
+      "title": "The fourth announcement",
+      "content": "This is the fourth announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
       "isRead": true
     }
   ],
