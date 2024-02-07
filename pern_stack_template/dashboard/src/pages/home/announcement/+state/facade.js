@@ -3,7 +3,7 @@ import {
   selectLoading,
   selectErrorMessenger,
   selectLoadSuccess,
-  selectValidateData,
+  selectValidateInput,
 } from './selector';
 import { getAnnouncementData, createAnnouncementData } from './effect';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ export default function useFacade() {
   const listData = useSelector(selectLoadSuccess);
   const isLoading = useSelector(selectLoading);
   const errorMessage = useSelector(selectErrorMessenger);
-  const validateData = useSelector(selectValidateData);
+  const validateInput = useSelector(selectValidateInput);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,8 +25,7 @@ export default function useFacade() {
     list: listData,
     isLoading,
     errorMessage,
-    validateData,
-    post: (title, content, author, date) =>
-      dispatch(createAnnouncementData({ title, content, author, date })),
+    validateInput,
+    post: (input) => dispatch(createAnnouncementData(input)),
   };
 }

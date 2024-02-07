@@ -1,3 +1,3 @@
 import announcementSlice from './reducer';
 
-export const { loadingData, loadedData, error, validate } = announcementSlice.actions;
+export const { loadingData, loadedData, error, validateInput } = announcementSlice.actions;

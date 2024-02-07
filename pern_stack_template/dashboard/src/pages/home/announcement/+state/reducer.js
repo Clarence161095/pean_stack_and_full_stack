@@ -5,7 +5,7 @@ export const announcementSlice = createSlice({
   initialState: {
     loadingData: false,
     errorMessenger: '',
-    validateData: 'không được bỏ trống trường này',
+    validateInput: '',
     data: [],
   },
   reducers: {
@@ -20,8 +20,9 @@ export const announcementSlice = createSlice({
       state.loadingData = false;
       state.errorMessenger = action.payload;
     },
-    validate: (state) => {
-      state.validateData = 'không được bỏ tr này';
+    validateInput: (state, action) => {
+      state.loadingData = false;
+      state.validateInput = action.payload;
     },
   },
 });

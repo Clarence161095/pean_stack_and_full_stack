@@ -10,6 +10,7 @@ export default function InputControl({ type = 'text', id, placeholder = '', clas
           placeholder={placeholder}
           rows={4}
           className="border border-gray-300 rounded-md p-2"
+          {...props}
         />
       ) : (
         <input
@@ -20,6 +21,7 @@ export default function InputControl({ type = 'text', id, placeholder = '', clas
           {...props}
         />
       )}
+      {props.error && <p className="text-red-500">{props.error} </p>}
     </div>
   );
 }

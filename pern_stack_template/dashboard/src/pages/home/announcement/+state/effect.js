@@ -5,8 +5,8 @@ async function refeshData(dispatch) {
   try {
     const data = await getAnnouncement();
     dispatch(loadedData(data));
-  } catch (error) {
-    dispatch({ type: 'announcement/error', payload: 'Loi Fetching Data' });
+  } catch ({ message }) {
+    dispatch({ type: 'announcement/error', payload: message });
   }
 }
 
@@ -14,15 +14,31 @@ export function getAnnouncementData() {
   return refeshData;
 }
 
-export function createAnnouncementData({ title, content, author, date }) {
+export function createAnnouncementData({ data, closeModalCb }) {
   return async (dispatch) => {
+    dispatch(loadingData());
     try {
-      const newData = await createAnnouncement({ title, content, author, date });
-      if (newData.title === title) {
-        dispatch(refeshData());
+      const newData = await createAnnouncement({ ...data, isRead: false });
+      if (newData.title === data.title) {
+        dispatch(refeshData);
+        closeModalCb();
       }
-    } catch (error) {
-      dispatch({ type: 'announcement/error', payload: 'Loi Fetching Data' });
+    } catch ({ message }) {
+      dispatch({ type: 'announcement/error', payload: message });
     }
   };
+}
+
+async function validateInputCheck(dispatch) {
+  dispatch(loadingData());
+  try {
+    const data = await getAnnouncement();
+    dispatch(loadedData(data));
+  } catch ({ message }) {
+    dispatch({ type: 'announcement/validateInput', payload: message });
+  }
+}
+
+export function getValidateInputCheck() {
+  return validateInputCheck;
 }
