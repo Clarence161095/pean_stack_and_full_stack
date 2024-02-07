@@ -18,9 +18,11 @@ export default function Announcement() {
   const modal = useRef(null);
   function validateForm({ title, content, author, date }) {
     const _valid = { ...InitValid };
+
     if (title.split('@')[1].length < 3) {
       _valid.title = 'Title have to have at least 3 characters';
     }
+
     if (content.length < 10) {
       _valid.content = 'Content have to have at least 10 characters';
     }
@@ -28,13 +30,16 @@ export default function Announcement() {
     if (!/^[a-zA-Z]+$/.test(author)) {
       _valid.author = 'Author have to be a name';
     }
+
     if (new Date(date) < new Date()) {
-      _valid.date = 'Date have to older than today';
+      _valid.date = 'Date have to be in the future';
     }
+
+    setValidateForm(_valid);
     if (_valid.title || _valid.content || _valid.author || _valid.date) {
-      setValidateForm(_valid);
       return false;
     }
+
     return true;
   }
   function handleAdd(e) {
@@ -73,7 +78,7 @@ export default function Announcement() {
             <p className="text-2xl font-bold text-gray-900">Loading....</p>
           </div>
         )}
-        {isErrorFromServer() && <p className="text-red-500">{validateInput}</p>}
+        {isErrorFromServer() && <p className="text-red-500">{errorMessage}</p>}
         <form onSubmit={handleAdd} className="flex flex-col gap-2">
           <InputControl
             type="email"
@@ -97,7 +102,7 @@ export default function Announcement() {
             placeholder="Type the author"
             label="Author"
             required
-            valid={valid.author}
+            error={valid.author}
           />
           <InputControl
             type="date"
