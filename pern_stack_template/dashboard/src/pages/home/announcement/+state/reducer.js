@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const announcementSlice = createSlice({
-  // TODO: Tách state theo từng chức năng
   name: 'announcement',
   initialState: {
     loadingData: false,
