@@ -11,7 +11,6 @@ export const decodeLoginUser = (req, res, next) => {
       return res.status(401).json({ message: 'Invalid token' });
     }
   }
-  console.log('req.loginUser', req.loginUser);
   next();
 };
 

@@ -1,6 +1,7 @@
 import express from 'express';
 import './configs/dbConfig.js';
 import { envConfig } from './configs/envConfig.js';
+import './configs/firebaseConfig.js';
 import { commonMiddlewares } from './middlewares/commonMiddleware.js';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 import allRoute from './routes/allRoutes.js';

@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
 import { envConfig } from '../configs/envConfig.js';
+import User from '../models/user.js';
+import { clearCookie, getCookies, validateRegisterInput } from '../utils/auth.js';
+import admin from 'firebase-admin';
 
 const authRoute = Router();
 
@@ -12,12 +14,18 @@ authRoute.post('/register', async (req, res) => {
   if (user) {
     return res.send('User already exist');
   }
+  // validate email and password
+  const error = validateRegisterInput(email, password);
+  if (error) {
+    return res.status(400).send(error);
+  }
+
   // encrypt password
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log('register hashedPassword', hashedPassword);
   const newUser = new User({
     email,
     password: hashedPassword,
+    type: 'local',
   });
   await newUser.save();
   res.send('User created');
@@ -31,11 +39,12 @@ authRoute.post('/login', async (req, res) => {
     return res.send('Invalid login');
   }
   // check if password is correct
-  // TODO: Fix this
-  const isPasswordCorrect = bcrypt.compare(password, user.password);
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
+    clearCookie(res);
     return res.send('Invalid login');
   }
+
   // Create jwt token and save in cookie
   const token = jwt.sign(
     {
@@ -43,14 +52,71 @@ authRoute.post('/login', async (req, res) => {
       email: user.email,
     },
     envConfig.JWT_SECRET,
+    {
+      expiresIn: '1day',
+    },
   );
-
-  console.log('token', token);
   res.cookie('token', token, {
     httpOnly: true,
   });
 
   return res.send('Login success');
+});
+
+authRoute.get('/logout', (req, res) => {
+  clearCookie(res);
+  res.send('Logout success');
+});
+
+authRoute.post('/sso-login', async (req, res) => {
+  const bearerToken = req.headers.authorization;
+  if (!bearerToken) {
+    return res.send('Not logged in');
+  }
+  const token = bearerToken.split(' ')[1];
+  // This token is firebase token
+  try {
+    // use firebase verifyIdToken to verify token
+    const loginUser = await admin.auth().verifyIdToken(token);
+
+    // If loginUser.email is not exist in database, create new user
+    const user = await User.findOne({
+      email: loginUser.email,
+      type: 'firebase',
+    });
+
+    if (!user) {
+      const newUser = new User({
+        email: loginUser.email,
+        type: 'firebase',
+        displayName: loginUser.name,
+        avatar: loginUser.picture,
+      });
+      await newUser.save();
+    }
+
+    // Create jwt token and save in cookie in 1 day
+    const jwtToken = jwt.sign(
+      {
+        id: user._id,
+        email: loginUser.email,
+        displayName: loginUser.name,
+        avatar: loginUser.picture,
+        role: 'user',
+      },
+      envConfig.JWT_SECRET,
+      {
+        expiresIn: '1day',
+      },
+    );
+    res.cookie('token', jwtToken, {
+      httpOnly: true,
+    });
+
+    return res.send('Login success');
+  } catch (error) {
+    return res.send('Invalid token');
+  }
 });
 
 export default authRoute;
