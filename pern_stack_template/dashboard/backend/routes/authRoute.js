@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import { Router } from 'express';
+import admin from 'firebase-admin';
 import jwt from 'jsonwebtoken';
 import { envConfig } from '../configs/envConfig.js';
 import User from '../models/user.js';
-import { clearCookie, getCookies, validateRegisterInput } from '../utils/auth.js';
-import admin from 'firebase-admin';
+import { clearCookie, validateRegisterInput } from '../utils/auth.js';
 
 const authRoute = Router();
 
@@ -57,7 +57,10 @@ authRoute.post('/login', async (req, res) => {
     },
   );
   res.cookie('token', token, {
-    httpOnly: true,
+    httpOnly: true /* httpOnly: true will prevent javascript from accessing cookies */,
+    secure: envConfig.ENV === 'product' /* secure: true will only send cookie over https */,
+    sameSite: 'lax' /* sameSite: lax will prevent csrf attack */,
+    signed: true /* signed: true will use secret key to encrypt cookie */,
   });
 
   return res.send('Login success');
@@ -109,8 +112,12 @@ authRoute.post('/sso-login', async (req, res) => {
         expiresIn: '1day',
       },
     );
+
     res.cookie('token', jwtToken, {
       httpOnly: true,
+      secure: envConfig.ENV === 'product',
+      sameSite: 'lax',
+      signed: true,
     });
 
     return res.send('Login success');

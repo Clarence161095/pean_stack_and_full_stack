@@ -5,6 +5,7 @@ import Content from './Content';
 import Header from './Header';
 import Navigator from './Navigator';
 import { getAuth } from 'firebase/auth';
+import { loginSSO } from '../services/Auth';
 
 export default function AuthenticatedLayout() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function AuthenticatedLayout() {
   useEffect(() => {
     const unSub = auth.onIdTokenChanged(async (user) => {
       if (user) {
+        const accessToken = await auth.currentUser.getIdToken();
+        await loginSSO(accessToken);
         return;
       }
       navigate('/login');

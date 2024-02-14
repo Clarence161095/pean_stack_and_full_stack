@@ -11,7 +11,6 @@ const Login = () => {
     await signInWithPopup(auth, provider);
     const accessToken = await auth.currentUser.getIdToken();
     localStorage.setItem('accessToken', accessToken);
-    navigate('/home');
   };
 
   useEffect(() => {
@@ -24,8 +23,8 @@ const Login = () => {
 
     return () => {
       unSub();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

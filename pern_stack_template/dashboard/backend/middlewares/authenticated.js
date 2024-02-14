@@ -1,12 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { envConfig } from '../configs/envConfig.js';
-import { getCookies } from '../utils/auth.js';
 
 export const decodeLoginUser = (req, res, next) => {
-  const token = getCookies(req).token;
-  if (token) {
+  if (req.signedCookies.token) {
     try {
-      req.loginUser = jwt.verify(token, envConfig.JWT_SECRET);
+      req.loginUser = jwt.verify(req.signedCookies.token, envConfig.JWT_SECRET);
     } catch (error) {
       return res.status(401).json({ message: 'Invalid token' });
     }
