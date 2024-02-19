@@ -1,41 +1,29 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import MenuContextProvider from '../contexts/MenuContext';
+import { useState } from 'react';
+import Loading from '../components/Loading';
 import Content from './Content';
 import Header from './Header';
 import Navigator from './Navigator';
-import { getAuth } from 'firebase/auth';
-import { loginSSO } from '../services/Auth';
+import MenuContextProvider from '../contexts/MenuContext';
+import useAuthenticated from '../hooks/useAuthenticated';
 
 export default function AuthenticatedLayout() {
-  const navigate = useNavigate();
-  const auth = getAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const unSub = auth.onIdTokenChanged(async (user) => {
-      if (user) {
-        const accessToken = await auth.currentUser.getIdToken();
-        await loginSSO(accessToken);
-        return;
-      }
-      navigate('/login');
-    });
+  useAuthenticated(setIsLoading);
 
-    return () => {
-      unSub();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  if (!isLoading) {
+    return (
+      <MenuContextProvider>
+        <div className="flex flex-col h-screen overflow-hidden">
+          <Header />
+          <section className="flex h-full">
+            <Navigator />
+            <Content />
+          </section>
+        </div>
+      </MenuContextProvider>
+    );
+  }
 
-  return (
-    <MenuContextProvider>
-      <div className="flex flex-col h-screen overflow-hidden">
-        <Header />
-        <section className="flex h-full">
-          <Navigator />
-          <Content />
-        </section>
-      </div>
-    </MenuContextProvider>
-  );
+  return <Loading />;
 }

@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import AuthenticatedLayout from '../layouts/AuthenticatedLayout';
 import CommonLayout from '../layouts/CommonLayout';
 import Login from '../pages/Login';
+import Register from '../pages/Register';
 import MyInfo from '../pages/MyInfo';
 import NotFound from '../pages/NotFound';
 import Home from '../pages/home/Home';
@@ -19,6 +20,10 @@ const routesConfigs = [
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
       {
         element: <AuthenticatedLayout />,

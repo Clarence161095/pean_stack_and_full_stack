@@ -12,12 +12,12 @@ authRoute.post('/register', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
-    return res.send('User already exist');
+    return res.status(400).send({ message: 'User already exist' });
   }
   // validate email and password
   const error = validateRegisterInput(email, password);
   if (error) {
-    return res.status(400).send(error);
+    return res.status(400).send({ message: error });
   }
 
   // encrypt password
@@ -28,7 +28,7 @@ authRoute.post('/register', async (req, res) => {
     type: 'local',
   });
   await newUser.save();
-  res.send('User created');
+  res.send({ message: 'Register success' });
 });
 
 authRoute.post('/login', async (req, res) => {
@@ -36,13 +36,13 @@ authRoute.post('/login', async (req, res) => {
   // check if user exist
   const user = await User.findOne({ email });
   if (!user) {
-    return res.send('Invalid login');
+    return res.status(400).send({ message: 'Invalid login' });
   }
   // check if password is correct
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
     clearCookie(res);
-    return res.send('Invalid login');
+    return res.status(400).send({ message: 'Invalid login' });
   }
 
   // Create jwt token and save in cookie
@@ -56,6 +56,7 @@ authRoute.post('/login', async (req, res) => {
       expiresIn: '1day',
     },
   );
+
   res.cookie('token', token, {
     httpOnly: true /* httpOnly: true will prevent javascript from accessing cookies */,
     secure: envConfig.ENV === 'product' /* secure: true will only send cookie over https */,
@@ -63,18 +64,18 @@ authRoute.post('/login', async (req, res) => {
     signed: true /* signed: true will use secret key to encrypt cookie */,
   });
 
-  return res.send('Login success');
+  return res.send({ message: 'Login success' });
 });
 
 authRoute.get('/logout', (req, res) => {
   clearCookie(res);
-  res.send('Logout success');
+  res.send({ message: 'Logout success' });
 });
 
 authRoute.post('/sso-login', async (req, res) => {
   const bearerToken = req.headers.authorization;
   if (!bearerToken) {
-    return res.send('Not logged in');
+    return res.status(401).send({ message: 'Unauthorized' });
   }
   const token = bearerToken.split(' ')[1];
   // This token is firebase token
@@ -120,9 +121,9 @@ authRoute.post('/sso-login', async (req, res) => {
       signed: true,
     });
 
-    return res.send('Login success');
+    return res.send({ message: 'Login success' });
   } catch (error) {
-    return res.send('Invalid token');
+    return res.status(401).send({ message: 'Unauthorized' });
   }
 });
 
