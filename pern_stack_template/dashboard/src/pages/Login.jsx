@@ -27,8 +27,8 @@ const useLogin = () => {
       setIsLoading(false);
       navigate('/home');
     } catch (error) {
-      setError(error.response.data.message);
       setIsLoading(false);
+      setError(error?.response?.data?.message);
       localStorage.clear();
     }
   };
@@ -43,8 +43,8 @@ const useLogin = () => {
       setIsLoading(false);
       navigate('/home');
     } catch (error) {
-      setError(error.response.data.message);
       setIsLoading(false);
+      setError(error?.response?.data?.message);
       localStorage.clear();
     }
   };
