@@ -1,0 +1,5 @@
+title Login with Google
+
+User -> Google: Login
+Google -> User: Redirect to Google Login
+User -> Google: Enter Google Credentials
