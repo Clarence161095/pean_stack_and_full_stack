@@ -1,0 +1,194 @@
+{
+  "announcements": [
+    {
+      "id": "1",
+      "title": "The first announcement",
+      "content": "This is the first announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": true
+    },
+    {
+      "id": "2",
+      "title": "The second announcement",
+      "content": "This is the second announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": false
+    },
+    {
+      "id": "3",
+      "title": "The third announcement",
+      "content": "This is the third announcement",
+      "author": "John Doe",
+      "date": "2021-10-10",
+      "isRead": false
+    },
+    {
+      "id": "44a1",
+      "title": "Tuan",
+      "content": "Tuan",
+      "author": "123",
+      "date": "2024-02-05",
+      "isRead": false
+    },
+    {
+      "id": "8cae",
+      "title": "Tuan",
+      "content": "Tuan",
+      "author": "Tuan",
+      "date": "2024-02-05",
+      "isRead": false
+    },
+    {
+      "id": "2671",
+      "title": "Tuan@1",
+      "content": "Tuan",
+      "author": "Tuan",
+      "date": "2024-02-05",
+      "isRead": false
+    },
+    {
+      "id": "7343",
+      "title": "123123@1",
+      "content": "123123",
+      "author": "123123",
+      "date": "2024-02-05",
+      "isRead": false
+    },
+    {
+      "id": "f2fc",
+      "title": "123123@12123",
+      "content": "12312123123",
+      "author": "Tuan",
+      "date": "2024-02-05",
+      "isRead": false
+    },
+    {
+      "id": "7238",
+      "title": "123123@123123",
+      "content": "123123123123123",
+      "author": "Tuan",
+      "date": "2024-02-05",
+      "isRead": false
+    }
+  ],
+  "graphs": [
+    {
+      "id": "1",
+      "title": "a title"
+    },
+    {
+      "id": "2",
+      "title": "another title"
+    },
+    {
+      "id": "3",
+      "title": "yet another title"
+    },
+    {
+      "id": "4",
+      "title": "a title once again"
+    },
+    {
+      "id": "5",
+      "title": "title strikes back"
+    },
+    {
+      "id": "75b5",
+      "title": "Tuan"
+    },
+    {
+      "id": "58f2",
+      "title": "Tuan"
+    },
+    {
+      "id": "6465",
+      "title": "tuan"
+    },
+    {
+      "id": "e94e",
+      "title": "tuan"
+    },
+    {
+      "id": "8088",
+      "title": "Linh"
+    },
+    {
+      "id": "65da"
+    },
+    {
+      "id": "1f1d",
+      "title": "Linh2"
+    },
+    {
+      "id": "47cb",
+      "title": "tuan2"
+    },
+    {
+      "id": "6b2e"
+    },
+    {
+      "id": "4a89",
+      "title": "tuan"
+    },
+    {
+      "id": "c7c8",
+      "title": "tuan2"
+    },
+    {
+      "id": "2d7a",
+      "title": "tuan2"
+    },
+    {
+      "id": "0ed0",
+      "title": "tuan"
+    },
+    {
+      "id": "4c71",
+      "title": "tuan"
+    },
+    {
+      "id": "4594",
+      "title": "tuan"
+    },
+    {
+      "id": "671e",
+      "title": "Linh"
+    },
+    {
+      "id": "f822",
+      "title": "Linh2"
+    },
+    {
+      "id": "3808",
+      "title": "Linh 2"
+    }
+  ],
+  "isAnnouncementUpdated": [
+    {
+      "lastUpdated": "2024-01-24T13:34:01.533Z909932.0262632227",
+      "id": "1"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "role": "user"
+    }
+  ],
+  "auths": [
+    {
+      "id": "1",
+      "isAuth": true
+    },
+    {
+      "id": "2",
+      "isAuth": false
+    }
+  ]
+}

@@ -31,6 +31,11 @@ authRoute.post('/register', async (req, res) => {
   res.send({ message: 'Register success' });
 });
 
+authRoute.get('/logout', (req, res) => {
+  clearCookie(res);
+  res.send({ message: 'Logout success' });
+});
+
 authRoute.post('/login', async (req, res) => {
   const { email, password } = req.body;
   // check if user exist
@@ -45,11 +50,14 @@ authRoute.post('/login', async (req, res) => {
     return res.status(400).send({ message: 'Invalid login' });
   }
 
+  // Xác thực thành công
+
   // Create jwt token and save in cookie
   const token = jwt.sign(
     {
       id: user._id,
       email: user.email,
+      role: 'user',
     },
     envConfig.JWT_SECRET,
     {
@@ -65,11 +73,6 @@ authRoute.post('/login', async (req, res) => {
   });
 
   return res.send({ message: 'Login success' });
-});
-
-authRoute.get('/logout', (req, res) => {
-  clearCookie(res);
-  res.send({ message: 'Logout success' });
 });
 
 authRoute.post('/sso-login', async (req, res) => {

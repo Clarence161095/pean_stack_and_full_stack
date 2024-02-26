@@ -2,22 +2,28 @@
 function Loading() {
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-1">
+        {/* SVG Spinner from Flowbite with TailwindCSS for styling */}
         <svg
-          className="animate-slow-spin h-20 w-20 text-blue-500"
+          aria-hidden="true"
+          className="animate-spin mr-3 h-11 w-11 text-blue-500"
           viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
         >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
           <path
-            d="M12 2.99988V5.99988M12 20.9999V17.9999M4.20577 16.4999L6.80385 14.9999M21 11.9999H18M16.5 19.7941L15 17.196M3 11.9999H6M7.5 4.20565L9 6.80373M7.5 19.7941L9 17.196M19.7942 16.4999L17.1962 14.9999M4.20577 7.49988L6.80385 8.99988"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
         </svg>
-        <h1 className="mt-4 text-xl font-semibold text-gray-400">Loading...</h1>
+        <p>Loading...</p>
       </div>
     </div>
   );

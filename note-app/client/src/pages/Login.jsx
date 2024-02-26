@@ -1,11 +1,8 @@
 import Loading from '../components/Loading';
-
-const useLogin = () => {
-  return {};
-};
+import useLogin from '../hooks/useLogin';
 
 function Login() {
-  const { handleLoginWithGoogle, isLoading, errorMessage } = useLogin();
+  const { handleLoginWithGoogle, isLoading, error } = useLogin();
 
   if (!isLoading) {
     return (
@@ -13,7 +10,7 @@ function Login() {
         <div className="flex justify-center items-center h-screen">
           <div className="flex flex-col w-96 space-y-4">
             <h1 className="text-3xl font-bold text-center">Login</h1>
-            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+            {error && <p className="text-red-500 mt-2">{error}</p>}
             {/* Second Login with Google */}
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
