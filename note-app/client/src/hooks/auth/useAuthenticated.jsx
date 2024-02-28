@@ -1,14 +1,14 @@
 import { useContext, useEffect } from 'react';
-import { LoginUserContext } from '../layouts/RootLayout';
-import { getUserInfo } from '../services/login';
 import { useNavigate } from 'react-router-dom';
+import { LoginUserContext } from '../../layouts/RootLayout';
+import { getUserInfo } from '../../services/login';
 
-const useAuthenticated = (setLoading) => {
-  const { loginUser, setLoginUser } = useContext(LoginUserContext);
+const useAuthenticated = () => {
+  const { loginUser, setLoginUser, setIsLoading } = useContext(LoginUserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
+    setIsLoading(true);
     getUserInfo()
       .then((data) => {
         if (data.loginUser.id) {
@@ -17,16 +17,16 @@ const useAuthenticated = (setLoading) => {
           setLoginUser({});
           navigate('/login');
         }
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch(() => {
         setLoginUser({});
-        setLoading(false);
+        setIsLoading(false);
         navigate('/login');
       });
 
     return () => {
-      setLoading(false);
+      setIsLoading(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
