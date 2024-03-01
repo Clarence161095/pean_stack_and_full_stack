@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import Item from '../common/Item';
-import List, { ListItem } from '../common/List';
+import { ListItem } from '../common/List';
+import ListCircleItem from '../common/ListCircleItem';
 
 const mockFolders = [
   {
@@ -21,11 +21,28 @@ const mockFolders = [
   },
 ];
 
+const joinAvatarHorizontalList = [
+  {
+    id: 'join-avatar-1',
+    name: 'Tuan',
+  },
+  {
+    id: 'join-avatar-2',
+    name: 'Link',
+  },
+  {
+    id: 'join-avatar-3',
+    name: 'Quang',
+  },
+  {
+    id: 'join-avatar-4',
+    name: 'Kawa',
+  },
+];
+
 const Folders = () => {
   const { folderId } = useParams();
   const navigate = useNavigate();
-
-  const isFolderId = folderId !== undefined;
 
   return (
     <div className="flex">
@@ -40,43 +57,22 @@ const Folders = () => {
         >
           <span className="text-stone-100">+ Add new folder</span>
         </div>
-        {/* <ul className="space-y-2 text-stone-100">
-          {mockFolders.map((folder) => (
-            <Item
-              key={folder.id}
-              text={folder.name}
-              isActive={isFolderId && folderId === folder.id}
-              className="p-2 hover:text-stone-200 cursor-pointer transition-all duration-300 ease-in-out border-b-2 border-stone-100 pb-2 w-full hover:bg-stone-400 hover:rounded-md"
-              activeClassName="bg-stone-400 rounded-md"
-              onClick={() => navigate(`/${folder.id}`)}
-            />
-          ))}
-        </ul>
-        <List
-          className="space-y-2 text-stone-100"
-          list={mockFolders}
-          setItem={(item) => (
-            <Item
-              key={item.id}
-              text={item.name}
-              isActive={isFolderId && folderId === item.id}
-              className="p-2 hover:text-stone-200 cursor-pointer transition-all duration-300 ease-in-out border-b-2 border-stone-100 pb-2 w-full hover:bg-stone-400 hover:rounded-md"
-              activeClassName="bg-stone-400 rounded-md"
-              onClick={() => navigate(`/${item.id}`)}
-            />
-          )}
-        /> */}
         <ListItem
-          className="space-y-2 text-stone-100"
+          ulClassName="w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200"
           list={mockFolders}
           activeId={folderId}
-          itemClass="p-2 hover:text-stone-200 cursor-pointer transition-all duration-300 ease-in-out border-b-2 border-stone-100 pb-2 w-full hover:bg-stone-400 hover:rounded-md"
-          itemActiveClass="bg-stone-400 rounded-md"
+          liClass="p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
+          liActiveClass="bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
           onClickItem={(id) => navigate(`/${id}`)}
         />
       </div>
       <div className="w-3/4">
         {folderId && <h1>Folder {folderId}</h1>}
+        <ListCircleItem
+          list={joinAvatarHorizontalList}
+          activeId={folderId}
+          onClickItem={(id) => navigate(`/${id}`)}
+        />
         <Outlet />
       </div>
     </div>

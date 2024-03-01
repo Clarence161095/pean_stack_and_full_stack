@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
-import RootLayout from '../layouts/RootLayout';
-import NotFoundPage from '../pages/NotFoundPage';
 import AuthenticatedLayout from '../layouts/AuthenticatedLayout';
+import RootLayout from '../layouts/RootLayout';
 import Home from '../pages/Home';
-import Folders from '../components/Folders';
+import NotFoundPage from '../pages/NotFoundPage';
+import Folders from '../components/Folders/Folders';
 import Notes from '../components/Notes';
 import Login from '../pages/Login';
 
