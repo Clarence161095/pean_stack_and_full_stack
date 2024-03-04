@@ -2,9 +2,16 @@ import { forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 
 const Modal = forwardRef((props, ref) => {
+  const handleClick = (event) => {
+    if (event.target === ref.current) {
+      ref.current.close();
+    }
+  };
+
   return createPortal(
     <dialog
       ref={ref}
+      onClick={handleClick}
       className="fixed max-w-[60vw] w-[100%] z-20 backdrop:bg-stone-900/90 p-4 rounded-md shadow-md left-[25%] top-[10%]"
     >
       <button className="absolute top-2 right-2" onClick={() => ref.current.close()}>
