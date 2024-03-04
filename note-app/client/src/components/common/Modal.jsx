@@ -1,23 +1,10 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 
 const Modal = forwardRef((props, ref) => {
-  const dialog = useRef(null);
-
-  useImperativeHandle(ref, () => ({
-    open: () => {
-      console.log('dialog', dialog.current);
-      dialog.current.showModal();
-    },
-    close: () => {
-      console.log('dialog', dialog.current);
-      dialog.current.close();
-    },
-  }));
-
   return createPortal(
     <dialog
-      ref={dialog}
+      ref={ref}
       className="fixed max-w-[60vw] w-[100%] z-20 backdrop:bg-stone-900/90 p-4 rounded-md shadow-md left-[25%] top-[10%]"
     >
       <button className="absolute top-2 right-2" onClick={() => ref.current.close()}>
