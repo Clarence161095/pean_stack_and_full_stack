@@ -1,18 +1,17 @@
 import { forwardRef } from 'react';
-import { createPortal } from 'react-dom';
 
-const Modal = forwardRef((props, ref) => {
+const Modal = forwardRef(({ children, closeWhenClickOutside = false }, ref) => {
   const handleClick = (event) => {
-    if (event.target === ref.current) {
+    if (event.target === ref.current && closeWhenClickOutside) {
       ref.current.close();
     }
   };
 
-  return createPortal(
+  return (
     <dialog
       ref={ref}
       onClick={handleClick}
-      className="fixed max-w-[60vw] w-[100%] z-20 backdrop:bg-stone-900/90 p-4 rounded-md shadow-md left-[25%] top-[10%]"
+      className="absolute max-w-[60vw] w-[100%] max-h-[100vh] z-10 backdrop:bg-stone-900/90 p-4 rounded-md shadow-md"
     >
       <button className="absolute top-2 right-2" onClick={() => ref.current.close()}>
         <svg
@@ -31,9 +30,8 @@ const Modal = forwardRef((props, ref) => {
           />
         </svg>
       </button>
-      {props.children}
-    </dialog>,
-    document.getElementById('modal-root'),
+      {children}
+    </dialog>
   );
 });
 
