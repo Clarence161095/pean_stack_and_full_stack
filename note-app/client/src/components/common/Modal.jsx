@@ -1,6 +1,10 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
+import { LoginUserContext } from '../../layouts/RootLayout';
+import Loading from '../Loading';
 
 const Modal = forwardRef(({ children, closeWhenClickOutside = false }, ref) => {
+  const { isLoading } = useContext(LoginUserContext);
+
   const handleClick = (event) => {
     if (event.target === ref.current && closeWhenClickOutside) {
       ref.current.close();
@@ -30,6 +34,7 @@ const Modal = forwardRef(({ children, closeWhenClickOutside = false }, ref) => {
           />
         </svg>
       </button>
+      {isLoading && <Loading />}
       {children}
     </dialog>
   );
