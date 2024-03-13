@@ -1,59 +1,59 @@
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { LoginUserContext } from '../../layouts/RootLayout';
 import { ListItem } from '../common/List';
 import Modal from '../common/Modal';
-
-const mockFolders = [
-  {
-    id: 'folder-1',
-    name: 'Folder 1',
-  },
-  {
-    id: 'folder-2',
-    name: 'Folder 2',
-  },
-  {
-    id: 'folder-3',
-    name: 'Folder 3',
-  },
-  {
-    id: 'folder-4',
-    name: 'Folder 4',
-  },
-];
+import { selectFolders, addFolder } from './FolderState';
 
 const useFacade = () => {
   const { setIsLoading } = useContext(LoginUserContext);
   const { folderId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data, errorMessage, isLoading } = useSelector(selectFolders);
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [isLoading, setIsLoading]);
+
+  const handleAddFolder = (folderName) => {
+    if (folderName) {
+      const folderId = `folder-${data.length + 1}`;
+      dispatch(addFolder({ id: folderId, name: folderName }));
+      dispatch({
+        type: 'folders/errorMessage',
+        payload: '',
+      });
+      return navigate(`/${folderId}`);
+    } else {
+      dispatch({
+        type: 'folders/errorMessage',
+        payload: 'Folder name is required',
+      });
+      return false;
+    }
+  };
 
   return {
     folderId,
-    listFolder: mockFolders,
-    addFolder: (folderName) => {
-      // TODO: Add Folder
-      console.log('Add Folder Name: ', folderName);
-    },
+    listFolder: data,
+    addFolder: handleAddFolder,
     navigate,
-    setIsLoading,
-    errorMessage: 'Error Message',
+    errorMessage: errorMessage,
   };
 };
 
 const AddFolderModal = ({ modalRef }) => {
-  const { addFolder, setIsLoading, errorMessage } = useFacade();
+  const { addFolder, errorMessage } = useFacade();
 
   const handleAddFolder = (e) => {
     e.preventDefault();
-    const folderName = e.target.folderName.value;
-    setIsLoading(true);
-    setTimeout(() => {
-      addFolder(folderName);
-      setIsLoading(false);
-      modalRef.current.close();
-    }, 2000);
-    console.log(folderName);
+    addFolder(e.target.folderName.value);
   };
 
   return (
@@ -102,7 +102,15 @@ const ListFolders = () => {
 
 const Folders = () => {
   const { folderId } = useFacade();
+  const curFolderId = useRef(folderId);
   const addFolderModalRef = useRef(null);
+
+  useEffect(() => {
+    if (curFolderId.current !== folderId) {
+      curFolderId.current = folderId;
+      addFolderModalRef.current.close();
+    }
+  }, [folderId]);
 
   return (
     <>

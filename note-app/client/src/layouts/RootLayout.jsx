@@ -1,6 +1,8 @@
 import { createContext, useState } from 'react';
+import { Provider } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Loading from '../components/Loading';
+import { store } from '../store';
 
 export const LoginUserContext = createContext({});
 
@@ -9,10 +11,12 @@ const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <LoginUserContext.Provider value={{ loginUser, setLoginUser, isLoading, setIsLoading }}>
-      <Outlet />
-      {isLoading && <Loading />}
-    </LoginUserContext.Provider>
+    <Provider store={store}>
+      <LoginUserContext.Provider value={{ loginUser, setLoginUser, isLoading, setIsLoading }}>
+        <Outlet />
+        {isLoading && <Loading />}
+      </LoginUserContext.Provider>
+    </Provider>
   );
 };
 
