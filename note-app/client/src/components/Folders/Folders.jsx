@@ -56,6 +56,11 @@ const AddFolderModal = ({ modalRef }) => {
     addFolder(e.target.folderName.value);
   };
 
+  const getNum = function (e) {
+    console.log("Num Tuan:", e.target.value);
+  };
+    
+
   return (
     <Modal ref={modalRef}>
       <form className="flex flex-col gap-4" onSubmit={handleAddFolder}>
@@ -70,6 +75,7 @@ const AddFolderModal = ({ modalRef }) => {
             type="text"
             id="folderName"
             name="folderName"
+            onChange={getNum}
             className="p-2 bg-stone-400 text-stone-100 rounded-md"
           />
         </div>
