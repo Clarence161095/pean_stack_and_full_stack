@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef } from 'react';
+import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { LoginUserContext } from '../../layouts/RootLayout';
 import { ListItem } from '../common/List';
 import Modal from '../common/Modal';
-import { selectFolders, addFolder } from './FolderState';
+import { addFolder, selectFolders } from './FolderState';
 
 const useFacade = () => {
   const { setIsLoading } = useContext(LoginUserContext);
@@ -57,9 +57,8 @@ const AddFolderModal = ({ modalRef }) => {
   };
 
   const getNum = function (e) {
-    console.log("Num Tuan:", e.target.value);
+    console.log('Num Tuan:', e.target.value);
   };
-    
 
   return (
     <Modal ref={modalRef}>
@@ -91,25 +90,37 @@ const AddFolderModal = ({ modalRef }) => {
   );
 };
 
-const ListFolders = () => {
-  const { folderId, listFolder, navigate } = useFacade();
+const ListFolders = memo(({ folderId, handleCount }) => {
+  const { listFolder, navigate } = useFacade();
+
+  console.log('ListFolders is Rendered!' + folderId);
 
   return (
-    <ListItem
-      ulClassName="w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200"
-      list={listFolder}
-      activeId={folderId}
-      liClass="p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none"
-      liActiveClass="bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
-      onClickItem={(id) => navigate(`/${id}`)}
-    />
+    <>
+      <ListItem
+        ulClassName="w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200"
+        list={listFolder}
+        activeId={folderId}
+        liClass="p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none"
+        liActiveClass="bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
+        onClickItem={(id) => navigate(`/${id}`)}
+      />
+      <button
+        className="p-2 bg-stone-500 text-stone-100 hover:bg-stone-400 transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none"
+        onClick={handleCount}
+      >
+        Count
+      </button>
+    </>
   );
-};
+});
 
 const Folders = () => {
   const { folderId } = useFacade();
   const curFolderId = useRef(folderId);
   const addFolderModalRef = useRef(null);
+
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (curFolderId.current !== folderId) {
@@ -117,6 +128,16 @@ const Folders = () => {
       addFolderModalRef.current.close();
     }
   }, [folderId]);
+
+  const _handleCount = () => {
+    setCount((prev) => prev + 1);
+  }
+
+  // const handleCount = useCallback(_handleCount, []);
+
+  const handleCount = useMemo(() => {
+    return _handleCount;
+  }, [])
 
   return (
     <>
@@ -132,10 +153,12 @@ const Folders = () => {
           >
             <span className="text-stone-100">+ Add new folder</span>
           </div>
-          <ListFolders />
+          <ListFolders folderId={folderId} handleCount={handleCount} />
         </div>
         <div className="w-1/4">{folderId && <h1>Folder {folderId}</h1>}</div>
         <div className="w-2/4">
+          {count}
+          <button onClick={handleCount}>Count</button>
           <Outlet />
         </div>
       </div>
