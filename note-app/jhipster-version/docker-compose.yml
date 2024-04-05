@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  jhipster:
+    image: jhipster/jhipster
+    container_name: jhipster
+    volumes:
+      - ./app:/home/jhipster/app
+    ports:
+      - "9000:9000"
+      - "8080:8080"
+    tty: true
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/jhipster
+      - SPRING_DATASOURCE_USERNAME=jhipster
+      - SPRING_DATASOURCE_PASSWORD=jhipster
+      
+  db:
+    image: postgres:14.5
+    container_name: db
+    environment:
+      - POSTGRES_DB=jhipster
+      - POSTGRES_USER=jhipster
+      - POSTGRES_PASSWORD=jhipster
+    ports:
+      - "5432:5432"
