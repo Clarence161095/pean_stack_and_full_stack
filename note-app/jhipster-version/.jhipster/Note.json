@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240405131330"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Note",
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "folder",
+      "relationshipName": "folder",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

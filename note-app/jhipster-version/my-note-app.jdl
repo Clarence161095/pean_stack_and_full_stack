@@ -1,0 +1,12 @@
+entity Folder {
+  name String required
+}
+
+entity Note {
+  title String required,
+  content TextBlob required
+}
+
+relationship ManyToOne {
+  Note{folder(name)} to Folder
+}
