@@ -1,70 +1,78 @@
 class MyPromise {
   constructor (ex) {
-    ex(this.#resolve.bind(this), this.#reject.bind(this))
+    ex(this.resolve.bind(this), this.reject.bind(this))
   }
 
-  #resolve(data) {
+  resolve (data) {
     this.getResult(data)
   }
 
-  #reject(error) {
+  reject (error) {
     this.getError(error)
   }
 
-  then(getResult) {
+  then (getResult) {
     this.getResult = getResult
     return this
   }
 
-  catch(getError) {
+  catch (getError) {
     this.getError = getError
     return this
   }
 }
 
-const promise = new Promise((resolve, reject) => {
-  try {
-    setTimeout(() => {
-      resolve('success Promise')
-    }, 1000);
-  } catch (e) {
-    reject('error')
-  }
-})
-promise.then((data) => {
-  console.log(data)
-}).catch((error) => {
-  console.log(error)
-})
+const postgres = callBack => {
+  setTimeout(() => {
+    callBack()
+  }, 1000)
+}
 
-// const param = (ok, notOK) => {
-//   try {
-//     setTimeout(() => {
-//       ok('success MyPromise')
-//     }, 1000);
-//   } catch (e) {
-//     notOK('error')
-//   }
-// }
-const myPromise = new MyPromise((resolve, reject) => {
-  try {
-    setTimeout(() => {
-      resolve('success MyPromise')
-    }, 1000);
-  } catch (e) {
-    reject('error')
-  }
-})
+function getListCompany (callMeWhenDone) {
+  postgres(queryToolKit => {
+    // Connect DB and get list company
+    // Do something...
+    // const data = queryToolKit('SELECT * FROM company')
+    const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    callMeWhenDone(list)
+  })
+}
 
-// myPromise.getResult = (data) => {
-//   console.log(data)
-// }
-// myPromise.getError = (error) => {
-//   console.log(error)
-// }
+function main () {
+  console.log('Start main')
+  getListCompany(list => {
+    console.log('Call me: ', list)
+  })
 
-myPromise.then((data) => {
-  console.log(data)
-}).catch((error) => {
-  console.log(error)
-})
+  // ------------------------------------------------
+
+  const promise = new Promise(callMeWhenDone => {
+    // Connect DB and get list company
+    // Do something...
+    // const data = queryToolKit('SELECT * FROM company')
+    postgres(() => {
+      const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      callMeWhenDone(list)
+    })
+  })
+  promise.then(list => {
+    console.log('Promise: ', list)
+  })
+
+  // ------------------------------------------------
+  const myPromise = new MyPromise(callMeWhenDone => {
+    // Connect DB and get list company
+    // Do something...
+    // const data = queryToolKit('SELECT * FROM company')
+    postgres(() => {
+      const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      callMeWhenDone(list)
+    })
+  })
+  myPromise.then(list => {
+    console.log('MyPromise: ', list)
+  })
+
+  console.log('End main')
+}
+main()
