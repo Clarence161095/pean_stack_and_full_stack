@@ -153,6 +153,8 @@ const Folders = () => {
   const addFolderModalRef = useRef(null);
   const dispatch = useDispatch();
 
+  console.log('Folders render');
+
   useEffect(() => {
     dispatch(dayLaHamBatDongBoCuaToi);
     // dispatch(async dispatch => {

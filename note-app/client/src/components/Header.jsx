@@ -6,6 +6,8 @@ function Header() {
   const { loginUser } = useContext(LoginUserContext);
   const { handleLogout } = useLogout();
 
+  console.log('Header render');
+
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="flex justify-between items-center">
