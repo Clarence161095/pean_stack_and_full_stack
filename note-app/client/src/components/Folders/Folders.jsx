@@ -25,32 +25,43 @@ const mockFolders = [
   },
 ];
 
-function getInitDataMock () {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(mockFolders);
-    }, 1000);
-  });
+function getInitDataMock (id) {
+  if (id) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(mockFolders);
+      }, 1000);
+    });
+  } else {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve([
+          {
+            id: 'folder-1',
+            name: 'No ID Folder',
+          },
+        ]);
+      }, 1000);
+    });
+  }
 }
 
-const dayLaHamBatDongBoCuaToi = async tuan => {
-  tuan({
-    type: 'folders/isLoading',
-    payload: true,
-  });
-  const data = await getInitDataMock();
-  tuan({
-    type: 'folders/isLoading',
-    payload: false,
-  });
-  tuan({
-    type: 'folders/initFolders',
-    payload: data,
-  });
-};
-
-export const fetchInitFolders = () => {
-  return dayLaHamBatDongBoCuaToi;
+const thisIsThunk = (id) => {
+  return async dispatch => {
+    dispatch({
+      type: 'folders/isLoading',
+      payload: true,
+    });
+    const data = await getInitDataMock(id);
+    dispatch({
+      type: 'folders/isLoading',
+      payload: false,
+    });
+    dispatch({
+      type: 'folders/initData',
+      payload: data,
+    });
+  };
 };
 
 const useFacade = () => {
@@ -155,26 +166,12 @@ const Folders = () => {
 
   console.log('Folders render');
 
-  useEffect(() => {
-    dispatch(dayLaHamBatDongBoCuaToi);
-    // dispatch(async dispatch => {
-    //   dispatch({
-    //     type: 'folders/isLoading',
-    //     payload: true,
-    //   });
-    //   const data = await getInitDataMock();
-    //   dispatch({
-    //     type: 'folders/isLoading',
-    //     payload: false,
-    //   });
-    //   dispatch({
-    //     type: 'folders/initFolders',
-    //     payload: data,
-    //   });
-    // });
-    // dispatch(fetchInitFolders());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const loadData = () => {
+    dispatch(thisIsThunk(curFolderId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  useEffect(loadData, []);
 
   useEffect(() => {
     if (curFolderId.current !== folderId) {
@@ -198,6 +195,12 @@ const Folders = () => {
             <span className='text-stone-100'>+ Add new folder</span>
           </div>
           <ListFolders folderId={folderId} />
+          <button
+            className='p-2 bg-stone-500 text-stone-100 rounded-md hover:bg-stone-400 transition-all duration-300 ease-in-out'
+            onClick={loadData}
+          >
+            Load Data
+          </button>
         </div>
         <div className='w-1/4'>{folderId && <h1>Folder {folderId}</h1>}</div>
         <div className='w-2/4'>

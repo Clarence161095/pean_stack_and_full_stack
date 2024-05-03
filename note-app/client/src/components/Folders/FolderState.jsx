@@ -8,7 +8,7 @@ export const foldersSlice = createSlice({
     errorMessage: '',
   },
   reducers: {
-    initFolders: (state, action) => {
+    initData: (state, action) => {
       state.data = action.payload;
     },
     addFolder: (state, action) => {
@@ -23,6 +23,6 @@ export const foldersSlice = createSlice({
   },
 });
 
-export const { addFolder, initFolders, isLoading, errorMessage } = foldersSlice.actions;
+export const { addFolder, initData, isLoading, errorMessage } = foldersSlice.actions;
 
 export const selectFolders = (state) => state.folders;
