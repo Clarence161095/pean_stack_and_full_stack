@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "main.java.com.app.Main",
+      "projectName": "day_115_b4f966fa"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "main.java.com.main.Main",
+      "projectName": "day_115_b4f966fa"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "main.java.com.example.Main",
+      "projectName": "day_115_b4f966fa"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "index",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/index.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "index2",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/index2.js",
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
