@@ -3,6 +3,7 @@ package com.example.todoapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,36 +21,46 @@ import com.example.todoapp.service.TaskService;
 @RequestMapping("/api/tasks")
 public class TaskController {
     @Autowired
-    private TaskService taskService;
-    
+    @Qualifier("TaskServiceImpl")
+    private TaskService TaskServiceImpl;
+
+    @Autowired
+    @Qualifier("TaskServiceMock")
+    private TaskService taskServiceMock;
+
+    private TaskService getTaskService() {
+        boolean isMock = false;
+        return isMock ? taskServiceMock : TaskServiceImpl;
+    }
+
     @GetMapping
     public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+        return getTaskService().getAllTasks();
     }
-    
+
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
+        return getTaskService().getTaskById(id);
     }
-    
+
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
+        return getTaskService().createTask(task);
     }
-    
+
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task task) {
         task.setId(id);
-        return taskService.updateTask(task);
+        return getTaskService().updateTask(task);
     }
-    
+
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
+        getTaskService().deleteTask(id);
     }
-    
+
     @GetMapping("/search")
     public List<Task> searchTasks(@RequestParam String keyword) {
-        return taskService.searchTasks(keyword);
+        return getTaskService().searchTasks(keyword);
     }
 }
