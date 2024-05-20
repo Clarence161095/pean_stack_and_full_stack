@@ -5,54 +5,15 @@ import { LoginUserContext } from '../../layouts/RootLayout';
 import { ListItem } from '../common/List';
 import Modal from '../common/Modal';
 import { addFolder, selectFolders } from './FolderState';
+import { get } from '../../configs/api';
 
-const mockFolders = [
-  {
-    id: 'folder-1',
-    name: 'Folder 1',
-  },
-  {
-    id: 'folder-2',
-    name: 'Folder 2',
-  },
-  {
-    id: 'folder-3',
-    name: 'Folder 3',
-  },
-  {
-    id: 'folder-4',
-    name: 'Folder 4',
-  },
-];
-
-function getInitDataMock (id) {
-  if (id) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(mockFolders);
-      }, 1000);
-    });
-  } else {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: 'folder-1',
-            name: 'No ID Folder',
-          },
-        ]);
-      }, 1000);
-    });
-  }
-}
-
-const thisIsThunk = (id) => {
-  return async dispatch => {
+const getFolders = () => {
+  return async (dispatch) => {
     dispatch({
       type: 'folders/isLoading',
       payload: true,
     });
-    const data = await getInitDataMock(id);
+    const data = await get('/api/folders');
     dispatch({
       type: 'folders/isLoading',
       payload: false,
@@ -79,7 +40,7 @@ const useFacade = () => {
     }
   }, [isLoading, setIsLoading]);
 
-  const handleAddFolder = folderName => {
+  const handleAddFolder = (folderName) => {
     if (folderName) {
       const folderId = `folder-${data.length + 1}`;
       dispatch(addFolder({ id: folderId, name: folderName }));
@@ -109,32 +70,32 @@ const useFacade = () => {
 const AddFolderModal = ({ modalRef }) => {
   const { addFolder, errorMessage } = useFacade();
 
-  const handleAddFolder = e => {
+  const handleAddFolder = (e) => {
     e.preventDefault();
     addFolder(e.target.folderName.value);
   };
 
   return (
     <Modal ref={modalRef}>
-      <form className='flex flex-col gap-4' onSubmit={handleAddFolder}>
-        <h1 className='text-2xl font-bold text-stone-700 border-b-2 border-stone-100 pb-1 w-full'>
+      <form className="flex flex-col gap-4" onSubmit={handleAddFolder}>
+        <h1 className="text-2xl font-bold text-stone-700 border-b-2 border-stone-100 pb-1 w-full">
           Add new folder
         </h1>
-        <div className='flex flex-col gap-2 w-full p-2 bg-stone-500 rounded-md border-solid border-[1px] border-stone-100'>
-          <label htmlFor='folderName' className='text-stone-100'>
+        <div className="flex flex-col gap-2 w-full p-2 bg-stone-500 rounded-md border-solid border-[1px] border-stone-100">
+          <label htmlFor="folderName" className="text-stone-100">
             Folder Name
           </label>
           <input
-            type='text'
-            id='folderName'
-            name='folderName'
-            className='p-2 bg-stone-400 text-stone-100 rounded-md'
+            type="text"
+            id="folderName"
+            name="folderName"
+            className="p-2 bg-stone-400 text-stone-100 rounded-md"
           />
         </div>
-        {errorMessage && <p className='text-red-500 text-sm font-bold ml-1'>{errorMessage}</p>}
+        {errorMessage && <p className="text-red-500 text-sm font-bold ml-1">{errorMessage}</p>}
         <button
-          type='submit'
-          className='p-2 bg-stone-500 text-stone-100 rounded-md hover:bg-stone-400 transition-all duration-300 ease-in-out'
+          type="submit"
+          className="p-2 bg-stone-500 text-stone-100 rounded-md hover:bg-stone-400 transition-all duration-300 ease-in-out"
         >
           Add
         </button>
@@ -148,12 +109,12 @@ const ListFolders = memo(({ folderId }) => {
 
   return (
     <ListItem
-      ulClassName='w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200'
+      ulClassName="w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200"
       list={listFolder}
       activeId={folderId}
-      liClass='p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none'
-      liActiveClass='bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2'
-      onClickItem={id => navigate(`/${id}`)}
+      liClass="p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none"
+      liActiveClass="bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
+      onClickItem={(id) => navigate(`/${id}`)}
     />
   );
 });
@@ -164,14 +125,10 @@ const Folders = () => {
   const addFolderModalRef = useRef(null);
   const dispatch = useDispatch();
 
-  console.log('Folders render');
-
-  const loadData = () => {
-    dispatch(thisIsThunk(curFolderId));
+  useEffect(() => {
+    dispatch(getFolders());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  };
-
-  useEffect(loadData, []);
+  }, []);
 
   useEffect(() => {
     if (curFolderId.current !== folderId) {
@@ -182,28 +139,22 @@ const Folders = () => {
 
   return (
     <>
-      <div className='flex'>
-        <div className='w-1/4 bg-stone-500 p-3 h-full overflow-y-auto min-h-[80vh]'>
-          <h1 className='text-2xl font-bold mb-4 text-stone-100 border-b-2 border-stone-100 pb-2 w-full text-center'>
+      <div className="flex">
+        <div className="w-1/4 bg-stone-500 p-3 h-full overflow-y-auto min-h-[80vh]">
+          <h1 className="text-2xl font-bold mb-4 text-stone-100 border-b-2 border-stone-100 pb-2 w-full text-center">
             Folders
           </h1>
           <div
-            className='flex items-center justify-between p-2 hover:bg-stone-400 hover:rounded-md cursor-pointer transition-all duration-300 ease-in-out border-solid border-[1px]
-         border-stone-100 pb-2 w-full hover:text-stone-200 rounded-md mb-2 select-none'
+            className="flex items-center justify-between p-2 hover:bg-stone-400 hover:rounded-md cursor-pointer transition-all duration-300 ease-in-out border-solid border-[1px]
+         border-stone-100 pb-2 w-full hover:text-stone-200 rounded-md mb-2 select-none"
             onClick={() => addFolderModalRef.current.showModal()}
           >
-            <span className='text-stone-100'>+ Add new folder</span>
+            <span className="text-stone-100">+ Add new folder</span>
           </div>
           <ListFolders folderId={folderId} />
-          <button
-            className='p-2 bg-stone-500 text-stone-100 rounded-md hover:bg-stone-400 transition-all duration-300 ease-in-out'
-            onClick={loadData}
-          >
-            Load Data
-          </button>
         </div>
-        <div className='w-1/4'>{folderId && <h1>Folder {folderId}</h1>}</div>
-        <div className='w-2/4'>
+        <div className="w-1/4">{folderId && <h1>Folder {folderId}</h1>}</div>
+        <div className="w-2/4">
           <Outlet />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { post, get } from '../utils/api';
+import { get, post } from '../configs/api';
 
 export async function loginWithSSO(accessToken, type = 'google') {
   const body = {

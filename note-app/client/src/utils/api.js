@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { envConfig } from '../configs/envConfig';
 
-export const prefixApi = envConfig.host + ':' + envConfig.port;
+const prefixApi = `${envConfig.host}:${envConfig.port}`;
 
-export const post = async (url, body) => {
+const apiPost = async (url, body) => {
   axios.defaults.withCredentials = true;
   const response = await axios.post(prefixApi + url, body, {
     headers: {
@@ -14,7 +14,7 @@ export const post = async (url, body) => {
   if (response.data) return response.data;
 };
 
-export const get = async (url) => {
+const apiGet = async (url) => {
   axios.defaults.withCredentials = true;
   const response = await axios.get(prefixApi + url, {
     headers: {
@@ -24,3 +24,5 @@ export const get = async (url) => {
   });
   if (response.data) return response.data;
 };
+
+export { apiGet, apiPost, prefixApi };
