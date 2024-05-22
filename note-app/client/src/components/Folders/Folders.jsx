@@ -5,7 +5,7 @@ import { LoginUserContext } from '../../layouts/RootLayout';
 import { ListItem } from '../common/List';
 import Modal from '../common/Modal';
 import { addFolder, selectFolders } from './FolderState';
-import { get } from '../../configs/api';
+import { get, post } from '../../configs/api';
 
 const getFolders = () => {
   return async (dispatch) => {
@@ -25,30 +25,28 @@ const getFolders = () => {
   };
 };
 
-const useFacade = () => {
-  const { setIsLoading } = useContext(LoginUserContext);
-  const { folderId } = useParams();
-  const navigate = useNavigate();
+const useAddFolder = () => {
   const dispatch = useDispatch();
-  const { data, errorMessage, isLoading } = useSelector(selectFolders);
-
-  useEffect(() => {
-    if (isLoading) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [isLoading, setIsLoading]);
+  const navigate = useNavigate();
 
   const handleAddFolder = (folderName) => {
     if (folderName) {
-      const folderId = `folder-${data.length + 1}`;
-      dispatch(addFolder({ id: folderId, name: folderName }));
-      dispatch({
-        type: 'folders/errorMessage',
-        payload: '',
+      post('/api/folders', { name: folderName }).then((res) => {
+        if (res.data) {
+          const folder = res.data;
+          dispatch(addFolder(folder));
+          dispatch({
+            type: 'folders/errorMessage',
+            payload: '',
+          });
+          return navigate(`/${folder.id}`);
+        } else {
+          dispatch({
+            type: 'folders/errorMessage',
+            payload: res.errorMessage || 'Add folder failed',
+          });
+        }
       });
-      return navigate(`/${folderId}`);
     } else {
       dispatch({
         type: 'folders/errorMessage',
@@ -58,8 +56,31 @@ const useFacade = () => {
     }
   };
 
+  return handleAddFolder;
+};
+
+const useLoading = () => {
+  const { setIsLoading } = useContext(LoginUserContext);
+  const { isLoading } = useSelector(selectFolders);
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [isLoading, setIsLoading]);
+};
+
+const useFacade = () => {
+  const { folderId } = useParams();
+  const navigate = useNavigate();
+  const { data, errorMessage } = useSelector(selectFolders);
+  const handleAddFolder = useAddFolder();
+  useLoading();
+
   return {
-    folderId,
+    folderId: data.find((folder) => folder.id === folderId) ? folderId : data[0]?.id || '',
     listFolder: data,
     addFolder: handleAddFolder,
     navigate,
@@ -119,16 +140,21 @@ const ListFolders = memo(({ folderId }) => {
   );
 });
 
-const Folders = () => {
-  const { folderId } = useFacade();
-  const curFolderId = useRef(folderId);
-  const addFolderModalRef = useRef(null);
-  const dispatch = useDispatch();
+// ---- Folders Component ----
 
+const useInitFolders = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFolders());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+};
+
+const Folders = () => {
+  const { folderId } = useFacade();
+  const curFolderId = useRef(folderId);
+  const addFolderModalRef = useRef(null);
+  useInitFolders();
 
   useEffect(() => {
     if (curFolderId.current !== folderId) {

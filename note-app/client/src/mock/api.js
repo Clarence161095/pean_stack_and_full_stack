@@ -1,4 +1,4 @@
-const data = {
+const h2DB = {
   folders: [
     { id: 'folder-1', name: 'Folder 1' },
     { id: 'folder-2', name: 'Folder 2' },
@@ -10,8 +10,8 @@ function mockGet(url) {
     case '/api/folders':
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve([...data.folders]);
-        }, 300);
+          resolve([...h2DB.folders]);
+        }, 0);
       });
     case '/api/user-info':
       return new Promise((resolve) => {
@@ -46,7 +46,7 @@ function mockGet(url) {
 }
 
 function mockPost(url, body) {
-  console.log(url, body);
+  console.log('mockPost:', url, body);
   switch (url) {
     case '/sso-login':
       return new Promise((resolve) => {
@@ -54,10 +54,32 @@ function mockPost(url, body) {
           resolve({});
         }, 0);
       });
+    case '/api/folders':
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const folderNameExists = h2DB.folders.find((folder) => folder.name === body.name);
+          if (folderNameExists) {
+            resolve({
+              data: null,
+              errorMessage: 'Folder name already exists',
+            });
+          } else {
+            const newFolder = {
+              id: `folder-${h2DB.folders.length + 1}`,
+              name: body.name,
+            };
+            h2DB.folders.push(newFolder);
+            resolve({ data: newFolder });
+          }
+        }, 0);
+      });
     default:
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve([]);
+          resolve({
+            data: null,
+            errorMessage: 'Not yet implemented',
+          });
         }, 0);
       });
   }
