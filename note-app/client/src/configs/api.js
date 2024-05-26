@@ -9,7 +9,7 @@ let config = {
 };
 
 //neu khong phai mock thi switch sang DB
-if (envConfig.env !== 'dev') {
+if (envConfig.env !== 'local_dev') {
   config = {
     get: apiGet,
     post: apiPost,

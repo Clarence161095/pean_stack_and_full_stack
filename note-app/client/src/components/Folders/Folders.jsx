@@ -6,6 +6,7 @@ import { ListItem } from '../common/List';
 import Modal from '../common/Modal';
 import { addFolder, selectFolders } from './FolderState';
 import { get } from '../../configs/api';
+import { post } from '../../configs/api';
 
 //Frontend
 const getFolders = () => {
@@ -25,31 +26,28 @@ const getFolders = () => {
     });
   };
 };
-
-const useFacade = () => {
-  const { setIsLoading } = useContext(LoginUserContext);
-  const { folderId } = useParams();
-  const navigate = useNavigate();
+const useAddFolder = () => {
   const dispatch = useDispatch();
-  const { data, errorMessage, isLoading } = useSelector(selectFolders);
-
-  useEffect(() => {
-    if (isLoading) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [isLoading, setIsLoading]);
+  const navigate = useNavigate();
 
   const handleAddFolder = (folderName) => {
     if (folderName) {
-      const folderId = `folder-${data.length + 1}`;
-      dispatch(addFolder({ id: folderId, name: folderName }));
-      dispatch({
-        type: 'folders/errorMessage',
-        payload: '',
+      post('/api/folders', { name: folderName }).then((res) => {
+        if (res.data) {
+          const folder = res.data;
+          dispatch(addFolder(folder));
+          dispatch({
+            type: 'folders/errorMessage',
+            payload: '',
+          });
+          return navigate(`/${folder.id}`);
+        } else {
+          dispatch({
+            type: 'folders/errorMessage',
+            payload: res.errorMessage || 'Add folder failed',
+          });
+        }
       });
-      return navigate(`/${folderId}`);
     } else {
       dispatch({
         type: 'folders/errorMessage',
@@ -58,10 +56,37 @@ const useFacade = () => {
       return false;
     }
   };
+  return handleAddFolder;
+};
+
+const useLoadings = () => {
+  const { setIsLoading } = useContext(LoginUserContext);
+  const { isLoading } = useSelector(selectFolders);
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  }, [isLoading, setIsLoading]);
+};
+const useInitFolders = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFolders());
+  });
+};
+
+const useFacade = () => {
+  const { folderId } = useParams();
+  const { data, errorMessage } = useSelector(selectFolders);
+  const handleAddFolder = useAddFolder();
+  const navigate = useNavigate();
+  useLoadings(); // create hook de giam tai code cho ngan lai
 
   return {
     folderId,
-    listFolder: data,
+    listFolder: data.find((folder) => folder.id === folderId) ? folderId : data[0]?.id || '',
     addFolder: handleAddFolder,
     navigate,
     errorMessage: errorMessage,
@@ -120,28 +145,24 @@ const ListFolders = memo(({ folderId }) => {
   );
 });
 
-const Folders = () => {
-  const { folderId } = useFacade();
-  const curFolderId = useRef(folderId);
-  const addFolderModalRef = useRef(null);
-  const dispatch = useDispatch();
-
-  console.log('Folders render');
-
-  const loadData = () => {
-    dispatch(getFolders(curFolderId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  };
-
-  useEffect(loadData, []);
-
+//create hook for useClose Modal
+const useCloseModal = (folderId, curFolderId, addFolderModalRef) => {
   useEffect(() => {
     if (curFolderId.current !== folderId) {
       curFolderId.current = folderId;
       addFolderModalRef.current.close();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId]);
+};
 
+const Folders = () => {
+  const { folderId } = useFacade();
+  const curFolderId = useRef(folderId);
+  const addFolderModalRef = useRef(null);
+  useInitFolders(); // hook for init folders
+  useCloseModal(folderId, curFolderId, addFolderModalRef); // made hook for useClose modal this, same as before
+  // this hook is so special , need 3 parameters
   return (
     <>
       <div className="flex">
@@ -157,12 +178,6 @@ const Folders = () => {
             <span className="text-stone-100">+ Add new folder</span>
           </div>
           <ListFolders folderId={folderId} />
-          <button
-            className="p-2 bg-stone-500 text-stone-100 rounded-md hover:bg-stone-400 transition-all duration-300 ease-in-out"
-            onClick={loadData}
-          >
-            Load Data
-          </button>
         </div>
         <div className="w-1/4">{folderId && <h1>Folder {folderId}</h1>}</div>
         <div className="w-2/4">
