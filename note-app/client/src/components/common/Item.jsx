@@ -3,6 +3,11 @@ const Item = ({ text, isActive, className, activeClassName, ...props }) => {
   if (isActive) {
     classes += ` ${activeClassName}`;
   }
+
+  if (text.length > 18) {
+    text = text.substring(0, 18) + '...';
+  }
+
   return (
     <li className={classes} {...props}>
       {text}

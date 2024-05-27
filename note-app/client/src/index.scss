@@ -4,7 +4,7 @@
 
 /* ここを追加 */
 .editor {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
   border: 1px solid #333;
 }
@@ -21,7 +21,8 @@
 .editorClassName {
   background: #fff;
   padding: 0 8px;
-  height: 200px;
+  min-height: 60vh;
+  height: 100%;
 }
 
 .App .rdw-editor-main {

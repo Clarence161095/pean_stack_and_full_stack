@@ -1,9 +1,8 @@
-import { memo } from 'react';
 import { ListItem } from '../common/List';
 import useFacade from './hooks/useFacade';
 
-const ListFolders = memo(({ folderId }) => {
-  const { listFolder, navigate } = useFacade();
+const ListFolders = () => {
+  const { folderId, listFolder, navigate } = useFacade();
 
   return (
     <ListItem
@@ -15,6 +14,6 @@ const ListFolders = memo(({ folderId }) => {
       onClickItem={(id) => navigate(`/${id}`)}
     />
   );
-});
+};
 
 export default ListFolders;

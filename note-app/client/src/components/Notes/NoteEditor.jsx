@@ -38,7 +38,7 @@ const NoteEditor = ({
   };
 
   return (
-    <div className="editor">
+    <div className="editor max-w-full h-full">
       <Editor
         editorState={editorState}
         toolbarClassName="toolbarClassName"

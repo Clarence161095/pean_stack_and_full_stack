@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Outlet } from 'react-router-dom';
+import Notes from '../Notes/Notes';
 import AddFolderModal from './AddFolderModal';
 import useFacade from './hooks/useFacade';
 import useInitFolders from './hooks/useInitFolders';
@@ -39,12 +39,9 @@ const Folders = () => {
           >
             <span className="text-stone-100">+ Add new folder</span>
           </div>
-          <ListFolders folderId={folderId} />
+          <ListFolders />
         </div>
-        <div className="w-1/4">{folderId && <h1>Folder {folderId}</h1>}</div>
-        <div className="w-2/4">
-          <Outlet />
-        </div>
+        <Notes />
       </div>
       <AddFolderModal modalRef={addFolderModalRef} />
     </>

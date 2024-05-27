@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Folders from '../components/Folders/Folders';
-import Notes from '../components/Notes';
 import AuthenticatedLayout from '../layouts/AuthenticatedLayout';
 import RootLayout from '../layouts/RootLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import NotFoundPage from '../pages/NotFoundPage';
+import Notes from '../components/Notes/Notes';
 
 const routesConfigs = [
   {
