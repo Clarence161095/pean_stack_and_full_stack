@@ -1,21 +1,10 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ListItem } from '../common/List';
+import Notes from '../Notes/Notes';
+import { useFacade } from './hooks/useFacade';
+import ListFiles from './ListFiles';
 
-const useFacade = () => {
-  const { folderId, noteId } = useParams();
-  const files = [
-    { id: 'file-1', name: 'File 1' },
-    { id: 'file-2', name: 'File 2' },
-    { id: 'file-3', name: 'File 3' },
-  ];
-
-  return { files, folderName: 'Folder 1', noteId, folderId };
-};
-
-const ListFiles = () => {
-  const { files, folderId, noteId } = useFacade();
-  const navigate = useNavigate();
+const Files = () => {
+  const { files, folderId, noteId, newFile, navigate } = useFacade();
 
   useEffect(() => {
     if (!noteId) {
@@ -31,19 +20,27 @@ const ListFiles = () => {
     }
   }, [folderId, noteId, files, navigate]);
 
+  const handleAddFolder = () => {
+    newFile(folderId);
+  };
+
   return (
-    <div className="flex flex-col bg-stone-500 p-3 h-full overflow-y-auto min-h-[80vh] border-solid border-l-[1px] border-stone-100">
-      {!files.length && <div className="text-stone-100 text-center">No files found</div>}
-      <ListItem
-        ulClassName="w-full p-0 m-0 list-none cursor-pointer text-stone-100 text-lg font-bold hover:text-stone-200"
-        list={files}
-        activeId={noteId}
-        liClass="p-2 hover:bg-stone-400 hover:rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2 select-none"
-        liActiveClass="bg-stone-400 rounded-md transition-all duration-300 ease-in-out border-solid border-[1px] border-stone-100 pb-2 w-full rounded-md mb-2"
-        onClickItem={(id) => navigate(`/${folderId}/${id}`)}
-      />
+    <div className="flex">
+      <div className="w-1/4 bg-stone-500 p-3 h-full overflow-y-auto min-h-[80vh] border-l-[1px] border-stone-100">
+        <div
+          className="flex items-center justify-between p-2 hover:bg-stone-400 hover:rounded-md cursor-pointer transition-all duration-300 ease-in-out border-solid border-[1px]
+         border-stone-100 pb-2 w-full hover:text-stone-200 rounded-md mb-2 select-none"
+          onClick={handleAddFolder}
+        >
+          <span className="text-stone-100">+ New file</span>
+        </div>
+        <ListFiles folderId={folderId} />
+      </div>
+      <div className="w-3/4">
+        <Notes />
+      </div>
     </div>
   );
 };
 
-export default ListFiles;
+export default Files;

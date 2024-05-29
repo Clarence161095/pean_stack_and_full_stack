@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { foldersSlice } from './components/Folders/FolderState';
+import { folderSlice } from './components/Folders/FolderState';
+import { fileSlice } from './components/Files/FilesState';
 
 export const store = configureStore({
   reducer: {
-    folders: foldersSlice.reducer,
+    folders: folderSlice.reducer,
+    files: fileSlice.reducer,
   },
 });

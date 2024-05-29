@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { get } from '../../../configs/api';
+import useFacade from './useFacade';
 
 const getFolders = () => {
   return async (dispatch) => {
@@ -14,14 +15,24 @@ const getFolders = () => {
       payload: false,
     });
     dispatch({
-      type: 'folders/initData',
+      type: 'folders/loadData',
       payload: data,
     });
   };
 };
 
-const useInitFolders = () => {
+const useInitFolders = ({ addFolderModalRef }) => {
+  const { folderId } = useFacade();
+  const curFolderId = useRef(folderId);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (curFolderId.current !== folderId) {
+      curFolderId.current = folderId;
+      addFolderModalRef.current.close();
+    }
+  }, [addFolderModalRef, folderId]);
+
   useEffect(() => {
     dispatch(getFolders());
     // eslint-disable-next-line react-hooks/exhaustive-deps

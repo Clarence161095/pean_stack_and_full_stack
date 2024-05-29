@@ -1,31 +1,24 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import ListFiles from '../Files/Files';
+import _ from 'lodash';
+import { useCallback, useRef } from 'react';
 import NoteEditor from './NoteEditor';
+import useFacade from './hooks/useFacade';
 
 function Notes() {
-  const { folderId, noteId } = useParams();
-  let initialContent = `<p></p>`;
+  const { noteId, initialContent, updateContent } = useFacade();
+  const debouncedUpdateContent = useRef(
+    _.debounce((id, content) => {
+      updateContent(id, content);
+    }, 300),
+  ).current;
 
-  useEffect(() => {
-    console.log('Note ID:', noteId);
-    // get initialContent from server
-  }, [noteId]);
-
-  const onChangeContent = (content) => {
-    console.log('Content:', content);
-  };
-
-  return (
-    <div className="flex">
-      <div className="w-1/4">
-        <ListFiles folderId={folderId} />
-      </div>
-      <div className="w-3/4">
-        <NoteEditor initialContent={initialContent} onChangeContent={onChangeContent} />
-      </div>
-    </div>
+  const onChangeContent = useCallback(
+    (content) => {
+      debouncedUpdateContent(noteId, content);
+    },
+    [noteId, debouncedUpdateContent],
   );
+
+  return <NoteEditor initialContent={initialContent} onChangeContent={onChangeContent} />;
 }
 
 export default Notes;

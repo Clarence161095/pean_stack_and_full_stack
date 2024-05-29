@@ -1,22 +1,14 @@
-import { useEffect, useRef } from 'react';
-import Notes from '../Notes/Notes';
+import { useRef } from 'react';
+import Files from '../Files/Files';
 import AddFolderModal from './AddFolderModal';
 import useFacade from './hooks/useFacade';
 import useInitFolders from './hooks/useInitFolders';
 import ListFolders from './ListFolders';
 
 const Folders = () => {
-  const { folderId, setErrorMessages } = useFacade();
-  const curFolderId = useRef(folderId);
+  const { setErrorMessages } = useFacade();
   const addFolderModalRef = useRef(null);
-  useInitFolders();
-
-  useEffect(() => {
-    if (curFolderId.current !== folderId) {
-      curFolderId.current = folderId;
-      addFolderModalRef.current.close();
-    }
-  }, [folderId]);
+  useInitFolders({ addFolderModalRef });
 
   const handleAddFolder = () => {
     addFolderModalRef.current.showModal();
@@ -41,7 +33,7 @@ const Folders = () => {
           </div>
           <ListFolders />
         </div>
-        <Notes />
+        <Files />
       </div>
       <AddFolderModal modalRef={addFolderModalRef} />
     </>

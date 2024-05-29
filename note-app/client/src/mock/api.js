@@ -3,6 +3,11 @@ const h2DB = {
     { id: 'folder-1', name: 'Folder 1' },
     { id: 'folder-2', name: 'Folder 2' },
   ],
+  files: [
+    { id: 'file-1', name: 'File 1', content: '<p>File 1 content</p>', folderId: 'folder-1' },
+    { id: 'file-2', name: 'File 2', content: '<p>File 2 content</p>', folderId: 'folder-1' },
+    { id: 'file-3', name: 'File 3', content: '<p>File 3 content</p>', folderId: 'folder-2' },
+  ],
 };
 
 function mockGet(url) {
@@ -11,6 +16,15 @@ function mockGet(url) {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve([...h2DB.folders]);
+        }, 0);
+      });
+    // api/files/:folderId
+    case url.match(/\/api\/files\/(.+)/) && url.match(/\/api\/files\/(.+)/)[0]:
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const folderId = url.match(/\/api\/files\/(.+)/)[1];
+          const files = h2DB.files.filter((file) => file.folderId === folderId);
+          resolve({ files });
         }, 0);
       });
     case '/api/user-info':
@@ -46,7 +60,6 @@ function mockGet(url) {
 }
 
 function mockPost(url, body) {
-  console.log('mockPost:', url, body);
   switch (url) {
     case '/sso-login':
       return new Promise((resolve) => {

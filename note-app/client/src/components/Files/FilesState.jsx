@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const folderSlice = createSlice({
-  name: 'folders',
+export const fileSlice = createSlice({
+  name: 'files',
   initialState: {
     data: [],
     isLoading: false,
@@ -11,7 +11,7 @@ export const folderSlice = createSlice({
     loadData: (state, action) => {
       state.data = action.payload;
     },
-    addFolder: (state, action) => {
+    addFile: (state, action) => {
       state.data.push(action.payload);
     },
     isLoading: (state, action) => {
@@ -23,6 +23,6 @@ export const folderSlice = createSlice({
   },
 });
 
-export const { addFolder, loadData, isLoading, errorMessage } = folderSlice.actions;
+export const { addFile, loadData, isLoading, errorMessage } = fileSlice.actions;
 
-export const selectFolders = (state) => state.folders;
+export const selectFiles = (state) => state.files;
