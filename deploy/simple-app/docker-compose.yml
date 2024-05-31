@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+
+  simple-web:
+    image: simple-web-1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
