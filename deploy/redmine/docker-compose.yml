@@ -11,6 +11,7 @@ services:
       REDMINE_DB_MYSQL: db
       REDMINE_DB_PASSWORD: example
       REDMINE_SECRET_KEY_BASE: linh_supersecretkey1234
+      # admin/admin
 
   db:
     image: mysql:8.0

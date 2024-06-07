@@ -1,114 +1,51 @@
-# Ubuntu 24.04 LTS x64 
+# Ubuntu 22.04 x64
+
+## Cài đặt cơ bản
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+## Cài đặt git
+
+```bash
+sudo apt-get install git
+```
 
 ## Cài đặt Docker
 
 ```bash
-sudo apt-get update
 sudo apt-get install docker.io
+docker --version
+# Docker véion 24.05.0, build 24.05.0-0ubuntu1 22.04.1
 ```
 
 ### Cài đặt Docker Compose
 
 ```bash
 sudo apt-get install docker-compose
-```
-
-### Kiểm tra phiên bản Docker
-
-```bash
-docker --version
-```
-
-```bash
 docker-compose --version
+# docker-compose version 1.29.2, build unknown
 ```
 
-### Cấp quyền cho Docker
-
-```bash
-sudo usermod -aG docker $USER
-```
-
-### Khởi động Docker
-
-```bash
-sudo systemctl start docker
-```
-
-### Tự động khởi động Docker
-
-```bash
-sudo systemctl enable docker
-```
-
-### Kiểm tra Docker
+### Test Hello World
 
 ```bash
 docker run hello-world
+# stop container
+docker ps -a
+docker container stop <container_id>
 ```
 
-## Run app Redmine
+## Mở port 80 trên máy ubuntu
 
 ```bash
-docker run -d --name mysql-redmine \
-  -e MYSQL_ROOT_PASSWORD=example \
-  -e MYSQL_DATABASE=redmine \
-  -v ./mysql-data:/var/lib/mysql \
-  mysql:8.0
+sudo ufw allow 80
 ```
 
-```bash
-docker run -d --name redmine \
-  --link mysql-redmine:db \
-  -p 80:3000 \
-  -e REDMINE_DB_MYSQL=db \
-  -e REDMINE_DB_PASSWORD=example \
-  -e REDMINE_SECRET_KEY_BASE=linh_supersecretkey1234 \
-  redmine
-```
-
-## Cài đặt Git
+### Kiểm tra port đang được mở
 
 ```bash
-sudo apt-get install git
-```
-
-### Kiểm tra Git
-
-```bash
-git --version
-```
-
-## Kiểm tra hoạt động của máy xem chạy hết bao nhiêu RAM và CPU
-
-```bash
-free -h
-```
-
-## Mở port 80 trên máy alpine
-
-```bash
-sudo iptables --version
-```
-
-<!-- Nếu chưa có thì cài: sudo apt install iptables -->
-
-```bash
-sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-```
-
-<!-- ĐÓng port bằng flag D: sudo iptables -D INPUT -p tcp --dport 443 -j ACCEPT -->
-
-
-<!-- Check port nào đang được mở -->
-```bash
-sudo iptables -L -n
-
-sudo iptables -L -n | grep ":80"
-```
-
-## Cài đặt nano
-
-```bash
-sudo apt-get install nano
+sudo ufw status
 ```
