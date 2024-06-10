@@ -5,8 +5,13 @@ FROM node:18-alpine
 WORKDIR /tuan-user/du-an/simple-nodejs-app
 
 # Bundle app source
-COPY tuan.js .
-# COPY . .
+COPY . .
+
+## Install app dependencies
+RUN npm install
+
+EXPOSE 5173
 
 # Start the app
-CMD [ "node", "tuan.js" ]
+# npn run dev
+CMD ["npm", "run", "dev"]

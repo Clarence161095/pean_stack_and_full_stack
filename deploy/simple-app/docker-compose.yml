@@ -7,3 +7,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - 1001:5173
