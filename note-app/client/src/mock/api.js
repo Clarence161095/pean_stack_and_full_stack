@@ -10,6 +10,11 @@ const h2DB = {
   ],
 };
 
+const SAMPLE_NEW_FILE = {
+  name: 'New File',
+  content: '<p>Type Something..</p>',
+};
+
 function mockGet(url) {
   switch (url) {
     case '/api/folders':
@@ -23,6 +28,7 @@ function mockGet(url) {
       return new Promise((resolve) => {
         setTimeout(() => {
           const folderId = url.match(/\/api\/files\/(.+)/)[1];
+          h2DB.files = h2DB.files.filter((file) => file.content && file.content !== '<p></p>');
           const files = h2DB.files.filter((file) => file.folderId === folderId);
           resolve({ files });
         }, 0);
@@ -83,6 +89,25 @@ function mockPost(url, body) {
             };
             h2DB.folders.push(newFolder);
             resolve({ data: newFolder });
+          }
+        }, 0);
+      });
+    case '/api/new-file':
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const fileExists = h2DB.files.find(
+            (file) => file.folderId === body.folderId && file.name === SAMPLE_NEW_FILE.name,
+          );
+          if (fileExists) {
+            resolve({ data: fileExists });
+          } else {
+            const newFile = {
+              id: `file-${h2DB.files.length + 1}`,
+              ...SAMPLE_NEW_FILE,
+              folderId: body.folderId,
+            };
+            h2DB.files.push(newFile);
+            resolve({ data: newFile });
           }
         }, 0);
       });

@@ -5,7 +5,7 @@ import { selectFiles } from '../../Files/FilesState';
 
 const useInitNote = () => {
   const { data: files } = useSelector(selectFiles);
-  const { noteId } = useParams();
+  const { folderId, noteId } = useParams();
   const [initialContent, setInitialContent] = useState('');
 
   useEffect(() => {
@@ -20,6 +20,7 @@ const useInitNote = () => {
   return {
     initialContent,
     noteId,
+    folderId
   };
 };
 

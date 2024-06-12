@@ -1,23 +1,30 @@
 import { useEffect } from 'react';
 import { get } from '../../../configs/api';
-import { isLoading, loadData } from '../FilesState';
+import { setLoading, loadData } from '../FilesState';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-export const useLoadFiles = (folderId) => {
+export const useLoadFiles = () => {
+  const { folderId, noteId } = useParams();
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(isLoading(true));
+  const loadFiles = () => {
+    dispatch(setLoading(true));
     get(`/api/files/${folderId}`)
       .then((data) => {
         if (data) {
           dispatch(loadData(data.files));
         }
-        dispatch(isLoading(false));
+        dispatch(setLoading(false));
       })
       .catch(() => {
-        dispatch(isLoading(false));
+        dispatch(setLoading(false));
         dispatch(loadData([]));
       });
-  }, [dispatch, folderId]);
+  };
+
+  useEffect(loadFiles, [dispatch, folderId, noteId]);
+
+  return loadFiles;
 };

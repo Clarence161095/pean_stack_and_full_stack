@@ -1,13 +1,16 @@
 import useInitNote from './useInitNote';
 
 const useFacade = () => {
-  const { noteId, initialContent } = useInitNote();
+  const { folderId, noteId, initialContent } = useInitNote();
+
+  const updateContentHandler = (noteId, content) => {
+    // TODO: Implement update content
+    console.log('Updating content:', folderId, noteId, content);
+  };
 
   return {
     initialContent,
-    updateContent: (noteId, content) => {
-      console.log('Updating content:', noteId, content);
-    },
+    updateContent: updateContentHandler,
     noteId,
   };
 };

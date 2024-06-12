@@ -14,15 +14,15 @@ export const fileSlice = createSlice({
     addFile: (state, action) => {
       state.data.push(action.payload);
     },
-    isLoading: (state, action) => {
+    setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    errorMessage: (state, action) => {
+    setErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
     },
   },
 });
 
-export const { addFile, loadData, isLoading, errorMessage } = fileSlice.actions;
+export const { loadData, addFile, setLoading, setErrorMessage } = fileSlice.actions;
 
 export const selectFiles = (state) => state.files;
