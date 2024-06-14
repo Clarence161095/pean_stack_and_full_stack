@@ -12,7 +12,7 @@ const h2DB = {
 
 const SAMPLE_NEW_FILE = {
   name: 'New File',
-  content: '<p>Type Something..</p>',
+  content: '<p></p>',
 };
 
 function mockGet(url) {
@@ -28,7 +28,6 @@ function mockGet(url) {
       return new Promise((resolve) => {
         setTimeout(() => {
           const folderId = url.match(/\/api\/files\/(.+)/)[1];
-          h2DB.files = h2DB.files.filter((file) => file.content && file.content !== '<p></p>');
           const files = h2DB.files.filter((file) => file.folderId === folderId);
           resolve({ files });
         }, 0);
@@ -111,6 +110,21 @@ function mockPost(url, body) {
           }
         }, 0);
       });
+    case '/api/update-note':
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const { folderId, noteId, content } = body;
+          const fileIndex = h2DB.files.findIndex((f) => f.id === noteId && f.folderId === folderId);
+          if (fileIndex > -1) {
+            h2DB.files[fileIndex] = { ...h2DB.files[fileIndex], content };
+            runConvertNameBatch();
+            runRemoveBatch();
+            resolve({ data: h2DB.files[fileIndex] });
+          } else {
+            resolve({ data: null, errorMessage: 'Note not found' });
+          }
+        }, 0);
+      });
     default:
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -122,5 +136,30 @@ function mockPost(url, body) {
       });
   }
 }
+
+// Run Batch
+
+// Convert all first row of file to the file name
+const runConvertNameBatch = () => {
+  setTimeout(() => {
+    h2DB.files = h2DB.files.map((file) => {
+      const content = file.content;
+      const firstRow = content.split('\n')[0];
+      const name = firstRow.replace(/<[^>]*>/g, '');
+      if (name === file.name || name === '') return file;
+      return { ...file, name };
+    });
+  }, 0);
+};
+
+// Remove file have content like '<p></p>'
+const EMPTY_CONTENT = ['<p></p>', '<p></p>\n'];
+const runRemoveBatch = () => {
+  setTimeout(() => {
+    h2DB.files = h2DB.files.filter(
+      (file) => !EMPTY_CONTENT.includes(file.content) && file.content !== '',
+    );
+  }, 0);
+};
 
 export { mockGet, mockPost };
