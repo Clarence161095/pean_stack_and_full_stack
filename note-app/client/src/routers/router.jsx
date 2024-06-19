@@ -20,6 +20,22 @@ const routesConfigs = [
         element: <AuthenticatedLayout />,
         children: [
           {
+            path: '/v2',
+            element: <Home />,
+            children: [
+              {
+                path: ':folderId',
+                element: <Folders />,
+                children: [
+                  {
+                    path: ':noteId',
+                    element: <Notes />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
             path: '/',
             element: <Home />,
             children: [
