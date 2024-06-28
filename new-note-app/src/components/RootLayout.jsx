@@ -1,11 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { rootConfig } from '../configs/router';
+import { rootConfig } from '../routers/root';
 import AntdLayout from './antd/Layout';
 
 const RootLayout = () => {
   const menusConfig = rootConfig[0].children;
   const menus = getMenus(menusConfig);
-  const { defaultSelectedKeysInit, defaultOpenKeysInit } = getDefaultSelectedAndOpenKeys();
+  const { defaultSelectedKeysInit, defaultOpenKeysInit } = getDefaultSelectedAndOpenKeys(menus);
   const navigate = useNavigate();
 
   const handleOnClickLayout = (e) => {
@@ -60,10 +60,27 @@ const getMenus = (menuConfig) => {
   });
 };
 
-const getDefaultSelectedAndOpenKeys = () => {
+const isKeyInMenus = (key, menus) => {
+  for (const item of menus) {
+    if (item.key === key) {
+      return true;
+    }
+    if (item.children && item.children.length > 0) {
+      if (isKeyInMenus(key, item.children)) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+const getDefaultSelectedAndOpenKeys = (menus) => {
   const currentPath = window.location.pathname;
   const path = currentPath.split('/').filter((item) => item);
-  const defaultSelectedKeysInit = path[path.length - 1] || 'home';
-  const defaultOpenKeysInit = path.slice(0, path.length - 1).join('/');
+  let defaultSelectedKeysInit = path[path.length - 1] || 'home';
+  const defaultOpenKeysInit = path.slice(0, 1).join('/');
+  if (menus && !isKeyInMenus(defaultSelectedKeysInit, menus)) {
+    defaultSelectedKeysInit = defaultOpenKeysInit;
+  }
   return { defaultSelectedKeysInit, defaultOpenKeysInit };
 };
