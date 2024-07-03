@@ -3,7 +3,7 @@ const { Meta } = Card;
 
 // https://ant.design/components/card#
 const AntdCard = ({
-  width = 300,
+  width = 350,
   cardCover,
   imgAlt = 'example',
   avatar,
@@ -20,6 +20,7 @@ const AntdCard = ({
     cover={cardCover && <img alt={imgAlt} src={cardCover} />}
     actions={actions}
     className={className}
+    hoverable
     {...props}
   >
     <Meta avatar={avatar && <Avatar src={avatar} />} title={title} description={description} />

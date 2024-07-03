@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons';
-import Notes from '../pages/notes';
+import Notes, { loader as notesLoader } from '../pages/notes';
 import Folder from '../pages/notes/folder';
 import Note from '../pages/notes/folder/note';
 
@@ -9,12 +9,13 @@ const noteRoute = [
     menu: {
       key: 'notes',
       icon: <EditOutlined />,
-      label: 'List Note',
+      label: 'Notes',
     },
     children: [
       {
         index: true,
         element: <Notes />,
+        loader: notesLoader,
       },
       {
         path: ':folderId',
