@@ -1,19 +1,9 @@
 {
   "folders": [
     {
-      "id": 1,
-      "name": "Folder 1 :)",
-      "description": "Description Folder 1"
-    },
-    {
-      "id": 2,
-      "name": "Folder 2 :)",
-      "description": "Description Folder 2"
-    },
-    {
-      "id": 3,
-      "name": "Folder 3 :)",
-      "description": "Description Folder 3"
+      "id": "linh@1.co",
+      "name": "Linh Pham",
+      "description": "PHR Company"
     }
   ]
 }

@@ -19,7 +19,7 @@ test.describe('Kiểm tra hoạt động của Menu', () => {
 
       test.describe('Truy cập vào trang Note', () => {
         test.beforeEach(async ({ page }) => {
-          await page.goto('http://localhost:5173/note');
+          await page.goto('http://localhost:5173/notes');
         });
 
         test('Nút Home không được active', async ({ page }: { page: Page }) => {
@@ -55,7 +55,7 @@ test.describe('Kiểm tra hoạt động của Menu', () => {
   test.describe('Trường hợp Note Menu', () => {
     test.describe('Truy cập vào trang Note', () => {
       test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:5173/note');
+        await page.goto('http://localhost:5173/notes');
       });
 
       test('Nút Note được active', async ({ page }: { page: Page }) => {
@@ -66,7 +66,7 @@ test.describe('Kiểm tra hoạt động của Menu', () => {
       });
 
       test('Title có đúng hay không', async ({ page }: { page: Page }) => {
-        await page.getByRole('heading', { name: 'This is Note page' }).click();
+        await page.getByRole('heading', { name: 'List Folders' }).click();
       });
     });
 
@@ -88,7 +88,7 @@ test.describe('Kiểm tra hoạt động của Menu', () => {
 
         test('Chuyển hướng đúng không', async ({ page }: { page: Page }) => {
           const url = page.url();
-          expect(url).toBe('http://localhost:5173/note');
+          expect(url).toBe('http://localhost:5173/notes');
         });
 
         test('Nút Note được active', async ({ page }: { page: Page }) => {
@@ -98,7 +98,7 @@ test.describe('Kiểm tra hoạt động của Menu', () => {
         });
 
         test('Title có đúng hay không', async ({ page }: { page: Page }) => {
-          await page.getByRole('heading', { name: 'This is Note page' }).click();
+          await page.getByRole('heading', { name: 'List Folders' }).click();
         });
       });
     });
