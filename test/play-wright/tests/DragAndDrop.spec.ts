@@ -1,4 +1,5 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base } from '@playwright/test';
+import { dragDropItemsTest } from '../utils/feature/drag-drop';
 
 const test = base.extend({
   host: async ({}, use) => {
@@ -7,38 +8,42 @@ const test = base.extend({
 });
 
 test.describe('Drag and Drop', () => {
-  test('Item 1 to Item 4 => all before item go up 1 position', async ({ page, host }) => {
-    await page.goto('https://material.angular.io/cdk/drag-drop/overview');
-    await page.locator('#cdk-drag-drop-connected-sorting-group').getByRole('heading', { name: 'To do' }).click();
+  test.describe('Go to Angular Material Drag and Drop page', () => {
+    test.beforeEach(async ({ page, host }) => {
+      await page.goto(host);
+      await page.locator('#cdk-drag-drop-connected-sorting-group').getByRole('heading', { name: 'To do' }).click();
+    });
 
-    const listAllItemBeforeDrag = await page.locator('#cdk-drop-list-1').innerText(); // Ex: 'Get to work\nPick up groceries\nGo home\nFall asleep'
+    test('Item 1 to Item 4', async ({ page, browserName }) => {
+      const item1 = 'Get to work';
+      const item2 = 'Fall asleep';
+      let expectedListAfterDrag = 'Pick up groceries\nGo home\nFall asleep\nGet to work';
+      browserName === 'webkit' && (expectedListAfterDrag += '\n');
+      await dragDropItemsTest(page, item1, item2, expectedListAfterDrag);
+    });
 
-    const from = page.locator('#cdk-drop-list-1').getByText('Get to work');
-    const to = page.locator('#cdk-drop-list-1').getByText('Fall asleep');
-    const { x, y } = (await from.boundingBox()) as any;
+    test('Item 3 to Item 4', async ({ page, browserName }) => {
+      const item1 = 'Go home';
+      const item2 = 'Fall asleep';
+      let expectedListAfterDrag = 'Get to work\nPick up groceries\nFall asleep\nGo home';
+      browserName === 'webkit' && (expectedListAfterDrag += '\n');
+      await dragDropItemsTest(page, item1, item2, expectedListAfterDrag);
+    });
 
-    await from.hover();
-    await page.mouse.down();
-    await page.mouse.move(x + 1, y + 1); // Move a little to trigger drag
-    await to.hover();
-    await to.hover();
-    await page.mouse.up();
+    test('Item 1 to Item 2', async ({ page, browserName }) => {
+      const item1 = 'Get to work';
+      const item2 = 'Pick up groceries';
+      let expectedListAfterDrag = 'Pick up groceries\nGet to work\nGo home\nFall asleep';
+      browserName === 'webkit' && (expectedListAfterDrag += '\n');
+      await dragDropItemsTest(page, item1, item2, expectedListAfterDrag);
+    });
 
-    // Create list after drag function
-    function calculatorListAfterDrag(listAllItemBeforeDrag: string, from: string, to: string) {
-      const listAfterDrag = listAllItemBeforeDrag.split('\n');
-      const fromIndex = listAfterDrag.indexOf(from);
-      const toIndex = listAfterDrag.indexOf(to);
-      listAfterDrag.splice(fromIndex, 1);
-      listAfterDrag.splice(toIndex, 0, from);
-      return listAfterDrag.join('\n');
-    }
-
-    const listAllItemAfterDrag = calculatorListAfterDrag(listAllItemBeforeDrag, 'Get to work', 'Fall asleep');
-
-    await page.waitForTimeout(400); // Wait for animation: https://material.angular.io/cdk/drag-drop/overview transition-duration: 300ms
-
-    const listAfterDrag = await page.locator('#cdk-drop-list-1').innerText();
-    expect(listAfterDrag).toBe(listAllItemAfterDrag);
+    test('Item 4 to Item 1', async ({ page, browserName }) => {
+      const item1 = 'Fall asleep';
+      const item2 = 'Get to work';
+      let expectedListAfterDrag = 'Fall asleep\nGet to work\nPick up groceries\nGo home';
+      browserName === 'webkit' && (expectedListAfterDrag += '\n');
+      await dragDropItemsTest(page, item1, item2, expectedListAfterDrag);
+    });
   });
 });
