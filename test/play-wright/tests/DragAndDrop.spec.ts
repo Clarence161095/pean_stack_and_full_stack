@@ -21,6 +21,7 @@ test.describe('Drag and Drop', () => {
     await page.mouse.down();
     await page.mouse.move(x + 1, y + 1); // Move a little to trigger drag
     await to.hover();
+    await to.hover();
     await page.mouse.up();
 
     // Create list after drag function
