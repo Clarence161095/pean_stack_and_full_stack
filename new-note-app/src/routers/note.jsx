@@ -1,8 +1,9 @@
 import { EditOutlined } from '@ant-design/icons';
 import Notes, { loader as notesLoader } from '../pages/notes';
-import Folder from '../pages/notes/folder';
+import Folder, { loader as folderLoader } from '../pages/notes/folder';
 import CreateFolder, { action as createFolderAction } from '../pages/notes/folder/create';
 import Note from '../pages/notes/folder/note';
+import UpdateFolder from '../pages/notes/folder/update';
 
 const noteRoute = [
   {
@@ -24,6 +25,7 @@ const noteRoute = [
           {
             index: true,
             element: <Folder />,
+            loader: folderLoader,
           },
           {
             path: 'create',
@@ -32,7 +34,7 @@ const noteRoute = [
           },
           {
             path: 'update',
-            element: <h1>This is Folder Edit page</h1>,
+            element: <UpdateFolder />,
             // loader với id từ params
             // action với nội dụng form
           },
