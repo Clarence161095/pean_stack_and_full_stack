@@ -1,52 +1,86 @@
 import { Button, Input } from 'antd';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
-import { post } from '../../../utils/api';
+import LazyLoading from '../../../components/LazyLoading';
+import { put } from '../../../utils/api';
 
 const UpdateFolder = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
-
   const isSubmitting = navigation.state === 'submitting';
 
   return (
     <div className="mb-4">
-      <h1 className="text-2xl font-semibold mb-4">Create Folder</h1>
-      <Form method="post" className="max-w-[600px]">
-        <div className="mb-4">
-          <label htmlFor="folderName" className="block mb-2">
-            Folder Name
-          </label>
-          <Input id="folderName" name="folderName" required className="w-full" disabled={isSubmitting} />
-        </div>
+      <h1 className="text-2xl font-semibold mb-4">Edit Folder </h1>
+      <LazyLoading>
+        {(folder) => {
+          if (!folder) {
+            return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
+          }
+          return (
+            <Form method="post" className="max-w-[600px]">
+              <div className="mb-4">
+                <label htmlFor="folderName" className="block mb-2">
+                  Folder Name
+                </label>
+                <Input
+                  id="folderName"
+                  name="folderName"
+                  required
+                  className="w-full"
+                  disabled={isSubmitting}
+                  defaultValue={folder.name}
+                />
+              </div>
 
-        <div className="mb-4">
-          <label htmlFor="description" className="block mb-2">
-            Description
-          </label>
-          <Input.TextArea id="description" name="description" required className="w-full" disabled={isSubmitting} />
-        </div>
+              <div className="mb-4">
+                <label htmlFor="description" className="block mb-2">
+                  Description
+                </label>
+                <Input.TextArea
+                  id="description"
+                  name="description"
+                  required
+                  className="w-full"
+                  disabled={isSubmitting}
+                  defaultValue={folder.description}
+                />
+              </div>
 
-        <div className="text-right">
-          <Button type="primary" htmlType="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </Button>
-        </div>
-      </Form>
-      {actionData && actionData.error && <p className="text-red-500 mt-4">{actionData.error}</p>}
+              {actionData && actionData.error && <p className="text-red-500 mt-4">{actionData.error}</p>}
+
+              <div>
+                <input type="hidden" name="originalFolder" value={JSON.stringify(folder)} />
+              </div>
+
+              <div className="text-right">
+                <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </Button>
+              </div>
+            </Form>
+          );
+        }}
+      </LazyLoading>
     </div>
   );
 };
 
 export default UpdateFolder;
 
-export async function action({ request }) {
+export const action = async ({ request, params }) => {
   const formData = await request.formData();
+  const originalFolder = JSON.parse(formData.get('originalFolder'));
   const folderName = formData.get('folderName');
   const description = formData.get('description');
+
+  if (folderName === originalFolder.name && description === originalFolder.description) {
+    return { error: 'No changes detected' };
+  }
+
   try {
-    await post('/folders', { name: folderName, description });
+    await put(`/folders/${params.folderId}`, { name: folderName, description });
     return redirect('/notes');
   } catch (error) {
-    return { error: 'Failed to create user. Please try again.' };
+    return { error: 'Failed to update folder. Please try again.' };
   }
-}
+};

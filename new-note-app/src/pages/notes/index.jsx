@@ -47,7 +47,7 @@ const Notes = () => {
 
 export default Notes;
 
-export const loadEvents = async () => {
+export const loadFolders = async () => {
   const response = await get('/folders');
   if (!response.ok) {
     throw new Error('Failed to fetch folders');
@@ -57,6 +57,6 @@ export const loadEvents = async () => {
 
 export const loader = () => {
   return defer({
-    event: loadEvents(),
+    event: loadFolders(),
   });
 };

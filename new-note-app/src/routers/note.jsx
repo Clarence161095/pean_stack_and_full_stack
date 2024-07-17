@@ -1,13 +1,16 @@
 import { EditOutlined } from '@ant-design/icons';
+import ErrorElement from '../components/ErrorElement';
 import Notes, { loader as notesLoader } from '../pages/notes';
 import Folder, { loader as folderLoader } from '../pages/notes/folder';
 import CreateFolder, { action as createFolderAction } from '../pages/notes/folder/create';
+import DeleteFolder, { action as deleteFolderAction } from '../pages/notes/folder/delete';
 import Note from '../pages/notes/folder/note';
-import UpdateFolder from '../pages/notes/folder/update';
+import UpdateFolder, { action as updateFolderAction } from '../pages/notes/folder/update';
 
 const noteRoute = [
   {
     path: 'notes',
+    errorElement: <ErrorElement />,
     menu: {
       key: 'notes',
       icon: <EditOutlined />,
@@ -35,12 +38,14 @@ const noteRoute = [
           {
             path: 'update',
             element: <UpdateFolder />,
-            // loader với id từ params
-            // action với nội dụng form
+            loader: folderLoader,
+            action: updateFolderAction,
           },
           {
             path: 'delete',
-            element: <h1>This is Folder Delete page</h1>,
+            element: <DeleteFolder />,
+            loader: folderLoader,
+            action: deleteFolderAction,
           },
           {
             path: ':noteId',
