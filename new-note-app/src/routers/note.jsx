@@ -24,6 +24,19 @@ const noteRoute = [
       },
       {
         path: ':folderId',
+        element: <Notes />,
+        loader: notesLoader,
+        children: [
+          {
+            path: 'delete',
+            element: <DeleteFolder />,
+            loader: folderLoader,
+            action: deleteFolderAction,
+          },
+        ],
+      },
+      {
+        path: ':folderId',
         children: [
           {
             index: true,
@@ -40,12 +53,6 @@ const noteRoute = [
             element: <UpdateFolder />,
             loader: folderLoader,
             action: updateFolderAction,
-          },
-          {
-            path: 'delete',
-            element: <DeleteFolder />,
-            loader: folderLoader,
-            action: deleteFolderAction,
           },
           {
             path: ':noteId',

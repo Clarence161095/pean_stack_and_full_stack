@@ -22,14 +22,13 @@ const Notes = () => {
           if (!folders || folders.length === 0) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
           }
-
           return (
             <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
               {folders.map((folder, index) => (
                 <Item
-                  showClick={() => navigate(folder.id)}
-                  editClick={() => navigate(folder.id + '/update')}
-                  deleteClick={() => navigate(folder.id + '/delete')}
+                  showClick={() => navigate('/notes/' + folder.id)}
+                  editClick={() => navigate('/notes/' + folder.id + '/update')}
+                  deleteClick={() => navigate('/notes/' + folder.id + '/delete')}
                   key={folder.id || index}
                   id={folder.id}
                   name={folder.name}

@@ -43,6 +43,12 @@ export async function action({ request }) {
   const formData = await request.formData();
   const folderName = formData.get('folderName');
   const description = formData.get('description');
+
+  // Validate folderName is a valid email address format
+  if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(folderName)) {
+    return { error: 'Folder name must be a valid email address.' };
+  }
+
   try {
     await post('/folders', { name: folderName, description });
     return redirect('/notes');

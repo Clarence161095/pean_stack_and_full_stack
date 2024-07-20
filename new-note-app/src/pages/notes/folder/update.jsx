@@ -1,11 +1,12 @@
 import { Button, Input } from 'antd';
-import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigate, useNavigation } from 'react-router-dom';
 import LazyLoading from '../../../components/LazyLoading';
 import { put } from '../../../utils/api';
 
 const UpdateFolder = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
+  const navigate = useNavigate();
   const isSubmitting = navigation.state === 'submitting';
 
   return (
@@ -52,10 +53,15 @@ const UpdateFolder = () => {
                 <input type="hidden" name="originalFolder" value={JSON.stringify(folder)} />
               </div>
 
-              <div className="text-right">
-                <Button type="primary" htmlType="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
-                </Button>
+              <div className="flex justify-end">
+                <div className="flex gap-2">
+                  <Button onClick={() => navigate('/notes')} type="default">
+                    Cancel
+                  </Button>
+                  <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </Button>
+                </div>
               </div>
             </Form>
           );
@@ -73,6 +79,7 @@ export const action = async ({ request, params }) => {
   const folderName = formData.get('folderName');
   const description = formData.get('description');
 
+  // Validate folderName and description are not empty
   if (folderName === originalFolder.name && description === originalFolder.description) {
     return { error: 'No changes detected' };
   }
