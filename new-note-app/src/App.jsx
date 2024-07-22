@@ -1,7 +1,7 @@
+import 'react-quill/dist/quill.snow.css';
 import { RouterProvider } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
 import router from './routers/root';
 

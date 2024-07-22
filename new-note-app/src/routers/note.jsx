@@ -56,6 +56,8 @@ const noteRoute = [
           },
           {
             path: ':noteId',
+            // element: <Folder />,
+            // loader: folderLoader,
             children: [
               {
                 index: true,

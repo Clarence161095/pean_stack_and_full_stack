@@ -1,11 +1,13 @@
 import { Button, Input } from 'antd';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { post } from '../../../utils/api';
+import ReactQuill from 'react-quill';
+import { useState } from 'react';
 
 const CreateFolder = () => {
+  const [description, setDescription] = useState('');
   const navigation = useNavigation();
   const actionData = useActionData();
-
   const isSubmitting = navigation.state === 'submitting';
 
   return (
@@ -16,14 +18,22 @@ const CreateFolder = () => {
           <label htmlFor="folderName" className="block mb-2">
             Folder Name
           </label>
-          <Input id="folderName" name="folderName" required className="w-full" disabled={isSubmitting} />
+          <Input
+            id="folderName"
+            name="folderName"
+            required
+            className="w-full"
+            disabled={isSubmitting}
+            placeholder="Folder name is email address"
+          />
         </div>
 
         <div className="mb-4">
           <label htmlFor="description" className="block mb-2">
             Description
           </label>
-          <Input.TextArea id="description" name="description" required className="w-full" disabled={isSubmitting} />
+          <Input hidden id="description" name="description" value={description} />
+          <ReactQuill theme="snow" value={description} onChange={setDescription} />
         </div>
 
         <div className="text-right">

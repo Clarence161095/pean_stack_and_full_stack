@@ -2,8 +2,11 @@ import { Button, Input } from 'antd';
 import { Form, redirect, useActionData, useNavigate, useNavigation } from 'react-router-dom';
 import LazyLoading from '../../../components/LazyLoading';
 import { put } from '../../../utils/api';
+import ReactQuill from 'react-quill';
+import { useState } from 'react';
 
 const UpdateFolder = () => {
+  const [description, setDescription] = useState('');
   const navigation = useNavigation();
   const actionData = useActionData();
   const navigate = useNavigate();
@@ -37,14 +40,8 @@ const UpdateFolder = () => {
                 <label htmlFor="description" className="block mb-2">
                   Description
                 </label>
-                <Input.TextArea
-                  id="description"
-                  name="description"
-                  required
-                  className="w-full"
-                  disabled={isSubmitting}
-                  defaultValue={folder.description}
-                />
+                <Input hidden id="description" name="description" value={description} />
+                <ReactQuill theme="snow" onChange={setDescription} defaultValue={folder.description} />
               </div>
 
               {actionData && actionData.error && <p className="text-red-500 mt-4">{actionData.error}</p>}
