@@ -1,10 +1,11 @@
 import { Button } from 'antd';
-import { defer, Outlet, useNavigate } from 'react-router-dom';
+import { defer, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import LazyLoading from '../../components/LazyLoading';
 import Item from '../../components/notes/item';
 import { get } from '../../utils/api';
 
 const Notes = () => {
+  const { event } = useLoaderData();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +18,7 @@ const Notes = () => {
           </Button>
         </div>
       </div>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folders) => {
           if (!folders || folders.length === 0) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;

@@ -1,10 +1,12 @@
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
-import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
-import { post } from '../../../utils/api';
-import ReactQuill from 'react-quill';
 import { useState } from 'react';
+import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import NoteEditor from '../../../components/notes/note/NoteEditor';
+import { post } from '../../../utils/api';
 
 const CreateFolder = () => {
+  const [viewDescription, setViewDescription] = useState(false);
   const [description, setDescription] = useState('');
   const navigation = useNavigation();
   const actionData = useActionData();
@@ -33,14 +35,27 @@ const CreateFolder = () => {
             Description
           </label>
           <Input hidden id="description" name="description" value={description} />
-          <ReactQuill theme="snow" value={description} onChange={setDescription} />
+          <div className="border border-gray-200 rounded-md p-2 mt-2">
+            <NoteEditor onChangeContent={setDescription} />
+          </div>
         </div>
 
-        <div className="text-right">
+        <div className="flex justify-end gap-2">
+          <Button type="default" onClick={() => setViewDescription(!viewDescription)}>
+            {viewDescription ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            {viewDescription ? 'Hide' : 'View'} Description
+          </Button>
           <Button type="primary" htmlType="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </Button>
         </div>
+
+        {viewDescription && (
+          <div
+            className="rich-text mt-2 border border-gray-200 rounded-md p-2 max-h-[30vh] overflow-auto"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
       </Form>
       {actionData && actionData.error && <p className="text-red-500 mt-4">{actionData.error}</p>}
     </div>

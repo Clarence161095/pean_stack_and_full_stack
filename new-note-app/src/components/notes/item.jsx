@@ -17,7 +17,7 @@ const Item = ({ name, description, id, showClick, editClick, deleteClick, ...pro
       onClick={handleClick}
       className={'cursor-pointer'}
       title={name}
-      description={<div dangerouslySetInnerHTML={{ __html: description.split(/<\/?h1>/)[1] }} />}
+      description={<div dangerouslySetInnerHTML={{ __html: description.split(/<\/?h[1-2]>/)[1] }} />}
       actions={[
         <EditOutlined key="edit" onClick={() => (onClickState = 'editClick')} />,
         <DeleteOutlined key="del" onClick={() => (onClickState = 'deleteClick')} />,

@@ -1,15 +1,16 @@
 import { Button } from 'antd';
-import { defer, Outlet, useNavigate } from 'react-router-dom';
+import { defer, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import LazyLoading from '../../../components/LazyLoading';
 import { get } from '../../../utils/api';
 
 const Folder = () => {
+  const { event } = useLoaderData();
   const navigate = useNavigate();
 
   return (
     <>
       <h1 className="text-2xl font-semibold">Folder Detail</h1>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folder) => {
           if (!folder) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
@@ -18,8 +19,14 @@ const Folder = () => {
             <>
               <div className="flex flex-col space-y-2 p-4 border border-gray-200 rounded-md shadow gap-2 mt-2 hover:shadow-lg transition duration-300 ease-in-out">
                 <h2 className="text-lg font-semibold">Folder: {folder.name}</h2>
-                <div className="text-sm text-gray-500">
-                  Description: {<div dangerouslySetInnerHTML={{ __html: folder.description }} />}
+                <div className="text-gray-500">
+                  Description:{' '}
+                  {
+                    <div
+                      className="rich-text mt-1 border border-gray-200 rounded-md p-2 max-h-[30vh] overflow-auto"
+                      dangerouslySetInnerHTML={{ __html: folder.description }}
+                    />
+                  }
                 </div>
                 <div className="flex gap-2 mb-4">
                   <h1 className="text-2xl font-semibold">List Notes</h1>

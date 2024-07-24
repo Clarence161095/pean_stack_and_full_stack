@@ -1,12 +1,15 @@
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
-import { Form, redirect, useActionData, useNavigate, useNavigation } from 'react-router-dom';
-import LazyLoading from '../../../components/LazyLoading';
-import { put } from '../../../utils/api';
-import ReactQuill from 'react-quill';
 import { useState } from 'react';
+import { Form, redirect, useActionData, useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
+import LazyLoading from '../../../components/LazyLoading';
+import NoteEditor from '../../../components/notes/note/NoteEditor';
+import { put } from '../../../utils/api';
 
 const UpdateFolder = () => {
+  const [viewDescription, setViewDescription] = useState(false);
   const [description, setDescription] = useState('');
+  const { event } = useLoaderData();
   const navigation = useNavigation();
   const actionData = useActionData();
   const navigate = useNavigate();
@@ -15,7 +18,7 @@ const UpdateFolder = () => {
   return (
     <div className="mb-4">
       <h1 className="text-2xl font-semibold mb-4">Edit Folder </h1>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folder) => {
           if (!folder) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
@@ -41,7 +44,9 @@ const UpdateFolder = () => {
                   Description
                 </label>
                 <Input hidden id="description" name="description" value={description} />
-                <ReactQuill theme="snow" onChange={setDescription} defaultValue={folder.description} />
+                <div className="border border-gray-200 rounded-md p-2 mt-2">
+                  <NoteEditor initialContent={folder.description} onChangeContent={setDescription} />
+                </div>
               </div>
 
               {actionData && actionData.error && <p className="text-red-500 mt-4">{actionData.error}</p>}
@@ -52,6 +57,10 @@ const UpdateFolder = () => {
 
               <div className="flex justify-end">
                 <div className="flex gap-2">
+                  <Button type="default" onClick={() => setViewDescription(!viewDescription)}>
+                    {viewDescription ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+                    {viewDescription ? 'Hide' : 'View'} Description
+                  </Button>
                   <Button onClick={() => navigate('/notes')} type="default">
                     Cancel
                   </Button>
@@ -60,6 +69,13 @@ const UpdateFolder = () => {
                   </Button>
                 </div>
               </div>
+
+              {viewDescription && (
+                <div
+                  className="rich-text mt-2 border border-gray-200 rounded-md p-2 max-h-[30vh] overflow-auto"
+                  dangerouslySetInnerHTML={{ __html: description }}
+                />
+              )}
             </Form>
           );
         }}
