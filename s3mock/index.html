@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S3 File Upload App</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function App() {
+        const inputRef = React.useRef(null);
+        const [file, setFile] = React.useState(null);
+        const [fileUrl, setFileUrl] = React.useState("");
+        const [loading, setLoading] = React.useState(false);
+
+        const handleFileChange = (event) => {
+          setFile(event.target.files[0]);
+        };
+
+        const uploadFile = async () => {
+          if (!file) {
+            alert("Vui lòng chọn một file");
+            return;
+          }
+
+          setLoading(true);
+          const formData = new FormData();
+          formData.append("file", file);
+
+          try {
+            const response = await axios.post("http://localhost:3000/upload", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            });
+            setFileUrl(response.data.fileUrl);
+          } catch (error) {
+            console.error("Lỗi khi upload file:", error);
+            alert("Có lỗi xảy ra khi upload file");
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        console.log(inputRef.current);
+
+        return (
+          <div>
+            <h1>S3 File Upload App</h1>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={uploadFile} disabled={loading}>
+              {loading ? "Đang upload..." : "Upload File"}
+            </button>
+            {fileUrl && (
+              <div>
+                <div>
+                  <h2>File đã được upload:</h2>
+                  <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                    {fileUrl}
+                  </a>
+                </div>
+                <br />
+                <img src={fileUrl} alt="Uploaded file" style={{ width: "100%", maxWidth: "200px" }} />
+              </div>
+            )}
+            <br />
+            <br />
+            <br />
+            <input
+              type="file"
+              placeholder="Type something..."
+              ref={inputRef}
+              onChange={() => console.log("inputRef.current.value:", inputRef.current.value)}
+            />
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
