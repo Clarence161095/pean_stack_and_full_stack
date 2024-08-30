@@ -1,7 +1,7 @@
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import { useState } from 'react';
-import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigate, useNavigation } from 'react-router-dom';
 import NoteEditor from '../../../components/notes/note/NoteEditor';
 import { post } from '../../../utils/api';
 
@@ -10,6 +10,7 @@ const CreateFolder = () => {
   const [description, setDescription] = useState('');
   const navigation = useNavigation();
   const actionData = useActionData();
+  const navigate = useNavigate();
   const isSubmitting = navigation.state === 'submitting';
 
   return (
@@ -48,6 +49,9 @@ const CreateFolder = () => {
           <Button type="primary" htmlType="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </Button>
+          <Button type="dashed" onClick={() => navigate(-1)}>
+            Back
+          </Button>
         </div>
 
         {viewDescription && (
@@ -64,7 +68,7 @@ const CreateFolder = () => {
 
 export default CreateFolder;
 
-export async function action({ request }) {
+export async function createFolderAction({ request }) {
   const formData = await request.formData();
   const folderName = formData.get('folderName');
   const description = formData.get('description');
@@ -76,7 +80,7 @@ export async function action({ request }) {
 
   try {
     await post('/folders', { name: folderName, description });
-    return redirect('/notes');
+    return redirect('/folders');
   } catch (error) {
     return { error: 'Failed to create user. Please try again.' };
   }

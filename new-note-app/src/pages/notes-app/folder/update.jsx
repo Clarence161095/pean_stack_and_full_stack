@@ -9,7 +9,7 @@ import { put } from '../../../utils/api';
 const UpdateFolder = () => {
   const [viewDescription, setViewDescription] = useState(false);
   const [description, setDescription] = useState('');
-  const { event } = useLoaderData();
+  const { folder } = useLoaderData();
   const navigation = useNavigation();
   const actionData = useActionData();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const UpdateFolder = () => {
   return (
     <div className="mb-4">
       <h1 className="text-2xl font-semibold mb-4">Edit Folder </h1>
-      <LazyLoading event={event}>
+      <LazyLoading event={folder}>
         {(folder) => {
           if (!folder) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
@@ -61,7 +61,7 @@ const UpdateFolder = () => {
                     {viewDescription ? <EyeInvisibleOutlined /> : <EyeOutlined />}
                     {viewDescription ? 'Hide' : 'View'} Description
                   </Button>
-                  <Button onClick={() => navigate('/notes')} type="default">
+                  <Button onClick={() => navigate('/folders')} type="default">
                     Cancel
                   </Button>
                   <Button type="primary" htmlType="submit" disabled={isSubmitting}>
@@ -86,7 +86,7 @@ const UpdateFolder = () => {
 
 export default UpdateFolder;
 
-export const action = async ({ request, params }) => {
+export const updateFolderAction = async ({ request, params }) => {
   const formData = await request.formData();
   const originalFolder = JSON.parse(formData.get('originalFolder'));
   const folderName = formData.get('folderName');
@@ -99,7 +99,7 @@ export const action = async ({ request, params }) => {
 
   try {
     await put(`/folders/${params.folderId}`, { name: folderName, description });
-    return redirect('/notes');
+    return redirect('/folders');
   } catch (error) {
     return { error: 'Failed to update folder. Please try again.' };
   }

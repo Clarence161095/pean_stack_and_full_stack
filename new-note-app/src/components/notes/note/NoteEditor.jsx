@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-function NoteEditor({ initialContent, onChangeContent, debounceTime = 300 }) {
+const NoteEditor = ({ initialContent, onChangeContent, debounceTime = 300 }) => {
   const debouncedUpdateContent = useRef(
     _.debounce((content) => {
       onChangeContent(content);
@@ -20,7 +20,7 @@ function NoteEditor({ initialContent, onChangeContent, debounceTime = 300 }) {
   );
 
   return <NoteEditorCore initialContent={initialContent} onChangeContent={handleChangeContent} />;
-}
+};
 
 const NoteEditorCore = ({ initialContent = '<p>Initial Note content...</p>', onChangeContent = () => {} }) => {
   const [editorState, setEditorState] = useState(() => {

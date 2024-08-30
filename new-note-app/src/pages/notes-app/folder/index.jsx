@@ -1,16 +1,18 @@
 import { Button } from 'antd';
-import { defer, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
+import { defer, Outlet, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import LazyLoading from '../../../components/LazyLoading';
+import Item from '../../../components/notes/item';
 import { get } from '../../../utils/api';
 
 const Folder = () => {
-  const { event } = useLoaderData();
+  const { folderId } = useParams();
+  const { folder, notes } = useLoaderData();
   const navigate = useNavigate();
 
   return (
     <>
       <h1 className="text-2xl font-semibold">Folder Detail</h1>
-      <LazyLoading event={event}>
+      <LazyLoading event={folder}>
         {(folder) => {
           if (!folder) {
             return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
@@ -31,37 +33,37 @@ const Folder = () => {
                 <div className="flex gap-2 mb-4">
                   <h1 className="text-2xl font-semibold">List Notes</h1>
                   <div className="mb-4">
-                    <Button type="primary" onClick={() => navigate('folders/create')}>
+                    <Button type="primary" onClick={() => navigate('/folders/' + folder.id + '/create')}>
                       Create Note
                     </Button>
                   </div>
                 </div>
-                {/* <LazyLoading>
-                  {(folders) => {
-                    if (!folders || folders.length === 0) {
+                <LazyLoading event={notes}>
+                  {(notes) => {
+                    if (!notes || notes.length === 0) {
                       return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
                     }
                     return (
                       <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
-                        {folders.map((folder, index) => (
+                        {notes.map((note, index) => (
                           <Item
-                            showClick={() => navigate('/notes/' + folder.id)}
-                            editClick={() => navigate('/notes/' + folder.id + '/update')}
-                            deleteClick={() => navigate('/notes/' + folder.id + '/delete')}
-                            key={folder.id || index}
-                            id={folder.id}
-                            name={folder.name}
-                            description={folder.description}
+                            showClick={(id) => navigate('/folders/' + folderId + '/' + id + '')}
+                            editClick={(id) => navigate('/folders/' + folderId + '/' + id + '/update')}
+                            deleteClick={(id) => navigate('/folders/' + folderId + '/' + id + '/delete')}
+                            key={note.id || index}
+                            id={note.id}
+                            name={note.title}
+                            description={note.content}
                           />
                         ))}
                       </div>
                     );
                   }}
-                </LazyLoading> */}
+                </LazyLoading>
                 <Outlet />
 
                 <div className="text-right">
-                  <Button type="default" onClick={() => navigate('/notes')}>
+                  <Button type="default" onClick={() => navigate('/folders')}>
                     Back
                   </Button>
                 </div>
@@ -84,18 +86,18 @@ const loadFolderInfo = async (folderId) => {
   return response.json();
 };
 
-// const loadListNotes = async (folderId) => {
-//   const response = await get(`/folders/${folderId}/events`);
-//   if (!response.ok) {
-//     throw new Error("Can't load events");
-//   }
-//   return response.json();
-// };
+const loadListNotes = async (folderId) => {
+  const response = await get(`/notes?folder=${folderId}`);
+  if (!response.ok) {
+    throw new Error("Can't load events");
+  }
+  return response.json();
+};
 
-export const loader = ({ params }) => {
+export const folderLoader = ({ params }) => {
   const folderId = params.folderId;
   return defer({
-    event: loadFolderInfo(folderId),
-    // events: loadListNotes(folderId),
+    folder: loadFolderInfo(folderId),
+    notes: loadListNotes(folderId),
   });
 };

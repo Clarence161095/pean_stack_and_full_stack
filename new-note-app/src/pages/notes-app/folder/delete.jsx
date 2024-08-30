@@ -1,17 +1,18 @@
-import { defer, Form, redirect, useLoaderData, useSubmit } from 'react-router-dom';
+import { Form, redirect, useLoaderData, useNavigate, useSubmit } from 'react-router-dom';
 import AntdModal from '../../../components/antd/Model';
 import LazyLoading from '../../../components/LazyLoading';
-import { del, get } from '../../../utils/api';
+import { del } from '../../../utils/api';
 
 const DeleteFolder = () => {
-  const { event } = useLoaderData();
+  const { folder } = useLoaderData();
+  const navigate = useNavigate();
   const submit = useSubmit();
 
   return (
     <>
-      <AntdModal open={true} closable={false} footer={null}>
+      <AntdModal open={true} closable={true} footer={null} onCancel={() => navigate(-1)}>
         <h1 className="text-2xl font-semibold">Do you want to delete this folder?</h1>
-        <LazyLoading event={event}>
+        <LazyLoading event={folder}>
           {(folder) => {
             if (!folder) {
               return <dialog className="flex justify-center items-center h-full">Don&apos;t have any folder</dialog>;
@@ -39,7 +40,7 @@ const DeleteFolder = () => {
                   <button
                     className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md shadow ml-2"
                     type="button"
-                    onClick={() => submit(null, { method: 'get', action: '/notes' })}
+                    onClick={() => submit(null, { method: 'get', action: '/folders' })}
                   >
                     Cancel
                   </button>
@@ -55,26 +56,12 @@ const DeleteFolder = () => {
 
 export default DeleteFolder;
 
-export const loadEvent = async (folderId) => {
-  const response = await get(`/folders/${folderId}`);
-  if (!response.ok) {
-    throw new Error("Can't load folder");
-  }
-  return response.json();
-};
-
-export const loader = ({ params }) => {
-  return defer({
-    event: loadEvent(params.folderId),
-  });
-};
-
-export async function action({ request }) {
+export async function deleteFolderAction({ request }) {
   const formData = await request.formData();
   const folderId = formData.get('folderId');
   try {
     await del('/folders/' + folderId);
-    return redirect('/notes');
+    return redirect('/folders');
   } catch (error) {
     return { error: 'Failed to delete folder. Please try again.' };
   }

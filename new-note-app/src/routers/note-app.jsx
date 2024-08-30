@@ -1,37 +1,55 @@
 import { EditOutlined } from '@ant-design/icons';
 import ErrorElement from '../components/ErrorElement';
-import Notes, { loader as notesLoader } from '../pages/notes';
-import Folder, { loader as folderLoader } from '../pages/notes/folder';
-import CreateFolder, { action as createFolderAction } from '../pages/notes/folder/create';
-import DeleteFolder, { action as deleteFolderAction } from '../pages/notes/folder/delete';
-import Note from '../pages/notes/folder/note';
-import UpdateFolder, { action as updateFolderAction } from '../pages/notes/folder/update';
+import NoteApps, { noteAppLoader } from '../pages/notes-app';
+import Folder, { folderLoader } from '../pages/notes-app/folder';
+import CreateFolder, { createFolderAction } from '../pages/notes-app/folder/create';
+import DeleteFolder, { deleteFolderAction } from '../pages/notes-app/folder/delete';
+import Note from '../pages/notes-app/folder/note';
+import CreateNote, { createNoteAction } from '../pages/notes-app/folder/note/create';
+import UpdateFolder, { updateFolderAction } from '../pages/notes-app/folder/update';
 
-const noteRoute = [
+const noteAppRoute = [
   {
-    path: 'notes',
+    path: 'folders',
     errorElement: <ErrorElement />,
     menu: {
-      key: 'notes',
+      key: 'folders',
       icon: <EditOutlined />,
-      label: 'Notes',
+      label: 'Note App',
     },
     children: [
       {
         index: true,
-        element: <Notes />,
-        loader: notesLoader,
+        element: <NoteApps />,
+        loader: noteAppLoader,
       },
       {
         path: ':folderId',
-        element: <Notes />,
-        loader: notesLoader,
+        element: <NoteApps />,
+        loader: noteAppLoader,
         children: [
           {
             path: 'delete',
             element: <DeleteFolder />,
             loader: folderLoader,
             action: deleteFolderAction,
+          },
+        ],
+      },
+      {
+        path: 'create',
+        element: <CreateFolder />,
+        action: createFolderAction,
+      },
+      {
+        path: ':folderId',
+        element: <Folder />,
+        loader: folderLoader,
+        children: [
+          {
+            path: 'create',
+            element: <CreateNote />,
+            action: createNoteAction,
           },
         ],
       },
@@ -44,11 +62,6 @@ const noteRoute = [
             loader: folderLoader,
           },
           {
-            path: 'create',
-            element: <CreateFolder />,
-            action: createFolderAction,
-          },
-          {
             path: 'update',
             element: <UpdateFolder />,
             loader: folderLoader,
@@ -56,16 +69,12 @@ const noteRoute = [
           },
           {
             path: ':noteId',
-            // element: <Folder />,
-            // loader: folderLoader,
+            element: <Folder />,
+            loader: folderLoader,
             children: [
               {
                 index: true,
                 element: <Note />,
-              },
-              {
-                path: 'create',
-                element: <h1>This is Note New page</h1>,
               },
               {
                 path: 'update',
@@ -83,4 +92,4 @@ const noteRoute = [
   },
 ];
 
-export default noteRoute;
+export default noteAppRoute;
