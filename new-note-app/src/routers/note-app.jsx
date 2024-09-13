@@ -4,9 +4,11 @@ import NoteApps, { noteAppLoader } from '../pages/notes-app';
 import Folder, { folderLoader } from '../pages/notes-app/folder';
 import CreateFolder, { createFolderAction } from '../pages/notes-app/folder/create';
 import DeleteFolder, { deleteFolderAction } from '../pages/notes-app/folder/delete';
-import Note from '../pages/notes-app/folder/note';
+import Note, { noteLoader } from '../pages/notes-app/folder/note';
 import CreateNote, { createNoteAction } from '../pages/notes-app/folder/note/create';
 import UpdateFolder, { updateFolderAction } from '../pages/notes-app/folder/update';
+import UpdateNote from '../pages/notes-app/folder/note/update';
+import DeleteNote from '../pages/notes-app/folder/note/delete';
 
 const noteAppRoute = [
   {
@@ -75,14 +77,17 @@ const noteAppRoute = [
               {
                 index: true,
                 element: <Note />,
+                loader: noteLoader,
               },
               {
                 path: 'update',
-                element: <h1>This is Note Edit page</h1>,
+                element: <UpdateNote />,
+                loader: noteLoader,
               },
               {
                 path: 'delete',
-                element: <h1>This is Note Delete page</h1>,
+                element: <DeleteNote />,
+                loader: noteLoader,
               },
             ],
           },

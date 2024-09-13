@@ -44,7 +44,7 @@ const Folder = () => {
                       return <div className="flex justify-center items-center h-full">Don&apos;t have any folder</div>;
                     }
                     return (
-                      <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
+                      <div className="flex flex-wrap gap-10 p-4 max-h-[calc(100vh-200px)] overflow-auto">
                         {notes.map((note, index) => (
                           <Item
                             showClick={(id) => navigate('/folders/' + folderId + '/' + id + '')}

@@ -28,7 +28,7 @@ const DeleteFolder = () => {
               >
                 <h2 className="text-lg font-semibold">Folder {folder.name}</h2>
                 <div className="text-sm text-gray-500 max-h-[30vh] overflow-auto">
-                  This is content of Folder: {folder.description}
+                  This is content of Folder: <div dangerouslySetInnerHTML={{ __html: folder.description }}></div>
                 </div>
                 <input type="hidden" name="folderName" value={folder.name} />
                 <input type="hidden" name="description" value={folder.description} />

@@ -14,13 +14,13 @@
   "notes": [
     {
       "title": "Note 1 of Folder 1",
-      "content": "<h1><strong>This is the edited content</strong></h1>",
+      "content": "<h1><strong>This is the edited content XXX</strong></h1>",
       "folder": 1,
       "id": 1
     },
     {
       "title": "Note 2 of Folder 1",
-      "content": "<h1><strong>This is the edited content</strong></h1>",
+      "content": "<h1><strong>This is the edited content YYY</strong></h1>",
       "folder": 1,
       "id": 2
     },
@@ -29,6 +29,11 @@
       "content": "<h1><strong>This is the edited content</strong></h1>",
       "folder": 2,
       "id": 3
+    },
+    {
+      "name": "Test Note",
+      "content": "<p>Initial Note content...</p>",
+      "id": 4
     }
   ]
 }
