@@ -1,0 +1,541 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "userName": "John"
+    },
+    {
+      "id": "2",
+      "userName": "Jane"
+    },
+    {
+      "id": "3",
+      "userName": "Alice"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "1",
+      "name": "Who is different?",
+      "users": [
+        {
+          "id": 1,
+          "userName": "John"
+        },
+        {
+          "id": 2,
+          "userName": "Jane"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "John and Alice",
+      "users": [
+        {
+          "id": 1,
+          "userName": "John"
+        },
+        {
+          "id": 3,
+          "userName": "Alice"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "John, Jane and Alice",
+      "users": [
+        {
+          "id": 1,
+          "userName": "John"
+        },
+        {
+          "id": 2,
+          "userName": "Jane"
+        },
+        {
+          "id": 3,
+          "userName": "Alice"
+        }
+      ]
+    }
+  ],
+  "conversationIsUpdates": [
+    {
+      "lastTime": 1728138891293,
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "conversationId": 2,
+      "lastTime": "2021-07-07T07:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "conversationId": 3,
+      "lastTime": "2021-07-07T07:00:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "conversationId": 1,
+      "sender": {
+        "id": 1,
+        "userName": "John"
+      },
+      "content": "Hello, Jane!"
+    },
+    {
+      "id": "2",
+      "conversationId": 1,
+      "sender": {
+        "id": 2,
+        "userName": "Jane"
+      },
+      "content": "Hi, John!"
+    },
+    {
+      "id": "3",
+      "conversationId": 2,
+      "sender": {
+        "id": 1,
+        "userName": "John"
+      },
+      "content": "Hello, Alice!"
+    },
+    {
+      "id": "4",
+      "conversationId": 2,
+      "sender": {
+        "id": 3,
+        "userName": "Alice"
+      },
+      "content": "Hi, John!"
+    },
+    {
+      "id": "5",
+      "conversationId": 3,
+      "sender": {
+        "id": 1,
+        "userName": "John"
+      },
+      "content": "Hello, Jane and Alice!"
+    },
+    {
+      "id": "6",
+      "conversationId": 3,
+      "sender": {
+        "id": 2,
+        "userName": "Jane"
+      },
+      "content": "Hi, John and Alice!"
+    },
+    {
+      "id": "7",
+      "conversationId": 3,
+      "sender": {
+        "id": 3,
+        "userName": "Alice"
+      },
+      "content": "Hi, John and Jane!"
+    },
+    {
+      "id": "182b",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "OK man"
+    },
+    {
+      "id": "56bf",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Ok ăn cơm chưa"
+    },
+    {
+      "id": "90af",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "Ăn rồi, đi chơi không"
+    },
+    {
+      "id": "cbfb",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "tối đi chơi không"
+    },
+    {
+      "id": "304f",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok đi luôn"
+    },
+    {
+      "id": "a830",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "OK ok ok 1234"
+    },
+    {
+      "id": "f586",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok lun "
+    },
+    {
+      "id": "50e6",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ok "
+    },
+    {
+      "id": "5ba2",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok"
+    },
+    {
+      "id": "d27d",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok"
+    },
+    {
+      "id": "3e2f",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "hello"
+    },
+    {
+      "id": "98b4",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "agjsdvjhasdf"
+    },
+    {
+      "id": "3f11",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ávdjhadsvahldsbfasdj"
+    },
+    {
+      "id": "db4e",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ádfhbasdjhf"
+    },
+    {
+      "id": "61c1",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ádfkhbasdf"
+    },
+    {
+      "id": "c2e7",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok man"
+    },
+    {
+      "id": "a001",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ok man "
+    },
+    {
+      "id": "83b4",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok ok "
+    },
+    {
+      "id": "b605",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ok man"
+    },
+    {
+      "id": "779d",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "kuadfblasjkdbfsd"
+    },
+    {
+      "id": "673b",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "okman "
+    },
+    {
+      "id": "0c79",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ádfasdkfblasdf"
+    },
+    {
+      "id": "a851",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ádfklajbsdfkjasdf"
+    },
+    {
+      "id": "950c",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ádasdasd"
+    },
+    {
+      "id": "25e1",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ok"
+    },
+    {
+      "id": "b9f0",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ádaygdiaysdgasd"
+    },
+    {
+      "id": "bb48",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "aksdbaksjdbasd"
+    },
+    {
+      "id": "3501",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ádbkajsd"
+    },
+    {
+      "id": "c00c",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "fsgsdfg"
+    },
+    {
+      "id": "e554",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "kshfdkgjsdfbg"
+    },
+    {
+      "id": "6344",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Khoẻ không"
+    },
+    {
+      "id": "e216",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Đi làm chưa"
+    },
+    {
+      "id": "cb2b",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "T đi làm rồi "
+    },
+    {
+      "id": "3a07",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Thế à"
+    },
+    {
+      "id": "380d",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "OK man "
+    },
+    {
+      "id": "7007",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "ok mai gặp"
+    },
+    {
+      "id": "af84",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "okasda"
+    },
+    {
+      "id": "c3cc",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "`12`11231231"
+    },
+    {
+      "id": "0562",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok man man a"
+    },
+    {
+      "id": "3513",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Chỉ biết Rest vẫn ok"
+    },
+    {
+      "id": "3909",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "tuan"
+    },
+    {
+      "id": "1f6e",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "linh"
+    },
+    {
+      "id": "6aed",
+      "conversationId": "1",
+      "sender": {
+        "id": "1",
+        "userName": "John"
+      },
+      "content": "Trên trang này cũng ko ok "
+    },
+    {
+      "id": "87de",
+      "conversationId": "1",
+      "sender": {
+        "id": "2",
+        "userName": "Jane"
+      },
+      "content": "ok chưa"
+    }
+  ]
+}
