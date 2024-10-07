@@ -1,69 +1,86 @@
 {
+  "users": [
+    {
+      "email": "tuan_email",
+      "displayName": "Tuan"
+    },
+    {
+      "email": "linh_email",
+      "displayName": "Linh"
+    },
+    {
+      "email": "hau_email",
+      "displayName": "Hau"
+    }
+  ],
+  "conversations_of_user": [
+    {
+      "email": "tuan_email",
+      "conversation_id": "1"
+    },
+    {
+      "email": "linh_email",
+      "conversation_id": "1"
+    },
+    {
+      "email": "linh_email",
+      "conversation_id": "2"
+    },
+    {
+      "email": "hau_email",
+      "conversation_id": "2"
+    }
+  ],
+  "conversation": [
+    {
+      "id": "1",
+      "name": "Tuan - Linh"
+    },
+    {
+      "id": "2",
+      "name": "Linh - Hau"
+    }
+  ],
   "messages": [
     {
-      "id": "45d5",
-      "content": "hello",
-      "timestamp": "2024-10-07T10:47:30.562Z"
+      "conversation_id": "1",
+      "content": "Hello",
+      "sender": "tuan_email"
     },
     {
-      "id": "2725",
-      "content": "Khoẻ không",
-      "timestamp": "2024-10-07T10:47:38.935Z"
+      "conversation_id": "1",
+      "content": "Hi",
+      "sender": "linh_email"
     },
     {
-      "id": "6090",
-      "content": "Tôi vẫn khoẻ",
-      "timestamp": "2024-10-07T10:47:54.746Z"
+      "conversation_id": "2",
+      "content": "Hi",
+      "sender": "linh_email"
     },
     {
-      "id": "8a85",
-      "content": "Cảm ơn",
-      "timestamp": "2024-10-07T10:48:22.925Z"
+      "conversation_id": "2",
+      "content": "Hello",
+      "sender": "hau_email"
     },
     {
-      "id": "e171",
-      "content": "Vậy hả",
-      "timestamp": "2024-10-07T10:48:32.273Z"
+      "conversation_id": "1",
+      "content": "How are you?",
+      "sender": "tuan_email"
     },
     {
-      "id": "36fc",
-      "content": "Ừm ",
-      "timestamp": "2024-10-07T10:48:39.962Z"
+      "conversation_id": "1",
+      "content": "I'm fine",
+      "sender": "linh_email"
     },
     {
-      "id": "fef4",
-      "content": "1",
-      "timestamp": "2024-10-07T10:52:45.062Z"
+      "conversation_id": "2",
+      "content": "How are you?",
+      "sender": "linh_email"
     },
     {
-      "id": "9f70",
-      "content": "2",
-      "timestamp": "2024-10-07T10:52:47.229Z"
-    },
-    {
-      "id": "16f2",
-      "content": "3",
-      "timestamp": "2024-10-07T10:52:48.741Z"
-    },
-    {
-      "id": "fd4c",
-      "content": "4",
-      "timestamp": "2024-10-07T10:52:50.562Z"
-    },
-    {
-      "id": "e5a2",
-      "content": "5",
-      "timestamp": "2024-10-07T10:52:52.178Z"
-    },
-    {
-      "id": "0ab5",
-      "content": "1",
-      "timestamp": "2024-10-07T10:53:03.650Z"
-    },
-    {
-      "id": "35c6",
-      "content": "2",
-      "timestamp": "2024-10-07T10:53:06.303Z"
+      "conversation_id": "2",
+      "content": "I'm fine",
+      "sender": "hau_email"
     }
   ]
 }
