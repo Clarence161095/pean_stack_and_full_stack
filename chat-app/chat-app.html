@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <style>
+      #chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #message-list {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      #message-input {
+        width: 70%;
+        padding: 5px;
+      }
+      #send-button {
+        width: 25%;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function ChatApp() {
+        const [messages, setMessages] = React.useState([]);
+        const [newMessage, setNewMessage] = React.useState("");
+
+        React.useEffect(() => {
+          fetchMessages();
+          const interval = setInterval(fetchMessages, 5000);
+          return () => clearInterval(interval);
+        }, []);
+
+        const fetchMessages = () => {
+          fetch("http://localhost:3000/messages")
+            .then((response) => response.json())
+            .then((data) => setMessages(data));
+        };
+
+        const sendMessage = () => {
+          if (newMessage.trim() === "") return;
+
+          fetch("http://localhost:3000/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content: newMessage, timestamp: new Date().toISOString() }),
+          })
+            .then((response) => response.json())
+            .then(() => {
+              setNewMessage("");
+              fetchMessages();
+            });
+        };
+
+        return (
+          <div id="chat-container">
+            <h1>Chat App</h1>
+            <div id="message-list">
+              {messages.map((message, index) => (
+                <div key={index}>
+                  <strong>{new Date(message.timestamp).toLocaleTimeString()}</strong>: {message.content}
+                </div>
+              ))}
+            </div>
+            <input
+              id="message-input"
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Type a message..."
+            />
+            <button id="send-button" onClick={sendMessage}>
+              Send
+            </button>
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<ChatApp />);
+    </script>
+  </body>
+</html>
