@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState } from "react";
+import React from "react";
+import { createContext, useState } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
@@ -16,15 +17,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  useEffect(() => {
-    const info = JSON.parse(localStorage.getItem("user"));
-    if (info && info.display_name && info.email) {
-      setUser(info);
-    } else {
-      setUser(null);
-    }
-  }, []);
-
   const isLogin = () => {
     if (userInfo && userInfo.display_name && userInfo.email) {
       return true;
@@ -38,5 +30,5 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  return <AuthContext.Provider value={{ userInfo, login, logout, isLogin }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ login, logout, isLogin }}>{children}</AuthContext.Provider>;
 };

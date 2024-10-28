@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
@@ -10,7 +12,7 @@ const Login = () => {
     if (isLogin()) {
       navigate("/protected");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin]);
 
   const handleLogin = () => {
     // TODO: do something for check login

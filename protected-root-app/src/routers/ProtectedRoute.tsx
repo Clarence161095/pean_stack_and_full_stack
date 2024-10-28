@@ -1,4 +1,6 @@
-import { useContext, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
+import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 
@@ -6,12 +8,10 @@ export const ProtectedRoute = () => {
   const navigate = useNavigate();
   const { logout, isLogin } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (!isLogin()) {
-      logout();
-      navigate("/login");
-    }
-  }, [isLogin, logout, navigate]);
+  if (!isLogin()) {
+    logout();
+    navigate("/login");
+  }
 
   if (!isLogin()) {
     return null;
