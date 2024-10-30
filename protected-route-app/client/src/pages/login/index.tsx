@@ -22,6 +22,7 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      // TODO: Lưu thông tin user vào Cookie bằng cách gửi request lên server
       return user;
     } catch (error: any) {
       console.error("Lỗi đăng nhập:", error.message);
