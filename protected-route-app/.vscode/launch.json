@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/server/app.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "runtimeArgs": ["--ignore", "data/"]
+    },
+    {
+      "name": "Debug Client",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/client"
+    }
+  ]
+}
