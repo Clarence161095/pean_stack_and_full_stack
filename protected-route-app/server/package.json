@@ -10,7 +10,8 @@
     "lint": "eslint . --ext .ts",
     "type-check": "tsc --noEmit",
     "bundle": "esbuild src/index.ts --bundle --platform=node --outfile=build/index.js --minify",
-    "start:bundle": "node build/index.js"
+    "start:bundle": "node build/index.js",
+    "vercel-build": "npm run bundle"
   },
   "keywords": [],
   "author": "",
