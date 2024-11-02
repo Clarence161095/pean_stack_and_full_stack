@@ -5,6 +5,15 @@ import { Item, CreateItemDTO, UpdateItemDTO, ApiResponse } from './lib/types';
 const app = express();
 app.use(express.json());
 
+app.get('', (req, res) => {
+  res.json({ message: 'Hello World' });
+});
+
+// Health check
+app.get('/api/health', (_req, res) => {
+  res.json({ message: 'Server is running' });
+});
+
 // GET - Lấy tất cả items
 app.get('/api/items', async (_req: Request, res: Response<ApiResponse<Item[]>>) => {
   const client = await connectDB();
@@ -101,6 +110,12 @@ app.delete('/api/items/:id', async (req: Request<{ id: string }>, res: any) => {
   } finally {
     await disconnectDB(client);
   }
+});
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
 
 export default app;

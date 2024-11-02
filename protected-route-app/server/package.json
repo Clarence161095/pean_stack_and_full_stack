@@ -5,19 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "lint": "eslint . --ext .ts",
-    "type-check": "tsc --noEmit",
-    "bundle": "esbuild src/index.ts --bundle --platform=node --outfile=build/index.js --minify",
-    "start:bundle": "node build/index.js",
-    "vercel-build": "npm run bundle"
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=build/index.js --minify",
+    "start": "node build/index.js",
+    "deploy": "npm run build && vercel --prod"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@vercel/postgres": "^0.10.0",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   },
   "devDependencies": {
