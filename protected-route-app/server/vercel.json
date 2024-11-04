@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "build/index.js",
@@ -12,5 +11,8 @@
       "src": "/(.*)",
       "dest": "build/index.js"
     }
-  ]
+  ],
+  "buildCommand": "npm ci && npm run build",
+  "installCommand": "npm ci",
+  "outputDirectory": "build"
 }
