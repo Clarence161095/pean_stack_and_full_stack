@@ -1,7 +1,7 @@
 import getClient from '@/configs/db';
 import { Router } from 'express';
 
-// This is router for /users
+// This is router for /api/users
 const usersRouter = Router();
 
 usersRouter.get('', async (req: any, res: any) => {
@@ -32,7 +32,7 @@ usersRouter.get('/:email', async (req: any, res: any) => {
 });
 
 usersRouter.post('', async (req: any, res: any) => {
-  const { email, display_name, photo_url } = req.body;
+  const { email, display_name, photo_url, uid } = req.body;
   const client = await getClient();
   try {
     // Check if email exists
@@ -44,8 +44,8 @@ usersRouter.post('', async (req: any, res: any) => {
     }
 
     const { rows } = await client.sql`
-      INSERT INTO protected_route_app.users (email, display_name, photo_url)
-      VALUES (${email}, ${display_name}, ${photo_url || null})
+      INSERT INTO protected_route_app.users (email, display_name, photo_url, uid)
+      VALUES (${email}, ${display_name}, ${photo_url || null}, ${uid})
       RETURNING *
     `;
     res.status(201).json({ data: rows[0] });

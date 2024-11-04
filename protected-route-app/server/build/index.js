@@ -63,13 +63,13 @@ Please see the 3.x to 4.x migration guide for details on how to update your app.
       SELECT * FROM protected_route_app.users ORDER BY created_at DESC
     `;e.json({data:i})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.get("/:email",async(t,e)=>{let n=await Ln();try{let{rows:i}=await n.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${t.params.email}
-    `;if(i.length===0)return e.status(404).json({message:"User not found"});e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.post("",async(t,e)=>{let{email:n,display_name:i,photo_url:r}=t.body,a=await Ln();try{let{rows:s}=await a.sql`
+    `;if(i.length===0)return e.status(404).json({message:"User not found"});e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.post("",async(t,e)=>{let{email:n,display_name:i,photo_url:r,uid:a}=t.body,s=await Ln();try{let{rows:o}=await s.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${n}
-    `;if(s.length>0)return e.status(400).json({message:"Email already exists"});let{rows:o}=await a.sql`
-      INSERT INTO protected_route_app.users (email, display_name, photo_url)
-      VALUES (${n}, ${i}, ${r||null})
+    `;if(o.length>0)return e.status(400).json({message:"Email already exists"});let{rows:c}=await s.sql`
+      INSERT INTO protected_route_app.users (email, display_name, photo_url, uid)
+      VALUES (${n}, ${i}, ${r||null}, ${a})
       RETURNING *
-    `;e.status(201).json({data:o[0]})}catch(s){e.status(500).json({error:s instanceof Error?s.message:"Unknown error"})}});qn.put("/:id",async(t,e)=>{let{display_name:n,photo_url:i}=t.body,r=await Ln();try{let{rows:a}=await r.sql`
+    `;e.status(201).json({data:c[0]})}catch(o){e.status(500).json({error:o instanceof Error?o.message:"Unknown error"})}});qn.put("/:id",async(t,e)=>{let{display_name:n,photo_url:i}=t.body,r=await Ln();try{let{rows:a}=await r.sql`
         UPDATE protected_route_app.users
         SET display_name = ${n}, photo_url = ${i||null}
         WHERE id = ${t.params.id}
