@@ -31,19 +31,19 @@ usersRouter.get('/:email', async (req: any, res: any) => {
   }
 });
 
-usersRouter.post('', (req: any, res: any) => {
+usersRouter.post('', async (req: any, res: any) => {
   const { email, display_name, photo_url } = req.body;
-  const client = getClient() as any;
+  const client = await getClient();
   try {
     // Check if email exists
-    const { rows: existingUsers } = client.sql`
+    const { rows: existingUsers } = await client.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${email}
     `;
     if (existingUsers.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });
     }
 
-    const { rows } = client.sql`
+    const { rows } = await client.sql`
       INSERT INTO protected_route_app.users (email, display_name, photo_url)
       VALUES (${email}, ${display_name}, ${photo_url || null})
       RETURNING *
@@ -54,11 +54,11 @@ usersRouter.post('', (req: any, res: any) => {
   }
 });
 
-usersRouter.put('/:id', (req: any, res: any) => {
+usersRouter.put('/:id', async (req: any, res: any) => {
   const { display_name, photo_url } = req.body;
-  const client = getClient() as any;
+  const client = await getClient();
   try {
-    const { rows } = client.sql`
+    const { rows } = await client.sql`
         UPDATE protected_route_app.users
         SET display_name = ${display_name}, photo_url = ${photo_url || null}
         WHERE id = ${req.params.id}
@@ -70,10 +70,10 @@ usersRouter.put('/:id', (req: any, res: any) => {
   }
 });
 
-usersRouter.delete('/:id', (req: any, res: any) => {
-  const client = getClient() as any;
+usersRouter.delete('/:id', async (req: any, res: any) => {
+  const client = await getClient();
   try {
-    const { rows } = client.sql`
+    const { rows } = await client.sql`
       DELETE FROM protected_route_app.users WHERE id = ${req.params.id}
       RETURNING *
     `;

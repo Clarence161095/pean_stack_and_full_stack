@@ -63,18 +63,18 @@ Please see the 3.x to 4.x migration guide for details on how to update your app.
       SELECT * FROM protected_route_app.users ORDER BY created_at DESC
     `;e.json({data:i})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.get("/:email",async(t,e)=>{let n=await Ln();try{let{rows:i}=await n.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${t.params.email}
-    `;if(i.length===0)return e.status(404).json({message:"User not found"});e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.post("",(t,e)=>{let{email:n,display_name:i,photo_url:r}=t.body,a=Ln();try{let{rows:s}=a.sql`
+    `;if(i.length===0)return e.status(404).json({message:"User not found"});e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.post("",async(t,e)=>{let{email:n,display_name:i,photo_url:r}=t.body,a=await Ln();try{let{rows:s}=await a.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${n}
-    `;if(s.length>0)return e.status(400).json({message:"Email already exists"});let{rows:o}=a.sql`
+    `;if(s.length>0)return e.status(400).json({message:"Email already exists"});let{rows:o}=await a.sql`
       INSERT INTO protected_route_app.users (email, display_name, photo_url)
       VALUES (${n}, ${i}, ${r||null})
       RETURNING *
-    `;e.status(201).json({data:o[0]})}catch(s){e.status(500).json({error:s instanceof Error?s.message:"Unknown error"})}});qn.put("/:id",(t,e)=>{let{display_name:n,photo_url:i}=t.body,r=Ln();try{let{rows:a}=r.sql`
+    `;e.status(201).json({data:o[0]})}catch(s){e.status(500).json({error:s instanceof Error?s.message:"Unknown error"})}});qn.put("/:id",async(t,e)=>{let{display_name:n,photo_url:i}=t.body,r=await Ln();try{let{rows:a}=await r.sql`
         UPDATE protected_route_app.users
         SET display_name = ${n}, photo_url = ${i||null}
         WHERE id = ${t.params.id}
         RETURNING *
-      `;e.json({data:a[0]})}catch(a){e.status(500).json({error:a instanceof Error?a.message:"Unknown error"})}});qn.delete("/:id",(t,e)=>{let n=Ln();try{let{rows:i}=n.sql`
+      `;e.json({data:a[0]})}catch(a){e.status(500).json({error:a instanceof Error?a.message:"Unknown error"})}});qn.delete("/:id",async(t,e)=>{let n=await Ln();try{let{rows:i}=await n.sql`
       DELETE FROM protected_route_app.users WHERE id = ${t.params.id}
       RETURNING *
     `;e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});var dg=qn;var hg=(0,mg.Router)();hg.use("/users",dg);var vg=hg;var jn=(0,ic.default)();jn.use(ic.default.json());jn.get("",(t,e)=>{e.json({message:"Hello World"})});jn.get("/api/health",(t,e)=>{e.json({message:"Server is running"})});jn.use("/api",vg);var gg=process.env.PORT||3e3;jn.listen(gg,()=>{console.log(`Server running on port ${gg}`)});var j6=jn;
