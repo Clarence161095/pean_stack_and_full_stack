@@ -77,7 +77,7 @@ Please see the 3.x to 4.x migration guide for details on how to update your app.
       `;e.json({data:a[0]})}catch(a){e.status(500).json({error:a instanceof Error?a.message:"Unknown error"})}});qn.delete("/:id",(t,e)=>{let n=Ln();try{let{rows:i}=n.sql`
       DELETE FROM protected_route_app.users WHERE id = ${t.params.id}
       RETURNING *
-    `;e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});var dg=qn;var hg=(0,mg.Router)();hg.use("/users",dg);var vg=hg;var jn=(0,ic.default)();jn.use(ic.default.json());jn.get("",(t,e)=>{e.json({message:"Hello World"})});jn.get("/api/health",(t,e)=>{e.json({message:"Server is running"})});jn.use("users",vg);var gg=process.env.PORT||3e3;jn.listen(gg,()=>{console.log(`Server running on port ${gg}`)});var j6=jn;
+    `;e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});var dg=qn;var hg=(0,mg.Router)();hg.use("users",dg);var vg=hg;var jn=(0,ic.default)();jn.use(ic.default.json());jn.get("",(t,e)=>{e.json({message:"Hello World"})});jn.get("/api/health",(t,e)=>{e.json({message:"Server is running"})});jn.use("api",vg);var gg=process.env.PORT||3e3;jn.listen(gg,()=>{console.log(`Server running on port ${gg}`)});var j6=jn;
 /*! Bundled license information:
 
 depd/index.js:

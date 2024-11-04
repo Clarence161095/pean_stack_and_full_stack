@@ -13,7 +13,7 @@ app.get('/api/health', (_req, res) => {
   res.json({ message: 'Server is running' });
 });
 
-app.use('users', router);
+app.use('api', router);
 
 // // GET - Lấy tất cả items
 // app.get('/api/items', async (_req: Request, res: Response<ApiResponse<Item[]>>) => {
