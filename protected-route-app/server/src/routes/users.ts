@@ -9,6 +9,7 @@ usersRouter.get('', async (req: any, res: any) => {
   try {
     const { rows } = await client.sql`
       SELECT * FROM protected_route_app.users ORDER BY created_at DESC
+      WHERE deleted_at IS NULL
     `;
     res.json({ data: rows });
   } catch (error) {
@@ -21,6 +22,7 @@ usersRouter.get('/:email', async (req: any, res: any) => {
   try {
     const { rows } = await client.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${req.params.email}
+        AND deleted_at IS NULL
     `;
     if (rows.length === 0) {
       return res.status(404).json({ message: 'User not found' });
@@ -38,6 +40,7 @@ usersRouter.post('', async (req: any, res: any) => {
     // Check if email exists
     const { rows: existingUsers } = await client.sql`
       SELECT * FROM protected_route_app.users WHERE email = ${email}
+      WHERE deleted_at IS NULL
     `;
     if (existingUsers.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });
@@ -54,14 +57,14 @@ usersRouter.post('', async (req: any, res: any) => {
   }
 });
 
-usersRouter.put('/:id', async (req: any, res: any) => {
+usersRouter.put('/:email', async (req: any, res: any) => {
   const { display_name, photo_url } = req.body;
   const client = await getClient();
   try {
     const { rows } = await client.sql`
         UPDATE protected_route_app.users
         SET display_name = ${display_name}, photo_url = ${photo_url || null}
-        WHERE id = ${req.params.id}
+        WHERE email = ${req.params.email} AND deleted_at IS NULL
         RETURNING *
       `;
     res.json({ data: rows[0] });
@@ -70,11 +73,13 @@ usersRouter.put('/:id', async (req: any, res: any) => {
   }
 });
 
-usersRouter.delete('/:id', async (req: any, res: any) => {
+usersRouter.delete('/:email', async (req: any, res: any) => {
   const client = await getClient();
   try {
     const { rows } = await client.sql`
-      DELETE FROM protected_route_app.users WHERE id = ${req.params.id}
+      UPDATE protected_route_app.users
+      SET deleted_at = NOW()
+      WHERE email = ${req.params.email} AND deleted_at IS NULL
       RETURNING *
     `;
     res.json({ data: rows[0] });

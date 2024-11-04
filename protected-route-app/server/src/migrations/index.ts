@@ -1,6 +1,8 @@
 // src/migrations/index.ts
 import { connectDB, disconnectDB } from '../lib/db';
 import * as createUsersTable from './scripts/001_create_users_table';
+// Thêm các migration scripts khác ở đây
+import * as addSoftDeleteUser from './scripts/002_add_soft_delete_user';
 
 interface MigrationScript {
   up: Function;
@@ -10,6 +12,7 @@ interface MigrationScript {
 export const migrations: MigrationScript[] = [
   createUsersTable,
   // Thêm các migration scripts khác ở đây
+  addSoftDeleteUser,
 ];
 
 export async function migrate(direction: 'up' | 'down' = 'up') {
