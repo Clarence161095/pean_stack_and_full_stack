@@ -1,9 +1,6 @@
 // src/migrations/index.ts
 import { connectDB, disconnectDB } from '../lib/db';
-import * as createItemsTable from './scripts/001_create_items_table';
-import * as addItemsIndexes from './scripts/002_add_items_indexes';
-import * as addAgeColumn from './scripts/003_add_age_column';
-import * as add10SampleRecordForItems from './scripts/004_add_10_sample_record_for_items';
+import * as createUsersTable from './scripts/001_create_users_table';
 
 interface MigrationScript {
   up: Function;
@@ -11,11 +8,8 @@ interface MigrationScript {
 }
 
 export const migrations: MigrationScript[] = [
-  createItemsTable,
+  createUsersTable,
   // Thêm các migration scripts khác ở đây
-  addItemsIndexes,
-  addAgeColumn,
-  add10SampleRecordForItems,
 ];
 
 export async function migrate(direction: 'up' | 'down' = 'up') {
@@ -24,7 +18,7 @@ export async function migrate(direction: 'up' | 'down' = 'up') {
   try {
     // Tạo bảng migrations nếu chưa tồn tại
     await client.sql`
-      CREATE TABLE IF NOT EXISTS migrations (
+      CREATE TABLE IF NOT EXISTS protected_route_app.migrations (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -38,14 +32,14 @@ export async function migrate(direction: 'up' | 'down' = 'up') {
 
         // Kiểm tra xem migration đã được thực hiện chưa
         const { rows } = await client.sql`
-          SELECT id FROM migrations WHERE name = ${migrationName}
+          SELECT id FROM protected_route_app.migrations WHERE name = ${migrationName}
         `;
 
         if (rows.length === 0) {
           console.log(`Executing migration: ${migrationName}`);
           await migration.up(client);
           await client.sql`
-            INSERT INTO migrations (name) VALUES (${migrationName})
+            INSERT INTO protected_route_app.migrations (name) VALUES (${migrationName})
           `;
           console.log(`Completed migration: ${migrationName}`);
         }
@@ -59,7 +53,7 @@ export async function migrate(direction: 'up' | 'down' = 'up') {
         console.log(`Rolling back migration: ${migrationName}`);
         await migration.down(client);
         await client.sql`
-          DELETE FROM migrations WHERE name = ${migrationName}
+          DELETE FROM protected_route_app.migrations WHERE name = ${migrationName}
         `;
         console.log(`Rolled back migration: ${migrationName}`);
       }
