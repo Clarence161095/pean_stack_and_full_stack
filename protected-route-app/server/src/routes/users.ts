@@ -8,8 +8,9 @@ usersRouter.get('', async (req: any, res: any) => {
   const client = await getClient();
   try {
     const { rows } = await client.sql`
-      SELECT * FROM protected_route_app.users ORDER BY created_at DESC
+      SELECT * FROM protected_route_app.users 
       WHERE deleted_at IS NULL
+      ORDER BY created_at DESC
     `;
     res.json({ data: rows });
   } catch (error) {
