@@ -40,8 +40,7 @@ usersRouter.post('', async (req: any, res: any) => {
   try {
     // Check if email exists
     const { rows: existingUsers } = await client.sql`
-      SELECT * FROM protected_route_app.users WHERE email = ${email}
-      WHERE deleted_at IS NULL
+      SELECT * FROM protected_route_app.users WHERE email = ${email} AND deleted_at IS NULL
     `;
     if (existingUsers.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });

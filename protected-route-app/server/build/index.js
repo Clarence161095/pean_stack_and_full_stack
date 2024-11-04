@@ -67,8 +67,7 @@ Please see the 3.x to 4.x migration guide for details on how to update your app.
       SELECT * FROM protected_route_app.users WHERE email = ${t.params.email}
         AND deleted_at IS NULL
     `;if(i.length===0)return e.status(404).json({message:"User not found"});e.json({data:i[0]})}catch(i){e.status(500).json({error:i instanceof Error?i.message:"Unknown error"})}});qn.post("",async(t,e)=>{let{email:n,display_name:i,photo_url:r,uid:a}=t.body,s=await Ln();try{let{rows:o}=await s.sql`
-      SELECT * FROM protected_route_app.users WHERE email = ${n}
-      WHERE deleted_at IS NULL
+      SELECT * FROM protected_route_app.users WHERE email = ${n} AND deleted_at IS NULL
     `;if(o.length>0)return e.status(400).json({message:"Email already exists"});let{rows:c}=await s.sql`
       INSERT INTO protected_route_app.users (email, display_name, photo_url, uid)
       VALUES (${n}, ${i}, ${r||null}, ${a})
