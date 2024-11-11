@@ -1,4 +1,4 @@
-import getClient from '@/configs/db';
+import getClient from '../configs/db';
 import { Router } from 'express';
 
 // This is router for /api/users

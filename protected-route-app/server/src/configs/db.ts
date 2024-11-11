@@ -5,7 +5,7 @@ dotenv.config();
 
 let client: VercelPoolClient;
 
-async function connectDB(): Promise<VercelPoolClient> {
+export async function connectDB(): Promise<VercelPoolClient> {
   try {
     const client = await db.connect();
     console.log('Connected to database successfully');
