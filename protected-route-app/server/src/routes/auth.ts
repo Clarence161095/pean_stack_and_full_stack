@@ -2,10 +2,13 @@ import { Router } from 'express';
 import admin from 'firebase-admin';
 import jwt from 'jsonwebtoken';
 import { envConfig } from '../configs/envConfig';
+import { v4 as uuidv4 } from 'uuid';
 import * as userService from '../services/user.service';
 
 // /api/auth
 const authRoute = Router();
+
+export const otherTokenMap = {} as any;
 
 authRoute.post('/sso-login', async (req: any, res: any) => {
   const { accessToken } = req.body;
@@ -31,23 +34,33 @@ authRoute.post('/sso-login', async (req: any, res: any) => {
       });
     }
 
+    const payload = {
+      id: user.id,
+      uid: uid,
+      email: email,
+      displayName: name,
+      photoURL: picture,
+      role: 'admin',
+    };
+
     // Create jwt token and save in cookie in 1 day
-    const jwtToken = jwt.sign(
-      {
-        id: user.id,
-        uid: uid,
-        email: email,
-        displayName: name,
-        photoURL: picture,
-        role: 'user',
-      },
-      envConfig.JWT_SECRET,
-      {
-        expiresIn: '1day',
-      },
-    );
+    const jwtToken = jwt.sign(payload, envConfig.JWT_SECRET, {
+      expiresIn: '1day',
+    });
 
     res.cookie('token', jwtToken, {
+      httpOnly: true,
+      secure: envConfig.ENV === 'product',
+      sameSite: 'lax',
+      signed: true,
+    });
+
+    const otherToken = uuidv4();
+    otherTokenMap[otherToken] = {
+      ...payload,
+      expires: new Date(Date.now() + 1000 * 30),
+    } as any;
+    res.cookie('otherToken', otherToken, {
       httpOnly: true,
       secure: envConfig.ENV === 'product',
       sameSite: 'lax',
