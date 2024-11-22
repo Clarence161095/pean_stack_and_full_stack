@@ -5,29 +5,39 @@ dotenv.config();
 
 let client: VercelPoolClient;
 
-export async function connectDB(): Promise<VercelPoolClient> {
-  try {
-    const client = await db.connect();
-    console.log('Connected to database successfully');
-    return client;
-  } catch (error) {
-    console.error('Error connecting to database:', error);
-    throw error;
+export async function connectDB(retries = 5): Promise<any> {
+  while (retries) {
+    try {
+      client = await db.connect();
+      console.log('Connected to database successfully');
+      return client;
+    } catch (error) {
+      console.error('Error connecting to database:', error);
+      retries -= 1;
+      console.log(`Retries left: ${retries}`);
+      if (client) {
+        await disconnectDB(client);
+      }
+      if (retries === 0) {
+        throw error;
+      }
+      await new Promise((res) => setTimeout(res, 5000)); // wait for 5 seconds before retrying
+    }
   }
 }
 
 export async function disconnectDB(client: VercelPoolClient): Promise<void> {
   try {
     await client.release();
+    console.log('Disconnected from database successfully');
   } catch (error) {
     console.error('Error disconnecting from database:', error);
-    throw error;
   }
 }
 
 const getClient = async () => {
   if (!client) {
-    client = await connectDB();
+    client = (await connectDB()) as VercelPoolClient;
   }
   return client;
 };

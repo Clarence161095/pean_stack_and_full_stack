@@ -2,6 +2,7 @@ import { connectDB, disconnectDB } from '../configs/db';
 import * as createUsersTable from './scripts/001_create_users_table';
 import * as addSoftDeleteUser from './scripts/002_add_soft_delete_user';
 import * as addHyoujiName from './scripts/003_add_hyouji_name';
+import * as addRole from './scripts/004_add_role';
 
 interface MigrationScript {
   up: Function;
@@ -13,6 +14,7 @@ export const migrations: MigrationScript[] = [
   // Thêm các migration scripts khác ở đây
   addSoftDeleteUser,
   addHyoujiName,
+  addRole,
 ];
 
 export async function migrate(direction: 'up' | 'down' = 'up') {
