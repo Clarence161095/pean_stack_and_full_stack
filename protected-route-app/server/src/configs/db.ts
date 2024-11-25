@@ -42,4 +42,19 @@ const getClient = async () => {
   return client;
 };
 
+export const query = async (query: { sql: string; values?: any[] }) => {
+  const client = await getClient();
+  const { sql, values = [] } = query;
+  const result = await client.query(sql, values);
+  return result;
+};
+
+export const readOnlyQuery = async (query: { sql: string; values?: any[] }) => {
+  // This client is from the database pool, so it's read-only
+  const client = await getClient(); // Change this line
+  const { sql, values = [] } = query;
+  const result = await client.query(sql, values);
+  return result;
+};
+
 export default getClient;
