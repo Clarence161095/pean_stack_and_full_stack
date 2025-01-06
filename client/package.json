@@ -1,0 +1,13 @@
+
+{
+  "name": "simple-react-login",
+  "version": "1.0.0",
+  // ...existing code...
+  "dependencies": {
+    // ...existing code...
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.4.0"
+  }
+  // ...existing code...
+}

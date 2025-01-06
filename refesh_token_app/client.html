@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Refresh Token App</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6/babel.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function App() {
+        const [username, setUsername] = React.useState('');
+        const [password, setPassword] = React.useState('');
+        const [accessToken, setAccessToken] = React.useState('');
+        const [refreshToken, setRefreshToken] = React.useState('');
+        const [userInfo, setUserInfo] = React.useState(null);
+
+        React.useEffect(() => {
+          setAccessToken(localStorage.getItem('accessToken') || '');
+          setRefreshToken(localStorage.getItem('refreshToken') || '');
+        }, []);
+
+        const register = async () => {
+          const res = await fetch('http://localhost:4000/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+          alert(data.message);
+        };
+
+        const login = async () => {
+          const res = await fetch('http://localhost:4000/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+          if (data.accessToken) {
+            setAccessToken(data.accessToken);
+            localStorage.setItem('accessToken', data.accessToken);
+          }
+          if (data.refreshToken) {
+            setRefreshToken(data.refreshToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+          }
+        };
+
+        const refresh = async () => {
+          const res = await fetch('http://localhost:4000/auth/refresh', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: refreshToken })
+          });
+          const data = await res.json();
+          if (data.accessToken) {
+            setAccessToken(data.accessToken);
+            localStorage.setItem('accessToken', data.accessToken);
+          }
+        };
+
+        const getUser = async () => {
+          const res = await fetch('http://localhost:4000/auth/me', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          });
+          const data = await res.json();
+          setUserInfo(data.user);
+        };
+
+        return (
+          <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">Register</h2>
+            <div className="mb-4">
+              <input
+                className="border border-gray-300 p-2 mr-2 rounded"
+                placeholder="Username"
+                onChange={e => setUsername(e.target.value)}
+              />
+              <input
+                type="password"
+                className="border border-gray-300 p-2 mr-2 rounded"
+                placeholder="Password"
+                onChange={e => setPassword(e.target.value)}
+              />
+              <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={register}>
+                Register
+              </button>
+            </div>
+            <h2 className="text-2xl font-bold mb-4">Login</h2>
+            <div className="mb-4">
+              <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={login}>
+                Login
+              </button>
+              <h3 className="font-semibold mt-2">Access Token</h3>
+              <p className="break-all">{accessToken}</p>
+            </div>
+            <h2 className="text-2xl font-bold mb-4">Refresh Token</h2>
+            <div className="mb-4">
+              <button className="bg-indigo-500 text-white px-4 py-2 rounded" onClick={refresh}>
+                Refresh
+              </button>
+              <h3 className="font-semibold mt-2">Refresh Token</h3>
+              <p className="break-all">{refreshToken}</p>
+            </div>
+            <h2 className="text-2xl font-bold mb-4">Get Current User</h2>
+            <div className="mb-4">
+              <button className="bg-yellow-500 text-white px-4 py-2 rounded" onClick={getUser}>
+                Get User
+              </button>
+              {userInfo && (
+                <pre className="mt-2 p-2 bg-gray-100 rounded">
+                  {JSON.stringify(userInfo, null, 2)}
+                </pre>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
