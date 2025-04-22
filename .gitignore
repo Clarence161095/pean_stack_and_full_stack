@@ -174,3 +174,16 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/angular,node
 pern_stack_template/dashboard/backend/data/*
+
+# ignore all nest of folder node_modules
+node_modules/
+./node_modules/
+./node_modules/*
+../../node_modules/
+../../node_modules/*
+../../../node_modules/
+../../../node_modules/*
+../../../../node_modules/
+../../../../node_modules/*
+../../../../../node_modules/
+../../../../../node_modules/*
